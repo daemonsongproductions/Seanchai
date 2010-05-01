@@ -1,0 +1,2 @@
+module UserTypesHelper
+end

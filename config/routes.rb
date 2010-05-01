@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :user_types
+
+  map.resources :users
+
   map.resources :chapters
 
   map.resources :section_types

@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  story_id: 1
+  section_type_id: 1
+  parent_type: MyString
+  parent_id: 1
+  display_after_id: 1
+  synposis: MyText
+
+two:
+  title: MyString
+  story_id: 1
+  section_type_id: 1
+  parent_type: MyString
+  parent_id: 1
+  display_after_id: 1
+  synposis: MyText

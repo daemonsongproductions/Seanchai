@@ -1,0 +1,32 @@
+<h1>Listing sections</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Story</th>
+    <th>Section type</th>
+    <th>Parent type</th>
+    <th>Parent</th>
+    <th>Display after</th>
+    <th>Synposis</th>
+  </tr>
+
+<% @sections.each do |section| %>
+  <tr>
+    <td><%=h section.title %></td>
+    <td><%=h section.story_id %></td>
+    <td><%=h section.section_type_id %></td>
+    <td><%=h section.parent_type %></td>
+    <td><%=h section.parent_id %></td>
+    <td><%=h section.display_after_id %></td>
+    <td><%=h section.synposis %></td>
+    <td><%= link_to 'Show', section %></td>
+    <td><%= link_to 'Edit', edit_section_path(section) %></td>
+    <td><%= link_to 'Destroy', section, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New section', new_section_path %>

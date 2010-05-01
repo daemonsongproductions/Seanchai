@@ -1,9 +1,9 @@
 class AddDisplayAfterTypeToSection < ActiveRecord::Migration
   def self.up
-    add_column :section, :display_after_type, :string 
+    add_column Section, :display_after_type, :string
   end
 
   def self.down
-    remove_column :section, :display_after_type
+    remove_column Section, :display_after_type
   end
 end

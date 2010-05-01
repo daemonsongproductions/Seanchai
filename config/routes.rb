@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :chapters
+
+  map.resources :section_types
+
   map.resources :sections
 
   map.resources :stories

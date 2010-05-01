@@ -1,0 +1,58 @@
+<p>
+  <b>Title:</b>
+  <%=h @chapter.title %>
+</p>
+
+<p>
+  <b>Story:</b>
+  <%=h @chapter.story_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @chapter.status_id %>
+</p>
+
+<p>
+  <b>Publish date:</b>
+  <%=h @chapter.publish_date %>
+</p>
+
+<p>
+  <b>Parent type:</b>
+  <%=h @chapter.parent_type %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%=h @chapter.parent_id %>
+</p>
+
+<p>
+  <b>Display after type:</b>
+  <%=h @chapter.display_after_type %>
+</p>
+
+<p>
+  <b>Display after:</b>
+  <%=h @chapter.display_after_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @chapter.user_id %>
+</p>
+
+<p>
+  <b>Post:</b>
+  <%=h @chapter.post %>
+</p>
+
+<p>
+  <b>Abstract:</b>
+  <%=h @chapter.abstract %>
+</p>
+
+
+<%= link_to 'Edit', edit_chapter_path(@chapter) %> |
+<%= link_to 'Back', chapters_path %>

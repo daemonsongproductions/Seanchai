@@ -1,0 +1,40 @@
+<h1>Listing chapters</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Story</th>
+    <th>Status</th>
+    <th>Publish date</th>
+    <th>Parent type</th>
+    <th>Parent</th>
+    <th>Display after type</th>
+    <th>Display after</th>
+    <th>User</th>
+    <th>Post</th>
+    <th>Abstract</th>
+  </tr>
+
+<% @chapters.each do |chapter| %>
+  <tr>
+    <td><%=h chapter.title %></td>
+    <td><%=h chapter.story_id %></td>
+    <td><%=h chapter.status_id %></td>
+    <td><%=h chapter.publish_date %></td>
+    <td><%=h chapter.parent_type %></td>
+    <td><%=h chapter.parent_id %></td>
+    <td><%=h chapter.display_after_type %></td>
+    <td><%=h chapter.display_after_id %></td>
+    <td><%=h chapter.user_id %></td>
+    <td><%=h chapter.post %></td>
+    <td><%=h chapter.abstract %></td>
+    <td><%= link_to 'Show', chapter %></td>
+    <td><%= link_to 'Edit', edit_chapter_path(chapter) %></td>
+    <td><%= link_to 'Destroy', chapter, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New chapter', new_chapter_path %>

@@ -1,0 +1,56 @@
+<h1>Editing chapter</h1>
+
+<% form_for(@chapter) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :story_id %><br />
+    <%= f.text_field :story_id %>
+  </p>
+  <p>
+    <%= f.label :status_id %><br />
+    <%= f.text_field :status_id %>
+  </p>
+  <p>
+    <%= f.label :publish_date %><br />
+    <%= f.datetime_select :publish_date %>
+  </p>
+  <p>
+    <%= f.label :parent_type %><br />
+    <%= f.text_field :parent_type %>
+  </p>
+  <p>
+    <%= f.label :parent_id %><br />
+    <%= f.text_field :parent_id %>
+  </p>
+  <p>
+    <%= f.label :display_after_type %><br />
+    <%= f.text_field :display_after_type %>
+  </p>
+  <p>
+    <%= f.label :display_after_id %><br />
+    <%= f.text_field :display_after_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :post %><br />
+    <%= f.text_area :post %>
+  </p>
+  <p>
+    <%= f.label :abstract %><br />
+    <%= f.text_area :abstract %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @chapter %> |
+<%= link_to 'Back', chapters_path %>

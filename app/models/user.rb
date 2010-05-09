@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   attr_protected :id, :password_salt, :password, :user_type_id
 
-  def set_password(password)
+  def password=(password)
     self.password_salt =  generate_random_string unless self.password_salt?
     self.password = User.encrypt_password(password, self.password_salt)
   end

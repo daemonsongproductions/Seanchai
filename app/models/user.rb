@@ -4,15 +4,18 @@ class User < ActiveRecord::Base
 
   belongs_to :user_type
 
+  HUMANIZED_COLUMN = {:confirmed_password => ""}
+
   validates_length_of :email, :within => 6..40
   validates_length_of :password, :within => 5..40
   validates_presence_of :email, :password, :password_salt, :user_type_id
   validates_uniqueness_of :email
-  # validates_format_of :email, :with => /^(\w+?@\w+?\x2E.+)$/i, :message => "Your login must be an email address."
+  validates_confirmation_of :password
+  validates_presence_of :confirmed_password, :if => :password_changed?, :message => "Password and Confirm Password did not match."
 
   attr_protected :id, :password_salt, :password, :user_type_id
 
-  attr_accessor :confirm_password
+  attr_accessor :confirmed_password, :password_changed
 
 
   def save
@@ -20,8 +23,12 @@ class User < ActiveRecord::Base
     super  
   end
 
-  def confirm_password=(confirm_password)
-    @confirm_password = confirm_password
+  def confirmed_password=(confirmed_password)
+    @confirmed_password = confirmed_password
+  end
+
+  def password_changed=(password_changed)
+    @password_changed = password_changed
   end
 
 
@@ -29,6 +36,7 @@ class User < ActiveRecord::Base
     @password_change_request = true
     self.password_salt = generate_random_string unless self.password_salt?
     super(User.encrypt_password(password, self.password_salt))
+    @password_changed = false
   end
 
   def is_password?(password)
@@ -43,6 +51,10 @@ class User < ActiveRecord::Base
     raise "The password salt can only be changed as part of a password change." unless @password_change_request
     super password_salt
     @password_change_request = false
+  end
+
+  def self.human_attribute_name(attribute)
+    HUMANIZED_COLUMN[attribute.to_sym] || super
   end
 
   private

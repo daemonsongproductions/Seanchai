@@ -20,15 +20,14 @@ class ProfileController < ApplicationController
     @user = User.new
     @user.email = params[:email]
     @user.password = params[:password]
+    @user.confirmed_password = (params[:password] == params[:confirm_password])
 
-    successful = @user.save unless params[:password]!= params[:confirm_password]
-
-    if successful
+    if @user.save
       flash[:notice] = "Your profile has been created."
       redirect_to show_profile_path
     else
       flash[:error] = "Sorry, we couldn't create your profile. Try again."
-      redirect_to new_profile_path
+      render :action => :new
     end
     
   end

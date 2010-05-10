@@ -1,21 +1,22 @@
+<%= javascript_include_tag 'lib/profile/profile_new' %>
 <h1>Create your Seanchai profile</h1>
 
-<% form_tag create_profile_path, :method => 'post' do %>
+<% form_tag create_profile_path, :method => 'post', :id => 'registration_form' do %>
   <%= error_messages_for 'user' %>
   <p>
     <%= label_tag "email", "Email" %> <br />
-    <%= text_field_tag "email" %>
+    <%= text_field_tag "email", '', :class => "required email" %>
   </p>
   <p>
     <%= label_tag "password", "Password" %><br />
-    <%= password_field_tag "password" %>
+    <%= password_field_tag "password", '', :id=> 'password', :class => "required", :minlength => '6' %>
   </p>
   <p>
     <%= label_tag "confirm_password", "Confirm Password" %><br />
-    <%= password_field_tag "confirm_password" %>
+    <%= password_field_tag "confirm_password", '', :class => "required", :minlength => '6', :equalTo => '#password' %>
   </p>
   <p>
-    <%= submit_tag 'Create My Profile' %>
+    <%= submit_tag 'Create My Profile', :id =>"submit_button" %>
   </p>
 
 <% end %>

@@ -15,7 +15,6 @@ describe ProfileController do
     
     user.email.should match @params[:email]
     user.password.should match User.encrypt_password(@params[:password], user.password_salt)
-
   end
 
 

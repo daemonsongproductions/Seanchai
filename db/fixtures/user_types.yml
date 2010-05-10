@@ -3,7 +3,10 @@
 one:
   id: 1
   name: reader
+  user_level: 1
 
 two:
   id: 2
-  name: writer
+  name: author
+  user_level: 2
+  

@@ -5,15 +5,15 @@
   <%= error_messages_for 'user' %>
   <p>
     <%= label_tag "email", "Email" %> <br />
-    <%= text_field_tag "email", '', :class => "required email" %>
+    <%= text_field_tag "email", '', :id => 'email' %>
   </p>
   <p>
     <%= label_tag "password", "Password" %><br />
-    <%= password_field_tag "password", '', :id=> 'password', :class => "required", :minlength => '6' %>
+    <%= password_field_tag "password", '', :id=> 'password' %>
   </p>
   <p>
     <%= label_tag "confirm_password", "Confirm Password" %><br />
-    <%= password_field_tag "confirm_password", '', :class => "required", :minlength => '6', :equalTo => '#password' %>
+    <%= password_field_tag "confirm_password", '', :id => 'confirm_password' %>
   </p>
   <p>
     <%= submit_tag 'Create My Profile', :id =>"submit_button" %>

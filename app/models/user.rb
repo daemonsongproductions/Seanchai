@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 
   require 'digest/sha1'
 
+  belongs_to :user_type
+
   validates_length_of :email, :within => 6..40
   validates_length_of :password, :within => 5..40
   validates_presence_of :email, :password, :password_salt, :user_type_id

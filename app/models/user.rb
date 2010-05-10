@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates_length_of :password, :within => 5..40
   validates_presence_of :email, :password, :password_salt, :user_type_id
   validates_uniqueness_of :email
-  validates_format_of :email, :with => /^(\w+?@\w+?\x2E.+)$/i, :message => "Your login must be an email address."
+  # validates_format_of :email, :with => /^(\w+?@\w+?\x2E.+)$/i, :message => "Your login must be an email address."
 
   attr_protected :id, :password_salt, :password, :user_type_id
 

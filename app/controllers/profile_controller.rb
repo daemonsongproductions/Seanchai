@@ -20,7 +20,6 @@ class ProfileController < ApplicationController
     @user = User.new
     @user.email = params[:email]
     @user.password = params[:password]
-    @user.confirmed_password = (params[:password] == params[:confirm_password])
 
     if @user.save
       flash[:notice] = "Your profile has been created."

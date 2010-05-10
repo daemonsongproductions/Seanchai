@@ -10,27 +10,15 @@ class User < ActiveRecord::Base
   validates_length_of :password, :within => 5..40
   validates_presence_of :email, :password, :password_salt, :user_type_id
   validates_uniqueness_of :email
-  validates_confirmation_of :password
-  validates_presence_of :confirmed_password, :if => :password_changed?, :message => "Password and Confirm Password did not match."
 
   attr_protected :id, :password_salt, :password, :user_type_id
 
-  attr_accessor :confirmed_password, :password_changed
 
 
   def save
     self.user_type_id = 1 unless self.user_type_id?
     super  
   end
-
-  def confirmed_password=(confirmed_password)
-    @confirmed_password = confirmed_password
-  end
-
-  def password_changed=(password_changed)
-    @password_changed = password_changed
-  end
-
 
   def password=(password)
     @password_change_request = true

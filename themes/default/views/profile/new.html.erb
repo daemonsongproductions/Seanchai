@@ -1,0 +1,21 @@
+<h1>Create your Seanchai profile</h1>
+
+<% form_tag create_profile_path, :method => 'post' do %>
+  <%= error_messages_for 'user' %>
+  <p>
+    <%= label_tag "email", "Email" %> <br />
+    <%= text_field_tag "email" %>
+  </p>
+  <p>
+    <%= label_tag "password", "Password" %><br />
+    <%= password_field_tag "password" %>
+  </p>
+  <p>
+    <%= label_tag "confirm_password", "Confirm Password" %><br />
+    <%= password_field_tag "confirm_password" %>
+  </p>
+  <p>
+    <%= submit_tag 'Create My Profile' %>
+  </p>
+
+<% end %>

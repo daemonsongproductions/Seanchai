@@ -12,10 +12,16 @@ class User < ActiveRecord::Base
 
   attr_protected :id, :password_salt, :password, :user_type_id
 
+  attr_accessor :confirm_password
+
 
   def save
     self.user_type_id = 1 unless self.user_type_id?
     super  
+  end
+
+  def confirm_password=(confirm_password)
+    @confirm_password = confirm_password
   end
 
 

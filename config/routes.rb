@@ -13,6 +13,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.admin '/admin', :controller => 'admin', :action => 'index'
 
+  # Profile routes
+  map.show_profile '/profile', :controller =>'profile', :action => 'show', :conditions => {:method => :get}
+  map.edit_profile '/profile/edit', :controller =>'profile', :action => 'edit'
+  map.new_profile '/profile/new', :controller => 'profile', :action => 'new'
+  map.update_profile '/profile', :controller => 'profile', :action => 'update', :conditions => {:method => :put}
+  map.create_profile '/profile', :controller => 'profile', :action => 'create', :conditions => {:method => :post}
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

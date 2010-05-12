@@ -60,6 +60,26 @@ describe User do
       user.is_password?(incorrect_password).should be false      
     end
 
+    describe "Forgot My Password" do
+
+      def existing_user
+        user = User.new
+        user.email = 'email@email.com'
+        user.password = correct_password
+        return user
+      end
+
+      it "should generate a new random password for the user." do
+        user = existing_user
+        User.stub(:save).and_return(true)
+
+        new_password = user.create_new_password
+        user.password.should match User.encrypt_password(new_password, user.password_salt)
+        
+      end
+
+    end
+
   end
 
 

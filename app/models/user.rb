@@ -20,6 +20,12 @@ class User < ActiveRecord::Base
     super  
   end
 
+  def create_new_password
+    new_password = generate_random_string
+    self.password = new_password
+    return new_password
+  end
+
   def password=(password)
     @password_change_request = true
     self.password_salt = generate_random_string unless self.password_salt?

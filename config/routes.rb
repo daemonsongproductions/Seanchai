@@ -20,6 +20,11 @@ ActionController::Routing::Routes.draw do |map|
   map.update_profile '/profile', :controller => 'profile', :action => 'update', :conditions => {:method => :put}
   map.create_profile '/profile', :controller => 'profile', :action => 'create', :conditions => {:method => :post}
 
+  # Login routs
+  map.forgot_password '/login/forgot', :controller => 'login', :action => 'forgot_password'
+  map.reset_password '/login/reset', :controller => 'login', :action => 'reset_password', :conditions => {:methods => :post}
+  map.password_reset_confirmation 'login/reset_confirmation', :controller =>'login', :action => 'reset_confirmation'
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

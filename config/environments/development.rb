@@ -14,4 +14,17 @@ config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
-config.action_mailer.raise_delivery_errors = false
+config.action_mailer.raise_delivery_errors = true
+
+email_config = Seanchai::EmailConfig.new
+
+config.action_mailer.delivery_method = :smtp
+
+config.action_mailer.smtp_settings = {
+        :address => "mail.daemonsong.com",
+        :domain => 'daemonsong.com',
+        :port => 25,
+        :authentication => :login,
+        :user_name => 'seanchai@daemonsong.com',
+        :password => 'k5azkF8kgO'
+        }

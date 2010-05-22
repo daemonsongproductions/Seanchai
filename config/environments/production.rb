@@ -24,5 +24,9 @@ config.action_view.cache_template_loading            = true
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
 
+# Set up action_mailer
+email_config = Seanchai::EmailConfig.new
+email_config.setup_action_mailer(config.action_mailer)
+
 # Enable threaded mode
 # config.threadsafe!

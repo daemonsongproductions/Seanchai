@@ -13,7 +13,6 @@ class LoginController < ApplicationController
     end
 
     redirect_to(password_reset_confirmation_path)
-    
   end
 
   def reset_confirmation

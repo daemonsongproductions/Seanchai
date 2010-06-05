@@ -31,4 +31,45 @@ describe LoginController do
       end
   end
 
+  describe "Login" do
+
+    it "should save the user id when the supplied username/email and password pass authentication" do
+
+      mock_user = mock(User)
+      User.should_receive(:find_by_email).with('tester@test.com').and_return(mock_user)
+      mock_user.should_receive(:is_password?).with('password').and_return(true)
+      mock_user.should_receive(:id).and_return(0)
+
+      post :authenticate, :email => 'tester@test.com', :password => 'password'
+
+      session[:user_id].should be 0
+      
+
+    end
+
+    it "should set the user id to nil and return an error when no user is found for the supplied email address" do
+
+      session[:user_id] = 1
+      User.should_receive(:find_by_email).with('tester@test.com').and_return(nil)
+      post :authenticate, :email => 'tester@test.com'
+
+      session[:user_id].should be nil
+      flash[:error].should_not be nil
+
+    end
+
+    it "should set the user id to nil and return an error when the user is found but the password doesn't match" do
+      session[:user_id] = 1
+      User.should_receive(:find_by_email).with('tester@test.com').and_return(mock_user = mock(User))
+      mock_user.should_receive(:is_password?).with('password').and_return(false)
+
+      post :authenticate, :email => 'tester@test.com', :password => 'password'
+
+      session[:user_id].should be nil
+      flash[:error].should_not be nil
+
+    end
+
+  end
+
 end

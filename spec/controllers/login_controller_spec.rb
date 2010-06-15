@@ -55,6 +55,7 @@ describe LoginController do
 
       session[:user_id].should be nil
       flash[:error].should_not be nil
+      response.should.redirect_to login_path
 
     end
 
@@ -67,6 +68,7 @@ describe LoginController do
 
       session[:user_id].should be nil
       flash[:error].should_not be nil
+      response.should.redirect_to login_path
 
     end
 

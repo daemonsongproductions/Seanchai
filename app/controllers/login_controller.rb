@@ -12,9 +12,11 @@ class LoginController < ApplicationController
     if authentic
       session[:user_id] = user.id
       flash[:notice] = "You have successfully logged in!"
+      redirect_to root_path
     else
       session[:user_id] = nil
       flash[:error] = "You've entered an incorrect username or password."
+      redirect_to login_path
     end
     
     

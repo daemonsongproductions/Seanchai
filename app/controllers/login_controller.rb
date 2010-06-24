@@ -17,9 +17,13 @@ class LoginController < ApplicationController
       session[:user_id] = nil
       flash[:error] = "You've entered an incorrect username or password."
       redirect_to login_path
-    end
-    
-    
+      end
+  end
+
+  def logout
+    session[:user_id] = nil
+    flash[:notice] = "You have been logged out."
+    redirect_to login_path
 
   end
 

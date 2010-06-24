@@ -55,7 +55,7 @@ describe LoginController do
 
       session[:user_id].should be nil
       flash[:error].should_not be nil
-      response.should.redirect_to login_path
+      response.should redirect_to login_path
 
     end
 
@@ -68,7 +68,23 @@ describe LoginController do
 
       session[:user_id].should be nil
       flash[:error].should_not be nil
-      response.should.redirect_to login_path
+      response.should redirect_to login_path
+
+    end
+
+  end
+
+  describe "Logout" do
+
+    it "should set the user id to nil and redirect to the login path when the user logs out" do
+
+      session[:user_id] = 1
+
+      get :logout
+
+      session[:user_id].should be nil
+      flash[:notice].should_not be nil
+      response.should redirect_to login_path
 
     end
 

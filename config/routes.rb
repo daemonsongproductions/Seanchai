@@ -23,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   # Login routs
   map.login '/login', :controller => 'login', :action => 'login', :conditions => {:method => :get}
   map.authenticate '/login', :controller => 'login', :action => 'authenticate', :conditions => {:method => :post}
+  map.logout '/logout', :controller => 'login', :action => 'logout'
   map.forgot_password '/login/forgot', :controller => 'login', :action => 'forgot_password'
   map.reset_password '/login/reset', :controller => 'login', :action => 'reset_password', :conditions => {:method => :post}
   map.password_reset_confirmation 'login/reset_confirmation', :controller =>'login', :action => 'reset_confirmation'

@@ -8,15 +8,15 @@ class User < ActiveRecord::Base
 
   validates_length_of :email, :within => 6..40
   validates_length_of :password, :within => 5..40
-  validates_presence_of :email, :password, :password_salt, :user_type_id
+  validates_presence_of :email, :password, :password_salt, :user_type
   validates_uniqueness_of :email
 
-  attr_protected :id, :password_salt, :password, :user_type_id
+  attr_protected :id, :password_salt, :password, :user_type
 
 
 
   def save
-    self.user_type_id = 1 unless self.user_type_id?
+    self.user_type = UserType.reader if self.user_type.nil?
     super  
   end
 
@@ -36,6 +36,12 @@ class User < ActiveRecord::Base
   def is_password?(password)
     self.password == User.encrypt_password(password, self.password_salt)
   end
+
+  def for_atleast(user_type, &block)
+    return unless block_given?
+    block.call if user_type.user_level <= self.user_type.user_level
+  end
+
 
   def self.encrypt_password(password, salt)
     Digest::SHA1.hexdigest(password + salt).to_s

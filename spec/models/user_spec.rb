@@ -17,11 +17,11 @@ describe User do
     "password"
   end
 
-  it "should not allow password, password_salt or user_type_id to be set via mass assignment" do
+  it "should not allow password, password_salt or user_type to be set via mass assignment" do
     user = User.new(protected_attributes)
     user.password.should be nil
     user.password_salt.should be nil
-    user.user_type_id.should be nil
+    user.user_type.should be nil
   end
 
   it "should set the password_salt when the password is set" do
@@ -78,6 +78,38 @@ describe User do
         
       end
 
+    end
+
+  end
+
+  describe "for_atleast" do
+
+    before :each do
+      @user = User.new
+    end
+
+    def mock_admin_user_type
+        mock_model(UserType, :user_level => 2)
+    end
+
+    it "should return if no code block is passed" do
+
+      @user.user_type  = mock_model(UserType)
+      @user.user_type.should_not_receive(:user_level)
+      @user.for_atleast(mock_admin_user_type)
+
+    end
+
+    it "should run the supplied code block if the user's role is at least that which was passed" do
+      @user.user_type = mock_model(UserType, :user_level => 2)
+      @user.for_atleast(mock_admin_user_type) {@authorized = true}
+      @authorized.should be true
+    end
+
+    it "should not run the supplied code block if the user's role is less than that which was passed" do
+      @user.user_type = mock_model(UserType, :user_level => 1)
+      @user.for_atleast(mock_admin_user_type) {@authorized = true}
+      @authorized.should_not be true
     end
 
   end

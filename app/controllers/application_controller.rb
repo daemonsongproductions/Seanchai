@@ -12,6 +12,19 @@ class ApplicationController < ActionController::Base
     self.view_paths = ::ActionController::Base.view_paths.dup.unshift("#{RAILS_ROOT}/themes/default/views")
   end
 
+  def author
+    user_is_authorized_for(UserType.author)
+  end
+
+  def user_is_authorized_for(user_type)
+    @authorized = false
+    return unless session[:user_id]
+    user = User.find(session[:user_id])
+    user.for_atleast(user_type) {@authorized = true}
+  end
+
+
+
   
 
 end

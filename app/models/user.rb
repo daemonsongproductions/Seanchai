@@ -20,6 +20,11 @@ class User < ActiveRecord::Base
     super  
   end
 
+  def self.find(*args)
+    return PseudoUser.new if args[0] == -1
+    super
+  end
+
   def create_new_password
     new_password = generate_random_string
     self.password = new_password

@@ -114,5 +114,14 @@ describe User do
 
   end
 
+  describe "find" do
+
+    it "should return a PseudoUser if an id of -1 is passed" do
+      user = User.find(-1)
+      user.class.should == PseudoUser
+    end
+
+  end
+
 
 end

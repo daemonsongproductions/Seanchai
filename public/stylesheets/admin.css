@@ -1,0 +1,44 @@
+#seanchai-content {
+  height: 100%;
+  padding-bottom: 5px;
+}
+
+#seanchai-admin-head {
+  height: 50px;
+}
+
+#seanchai-admin-body {
+  clear: both;
+  margin-top: 15px;
+}
+
+#seanchai-admin-nav {
+  clear: left;
+  float: left;
+  margin-bottom: 15px;
+  margin-left: 10px;
+  margin-right: 5px;
+  position: relative;
+  width: 145px;
+
+}
+
+ul.top-level {
+  list-style: none;
+  padding-left: 1em;
+}
+
+ul.top-level li {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+#seanchai-admin-content {
+  float: left;
+  overflow: hidden;
+
+}
+
+.clear {
+  clear: both;
+}

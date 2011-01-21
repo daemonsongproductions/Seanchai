@@ -1,4 +1,13 @@
 <ul class="top-level">
-  <li>Stories</li>
-  <li>Users</li>
+  <% if @current_user.is_atleast?(UserType.author) %>
+    <li><%= link_to 'Stories', admin_stories_path %></li>
+    <li>Users</li>
+  <% end %>
+
+</ul>
+
+<span class="nav-title">My Account</span>
+<ul class="top-level">
+  <li>Profile</li>
+  <li><%= link_to 'Logout', logout_path %></li>
 </ul>

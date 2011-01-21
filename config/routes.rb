@@ -11,6 +11,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.admin '/admin', :controller => 'admin', :action => 'index'
 
+  map.namespace(:admin) do |admin|
+    admin.resources(:stories, :controller => 'stories')
+  end
+
   # Profile routes
   map.show_profile '/profile', :controller =>'profile', :action => 'show', :conditions => {:method => :get}
   map.edit_profile '/profile/edit', :controller =>'profile', :action => 'edit'

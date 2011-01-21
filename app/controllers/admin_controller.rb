@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   layout 'admin'
-  before_filter :author
+  before_filter :requires_login
 
   def index
     

@@ -1,4 +1,9 @@
 This is admin.
 <p>
-  User is authorized: <%= @authorized.to_s %>
+  User is authorized:
+  <% if @current_user.is_atleast?(UserType.author) %>
+    Woot
+  <% else %>
+    No Woot
+  <% end %>
 </p>

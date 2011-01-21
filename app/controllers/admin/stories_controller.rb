@@ -1,4 +1,6 @@
-class StoriesController < ApplicationController
+class Admin::StoriesController < ApplicationController
+  layout 'admin'
+  before_filter :requires_login
   # GET /stories
   # GET /stories.xml
   def index
@@ -24,13 +26,17 @@ class StoriesController < ApplicationController
   # GET /stories/new
   # GET /stories/new.xml
   def new
-    redirect_to new_admin_story_path
+    @story = Story.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @story }
+    end
   end
 
   # GET /stories/1/edit
   def edit
     @story = Story.find(params[:id])
-    redirect_to edit_admin_story_path(@story)
   end
 
   # POST /stories
@@ -41,7 +47,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.save
         flash[:notice] = 'Story was successfully created.'
-        format.html { redirect_to(@story) }
+        format.html { redirect_to(admin_stories_path) }
         format.xml  { render :xml => @story, :status => :created, :location => @story }
       else
         format.html { render :action => "new" }
@@ -58,7 +64,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.update_attributes(params[:story])
         flash[:notice] = 'Story was successfully updated.'
-        format.html { redirect_to(@story) }
+        format.html { redirect_to(edit_admin_story_path(@story)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -74,7 +80,7 @@ class StoriesController < ApplicationController
     @story.destroy
 
     respond_to do |format|
-      format.html { redirect_to(stories_url) }
+      format.html { redirect_to(admin_stories_url) }
       format.xml  { head :ok }
     end
   end

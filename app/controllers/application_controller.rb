@@ -6,21 +6,21 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   filter_parameter_logging :password
   before_filter :set_theme
+  before_filter :current_user
   layout 'default'
 
   def set_theme
     self.view_paths = ::ActionController::Base.view_paths.dup.unshift("#{RAILS_ROOT}/themes/default/views")
   end
 
-  def author
-    user_is_authorized_for(UserType.author)
+  def current_user
+    session[:user_id] = -1 unless session[:user_id]
+    @current_user = User.find(session[:user_id])
   end
 
-  def user_is_authorized_for(user_type)
-    @authorized = false
-    return unless session[:user_id]
-    user = User.find(session[:user_id])
-    user.for_atleast(user_type) {@authorized = true}
+  def requires_login
+    flash[:error] = "If you want in, you'll have to login."
+    redirect_to login_path unless @current_user.class != PseudoUser
   end
 
 

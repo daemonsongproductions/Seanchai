@@ -1,0 +1,12 @@
+<h1>Stories</h1>
+
+<h3></h3>
+
+<% @stories.each do |story| %>
+  <h3><%= link_to story.title, edit_admin_story_path(story) %></h3>
+  <span class="author">By <%= story.user.display_name %></span>
+  <p><%= story.synopsis %></p>
+<% end %>
+<br />
+
+<%= link_to 'New story', new_admin_story_path %>

@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
     super
   end
 
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
   def create_new_password
     new_password = generate_random_string
     self.password = new_password
@@ -44,7 +48,11 @@ class User < ActiveRecord::Base
 
   def for_atleast(user_type, &block)
     return unless block_given?
-    block.call if user_type.user_level <= self.user_type.user_level
+    block.call if is_atleast?(user_type)
+  end
+
+  def is_atleast?(user_type)
+    user_type.user_level <= self.user_type.user_level
   end
 
 

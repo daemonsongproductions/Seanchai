@@ -1,31 +1,37 @@
 #seanchai-content {
   height: 100%;
   padding-bottom: 5px;
+  background-color: white;
+  width: 100%;
 }
 
 #seanchai-admin-head {
   height: 50px;
+  padding-left: 1em;
+  padding-top: .5em;
 }
 
 #seanchai-admin-body {
   clear: both;
-  margin-top: 15px;
+  border: 1px solid black;
+  min-width: 900px;
 }
 
 #seanchai-admin-nav {
   clear: left;
   float: left;
-  margin-bottom: 15px;
-  margin-left: 10px;
   margin-right: 5px;
   position: relative;
-  width: 145px;
+  width: 150px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  height: 400px;
 
 }
 
 ul.top-level {
   list-style: none;
-  padding-left: 1em;
+  padding-left: 1.5em;
 }
 
 ul.top-level li {
@@ -36,9 +42,49 @@ ul.top-level li {
 #seanchai-admin-content {
   float: left;
   overflow: hidden;
+  padding-left: 3em;
+  padding-top: 1em;
+}
 
+.nav-title {
+  font-weight: bold;
+  padding-left: .5em;
+}
+
+.admin-form {
+  width: 625px;
+}
+
+.form-field-container {
+  clear: both;
+  padding-top: 1em;
+}
+.form-field-label {
+  float: left;
+  width: 100px;
+  font-weight: bold;
+}
+
+.form-field {
+  float: left;
+  padding-left: 1em;
+}
+
+.form-field textarea {
+  width: 500px;
+}
+
+.submit-button {
+  float: right;
 }
 
 .clear {
+  padding-right: 100px;
   clear: both;
+}
+
+.message .error {
+  clear: left;
+  color: red;
+  float: right;
 }

@@ -6,3 +6,7 @@ doc/app
 db/development.sqlite3
 .idea/
 config/email.yml
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/

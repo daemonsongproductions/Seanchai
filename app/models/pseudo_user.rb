@@ -1,6 +1,8 @@
 class PseudoUser < User
 
-  def after_initialize
+  after_initialize :setup_user
+
+  def setup_user
     self.id = -1
     self.user_type = UserType.reader
   end

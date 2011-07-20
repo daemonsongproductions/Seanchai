@@ -1,13 +1,12 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  filter_parameter_logging :password
   before_filter :set_theme
   before_filter :current_user
   layout 'default'
 
   def set_theme
-    self.view_paths = ::ActionController::Base.view_paths.dup.unshift("#{RAILS_ROOT}/themes/default/views")
+    self.append_view_path("#{RAILS_ROOT}/themes/default/views")
   end
 
   def current_user

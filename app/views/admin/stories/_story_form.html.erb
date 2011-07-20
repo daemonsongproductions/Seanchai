@@ -1,5 +1,5 @@
 <%= javascript_include_tag 'lib/stories/story_form' %>
-<% form_for([:admin, @story], :html => {:class => 'admin-form', :id=>"story_form"}) do |f| %>
+<%= form_for([:admin, @story], :html => {:class => 'admin-form', :id=>"story_form"}) do |f| %>
   <%= f.error_messages %>
   <div class="form-field-container">
     <div class="form-field-label"><%= f.label :title %></div>

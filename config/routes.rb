@@ -1,15 +1,15 @@
 Seanchai::Application.routes.draw do |map|
 map.resources :user_types
 
-  map.resources :chapters
+  resources :chapters
 
-  map.resources :section_types
+  resources :section_types
 
-  map.resources :sections
+  resources :sections
 
-  map.resources :stories
+  resources :stories
 
-  map.admin '/admin', :controller => 'admin', :action => 'index'
+  match 'admin' => 'admin#index'
 
   map.namespace(:admin) do |admin|
     admin.resources(:stories, :controller => 'stories')

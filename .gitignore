@@ -10,3 +10,6 @@ config/email.yml
 db/*.sqlite3
 log/*.log
 tmp/
+config/dblogin.yml
+config/config.yml
+config/functional_tests.yml

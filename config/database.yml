@@ -1,35 +1,22 @@
-# MySQL.  Versions 4.1 and 5.0 are recommended.
-#
-# Install the MySQL driver:
-#   gem install mysql2
-#
-# And be sure to use new-style password hashing:
-#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
-development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: seanchai_test
-  pool: 5
+defaults: &defaults
   username: root
   password:
+  adapter:  mysql2
+  host:     localhost
   socket: /tmp/mysql.sock
+
+# replace the above login details with information from ./config/dblogin.yml
+<%= file = File.join(RAILS_ROOT, "config", "dblogin.yml")
+    IO.read(file) if File.exist?(file) %>
+
+development:
+  <<: *defaults
+  database: seanchai_dev
+
+test:
+  <<: *defaults
+  database: seancha_test
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: seanchai_production
-  pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  <<: *defaults
+  database: seanchai_prod

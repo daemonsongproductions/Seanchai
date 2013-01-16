@@ -1,4 +1,6 @@
 Seanchai::Application.routes.draw do |map|
+  devise_for :users
+
 map.resources :user_types
 
   resources :chapters

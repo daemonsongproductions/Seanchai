@@ -1,7 +1,5 @@
-Seanchai::Application.routes.draw do |map|
+Seanchai::Application.routes.draw do
   devise_for :users
-
-map.resources :user_types
 
   resources :chapters
 
@@ -13,24 +11,24 @@ map.resources :user_types
 
   match 'admin' => 'admin#index'
 
-  map.namespace(:admin) do |admin|
-    admin.resources(:stories, :controller => 'stories')
-  end
+  #map.namespace(:admin) do |admin|
+  #  admin.resources(:stories, :controller => 'stories')
+  #end
 
   # Profile routes
-  map.show_profile '/profile', :controller =>'profile', :action => 'show', :conditions => {:method => :get}
-  map.edit_profile '/profile/edit', :controller =>'profile', :action => 'edit'
-  map.new_profile '/profile/new', :controller => 'profile', :action => 'new'
-  map.update_profile '/profile', :controller => 'profile', :action => 'update', :conditions => {:method => :put}
-  map.create_profile '/profile', :controller => 'profile', :action => 'create', :conditions => {:method => :post}
+  #map.show_profile '/profile', :controller =>'profile', :action => 'show', :conditions => {:method => :get}
+  #map.edit_profile '/profile/edit', :controller =>'profile', :action => 'edit'
+  #map.new_profile '/profile/new', :controller => 'profile', :action => 'new'
+  #map.update_profile '/profile', :controller => 'profile', :action => 'update', :conditions => {:method => :put}
+  #map.create_profile '/profile', :controller => 'profile', :action => 'create', :conditions => {:method => :post}
 
   # Login routs
-  map.login '/login', :controller => 'login', :action => 'login', :conditions => {:method => :get}
-  map.authenticate '/login', :controller => 'login', :action => 'authenticate', :conditions => {:method => :post}
-  map.logout '/logout', :controller => 'login', :action => 'logout'
-  map.forgot_password '/login/forgot', :controller => 'login', :action => 'forgot_password'
-  map.reset_password '/login/reset', :controller => 'login', :action => 'reset_password', :conditions => {:method => :post}
-  map.password_reset_confirmation 'login/reset_confirmation', :controller =>'login', :action => 'reset_confirmation'
+  #map.login '/login', :controller => 'login', :action => 'login', :conditions => {:method => :get}
+  #map.authenticate '/login', :controller => 'login', :action => 'authenticate', :conditions => {:method => :post}
+  #map.logout '/logout', :controller => 'login', :action => 'logout'
+  #map.forgot_password '/login/forgot', :controller => 'login', :action => 'forgot_password'
+  #map.reset_password '/login/reset', :controller => 'login', :action => 'reset_password', :conditions => {:method => :post}
+  #map.password_reset_confirmation 'login/reset_confirmation', :controller =>'login', :action => 'reset_confirmation'
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -64,13 +62,13 @@ map.resources :user_types
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => "home"
+  root :to => "home#show"
 
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  match ':controller/:action/:id/'
+  match ':controller/:action/:id.:format'
 end

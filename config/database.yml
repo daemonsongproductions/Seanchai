@@ -6,7 +6,7 @@ defaults: &defaults
   socket: /tmp/mysql.sock
 
 # replace the above login details with information from ./config/dblogin.yml
-<%= file = File.join(RAILS_ROOT, "config", "dblogin.yml")
+<%= file = File.join(::Rails.root.to_s, "config", "dblogin.yml")
     IO.read(file) if File.exist?(file) %>
 
 development:

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '3.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,6 +10,7 @@ gem 'rspec'
 gem 'test-unit', '~> 1.2.3'
 gem 'devise'
 gem "haml"
+gem "cantango"
 
 # Use unicorn as the web server
 # gem 'unicorn'

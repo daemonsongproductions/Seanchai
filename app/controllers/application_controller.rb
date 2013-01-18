@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   layout 'default'
 
   def set_theme
-    self.prepend_view_path("#{RAILS_ROOT}/themes/default/views")
+    self.prepend_view_path("#{::Rails.root.to_s}/themes/default/views")
   end
 
   def current_user

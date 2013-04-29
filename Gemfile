@@ -10,7 +10,6 @@ gem 'rspec'
 gem 'test-unit', '~> 1.2.3'
 gem 'devise'
 gem "haml"
-gem "cantango"
 
 # Use unicorn as the web server
 # gem 'unicorn'

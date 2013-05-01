@@ -1,5 +1,0 @@
-delivery_method: :sendmail
-
-sendmail:
-  location: /usr/sbin/sendmail
-  arguments: -it

@@ -1,7 +1,0 @@
-delivery_method: :smtp
-
-smtp:
-  address: mail.test.com
-  domain: test.com
-  port: 25
-  

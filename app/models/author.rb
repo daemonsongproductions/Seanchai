@@ -1,0 +1,3 @@
+class Author < Role
+
+end

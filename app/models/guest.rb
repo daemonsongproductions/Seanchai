@@ -1,0 +1,3 @@
+class Guest < Role
+
+end

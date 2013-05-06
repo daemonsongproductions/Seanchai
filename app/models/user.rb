@@ -42,5 +42,7 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
 
+  embeds_one :role, class_name: "Role", inverse_of: nil
+
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 end

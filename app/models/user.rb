@@ -43,6 +43,20 @@ class User
   # field :authentication_token, :type => String
 
   embeds_one :role, class_name: "Role", inverse_of: nil
+  before_create :set_default_role
 
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+
+  def set_default_role
+    self.role ||= default_role
+  end
+
+
+  private
+
+  def default_role
+    Reader.new
+  end
+
+
 end

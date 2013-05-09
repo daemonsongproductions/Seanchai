@@ -1,0 +1,3 @@
+class StorySectionsController < ApplicationController
+
+end

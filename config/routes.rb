@@ -3,6 +3,9 @@ Rails3MongoidDevise::Application.routes.draw do
 
   devise_for :users
 
+  resources :story
+  resources :story_section
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

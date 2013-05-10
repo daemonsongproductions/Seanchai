@@ -1,0 +1,9 @@
+New Story
+= form_for @story do |f|
+  = f.label :title
+  = f.text_field :title
+  %br
+  = f.label :description
+  = f.text_area :description
+  %br
+  = f.submit

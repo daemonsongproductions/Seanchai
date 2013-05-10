@@ -6,11 +6,18 @@ class Story
   validates_presence_of :title
   field :copyright, type: String
   field :description, type: String
-  field :publication_date, type: TimeWithZone
+  field :publication_date, type: ActiveSupport::TimeWithZone, default: nil
 
   has_many :story_sections
-  has_one :created_by, :class_name => "User", :inverse => nil
-  has_many :editors, :class_name => "User", :inverse => nil
+  has_one :creator, :class_name => "User", :inverse_of => nil
+  validates_presence_of :creator
+  has_many :editors, :class_name => "User", :inverse_of => nil
+
+  attr_accessor :creator
+
+  def self.new(params)
+
+  end
 
   def self.find_for_user(user)
     Story.or({created_by: user}, {editors: user})

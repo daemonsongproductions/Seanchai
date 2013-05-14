@@ -1,0 +1,25 @@
+FART TABLE
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+  </tr>
+  </thead>
+  <tbody>
+    {{#each stories}}
+      {{view Seanchai.ShowStoryView storyBinding="this"}}
+    {{/each}}
+    {{#if isNewVisible}}
+      <tr>
+        <td>*</td>
+        <td>
+          Monkey Poop
+        </td>
+      </tr>
+    {{/if}}
+    </tbody>
+</table>
+<div class="commands">
+  <a href="#" {{action showNew}}>New Story</a>
+</div>

@@ -1,0 +1,13 @@
+<td>{{story.id}}</td>
+<td class="data">
+  {{#if isEditing}}
+    {{view Seanchai.EditStoryView}}
+  {{else}}
+    {{story.title}}
+  {{/if}}
+  <div class="commands">
+    {{#unless isEditing}}
+      <a href="#" {{action "showEdit"}}>Edit</a>
+    {{/unless}}
+  </div>
+</td>

@@ -12,4 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require handlebars
+//= require ember
+//= require ember-data
+//= require_self
+//= require seanchai
+Seanchai = Ember.Application.create({
+  LOG_TRANSITIONS: true,
+  LOG_BINDINGS: true
+});
+

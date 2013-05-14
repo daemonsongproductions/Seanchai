@@ -1,10 +1,10 @@
-Rails3MongoidDevise::Application.routes.draw do
+Seanchai::Application.routes.draw do
   root :to => "home#index"
 
   devise_for :users
 
-  resources :story
-  resources :story_section
+  resources :stories
+  resources :story_sections
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

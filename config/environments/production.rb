@@ -1,4 +1,4 @@
-Rails3MongoidDevise::Application.configure do
+Seanchai::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -68,5 +68,8 @@ Rails3MongoidDevise::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  # Ember.js
+  config.ember.variant = :production
 
 end

@@ -6,7 +6,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 gem 'strong_parameters'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 2.3'
 gem "mongoid", ">= 3.0.3"
 gem "rspec-rails", ">= 2.11.0", :group => [:development, :test]
 gem "capybara", ">= 1.1.2", :group => :test
@@ -18,5 +18,5 @@ gem "launchy", ">= 2.1.2", :group => :test
 gem "factory_girl_rails", ">= 4.0.0", :group => [:development, :test]
 gem "devise", ">= 2.1.2"
 gem "ember-rails"
-gem "ember-source", "1.0.0rc3.3"
+gem "ember-source", "1.0.0.rc6.4"
 gem "haml"

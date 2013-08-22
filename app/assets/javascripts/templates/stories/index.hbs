@@ -10,12 +10,7 @@
       {{view Seanchai.ShowStoryView storyBinding="this"}}
     {{/each}}
     {{#if isNewVisible}}
-      <tr>
-        <td>*</td>
-        <td>
-          Test
-        </td>
-      </tr>
+        {{view Seanchai.NewStoryView}}
     {{/if}}
     </tbody>
 </table>

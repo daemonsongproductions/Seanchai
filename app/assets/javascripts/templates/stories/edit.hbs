@@ -1,7 +1,12 @@
-{{#with story}}
-  {{view Ember.TextField valueBinding="title" placeholder="Title"}}
-  <button type="submit">
+<tr>
+{{#with view.story}}
+  <td>*</td>
+ <td>{{view Ember.TextField valueBinding="title" placeholder="Title"}}</td>
+  <td>
+  <button {{action submit target="view"}}>
     {{#if id}}Update{{else}}Create{{/if}}
   </button>
+  </td>
 {{/with}}
-<a href="#" {{action "cancelForm"}}>Cancel</a>
+</tr>
+<a href="#" {{action "hideNew"}}>Cancel</a>

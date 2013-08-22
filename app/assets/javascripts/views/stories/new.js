@@ -1,10 +1,10 @@
-Seanchai.NewContactView = Ember.View.extend({
+Seanchai.NewStoryView = Ember.View.extend({
   tagName: 'form',
   templateName: 'stories/edit',
 
   init: function() {
     this._super();
-    this.set('story', Seanchai.Story.create());
+    this.set('story', Seanchai.Story.createRecord());
   },
 
   didInsertElement: function() {

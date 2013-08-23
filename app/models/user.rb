@@ -8,11 +8,12 @@ class User
          :recoverable, :rememberable, :trackable, :validatable
 
   ## Database authenticatable
+  field :username,           :type => String, :default => ""
+  validates_presence_of :username
+  validates_uniqueness_of :username, :case_sensitive => true
   field :name,               :type => String, :default => ""
-  validates_presence_of :name
   field :email,              :type => String, :default => ""
-  validates_presence_of :email
-  validates_uniqueness_of :name, :email, :case_sensitive => false
+
   field :encrypted_password, :type => String, :default => ""
   
   ## Recoverable
@@ -46,10 +47,14 @@ class User
   embeds_one :role, class_name: "Role", inverse_of: nil
   before_create :set_default_role
 
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :username, :name, :email, :password, :password_confirmation, :remember_me
 
   def set_default_role
     self.role ||= default_role
+  end
+
+  def email_required?
+    false
   end
 
 

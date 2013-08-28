@@ -1,6 +1,6 @@
 Seanchai.Router.map(function(){
   this.route('home', {path: '/'});
-  this.resource("stories", { path: '/stories/:story_id' })
+  this.resource("stories", { path: '/stories/:story_id' });
 
   this.resource('admin', function(){
     this.route('index');

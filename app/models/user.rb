@@ -61,7 +61,7 @@ class User
   private
 
   def default_role
-    Reader.new
+    Member.new
   end
 
 

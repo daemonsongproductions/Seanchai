@@ -3,6 +3,8 @@ Seanchai::Application.routes.draw do
 
   devise_for :users
 
+  resources :users, only: [:create]
+  resources :sessions, only: [:create, :destroy]
   resources :stories
   resources :story_sections
 

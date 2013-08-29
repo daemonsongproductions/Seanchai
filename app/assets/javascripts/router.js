@@ -1,10 +1,9 @@
-Seanchai.Router.map(function(){
-  this.route('home', {path: '/'});
-  this.resource("stories", { path: '/stories/:story_id' });
+
+Seanchai.Router.map(function() {
   this.route("home");
   this.route("help");
   this.route("login");
-  this.route("registration");
+  return this.route("registration");
 });
 
 Seanchai.IndexRoute = Ember.Route.extend({
@@ -18,6 +17,7 @@ Seanchai.LoginRoute = Ember.Route.extend({
     return Ember.Object.create();
   },
   setupController: function(controller, model) {
+    controller.set('content', model);
     return controller.set("errorMsg", "");
   },
   events: {
@@ -27,33 +27,23 @@ Seanchai.LoginRoute = Ember.Route.extend({
     },
     login: function() {
       log.info("Logging in...");
-      return Seanchai.login(this);
+      return Seanchai.Authentication.login(this);
     }
   }
 });
 
-Seanchai.StoriesRoute = Ember.Route.extend({
-  model: function(){
-    Seanchai.Story.find();
-  }
-});
-
-var teams = [
-     "Celtics",
-     "Lakers",
-     "Bulls"
-];
-
-Seanchai.HomeRoute = Ember.Route.extend({
-  model: function(){
-   return Seanchai.Story.find()
+Seanchai.RegistrationRoute = Ember.Route.extend({
+  model: function() {
+    return Ember.Object.create();
   },
-  setupController: function(controller){
-       controller.set('teams', Seanchai.Story.find());
+  events: {
+    register: function() {
+      log.info("Registering...");
+      return Seanchai.Authentication.register(this);
+    },
+    cancel: function() {
+      log.info("cancelling registration");
+      return this.transitionTo('home');
+    }
   }
-});
-
-
-Seanchai.Router.reopen({
-  location: 'history'
 });

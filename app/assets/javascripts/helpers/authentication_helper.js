@@ -2,6 +2,7 @@
 Seanchai.Authentication || (Seanchai.Authentication = {});
 
 Seanchai.Authentication.login = function(route) {
+  debugger;
   return $.ajax({
     url: Seanchai.urls.login,
     type: "POST",

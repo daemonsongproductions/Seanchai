@@ -18,7 +18,7 @@ Seanchai.RegistrationController = Ember.ObjectController.extend({
     },
     cancel: function() {
       log.info("cancelling registration");
-      this.transitionTo('home');
+      this.transitionToRoute('home');
     }
   }
 

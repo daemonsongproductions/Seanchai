@@ -19,16 +19,6 @@ Seanchai.LoginRoute = Ember.Route.extend({
   setupController: function(controller, model) {
     controller.set('content', model);
     controller.set("errorMsg", "");
-  },
-  events: {
-    cancel: function() {
-      log.info("cancelling login");
-      this.transitionTo('home');
-    },
-    login: function() {
-      log.info("Logging in...");
-      Seanchai.Authentication.login(this);
-    }
   }
 });
 

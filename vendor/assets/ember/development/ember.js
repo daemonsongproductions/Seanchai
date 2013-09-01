@@ -1,5 +1,5 @@
-// Version: v1.0.0-rc.8-230-gf6d5af4
-// Last commit: f6d5af4 (2013-08-31 17:14:40 -0700)
+// Version: v1.0.0-2-g1a160f1
+// Last commit: 1a160f1 (2013-09-01 00:12:41 -0700)
 
 
 (function() {
@@ -170,8 +170,8 @@ if (!Ember.testing) {
 
 })();
 
-// Version: v1.0.0-rc.8-230-gf6d5af4
-// Last commit: f6d5af4 (2013-08-31 17:14:40 -0700)
+// Version: v1.0.0-2-g1a160f1
+// Last commit: 1a160f1 (2013-09-01 00:12:41 -0700)
 
 
 (function() {
@@ -237,7 +237,7 @@ var define, requireModule;
 
   @class Ember
   @static
-  @version 1.0.0-rc.8
+  @version 1.0.0
 */
 
 if ('undefined' === typeof Ember) {
@@ -264,10 +264,10 @@ Ember.toString = function() { return "Ember"; };
 /**
   @property VERSION
   @type String
-  @default '1.0.0-rc.8'
+  @default '1.0.0'
   @final
 */
-Ember.VERSION = '1.0.0-rc.8';
+Ember.VERSION = '1.0.0';
 
 /**
   Standard environmental variables. You can define these in a global `ENV`
@@ -10889,7 +10889,7 @@ var get = Ember.get,
     eachPropertyPattern = /^(.*)\.@each\.(.*)/,
     doubleEachPropertyPattern = /(.*\.@each){2,}/;
 
-/**
+/*
   Tracks changes to dependent arrays, as well as to properties of items in
   dependent arrays.
 
@@ -11094,7 +11094,7 @@ DependentArraysObserver.prototype = {
     for (sliceIndex = removedCount - 1; sliceIndex >= 0; --sliceIndex) {
       itemIndex = index + sliceIndex;
       item = dependentArray.objectAt(itemIndex);
-      
+
       forEach(itemPropertyKeys, removeObservers, this);
 
       changeMeta = createChangeMeta(dependentArray, item, itemIndex, this.instanceMeta.propertyName, this.cp);
@@ -11114,8 +11114,8 @@ DependentArraysObserver.prototype = {
 
     forEach(dependentArray.slice(index, index + addedCount), function (item, sliceIndex) {
       if (itemPropertyKeys) {
-        observerContext = 
-          observerContexts[sliceIndex] = 
+        observerContext =
+          observerContexts[sliceIndex] =
           this.createPropertyObserverContext(dependentArray, index + sliceIndex, this.trackedArraysByGuid[dependentKey]);
         forEach(itemPropertyKeys, function (propertyKey) {
           addBeforeObserver(item, propertyKey, this, observerContext.beforeObserver);
@@ -11132,30 +11132,29 @@ DependentArraysObserver.prototype = {
   },
 
   itemPropertyWillChange: function (obj, keyName, array, index) {
-    var changeId = guidFor(obj)+":"+keyName;
+    var guid = guidFor(obj);
 
-    if (!this.changedItems[changeId]) {
-      this.changedItems[changeId] = {
-        array:          array,  
+    if (!this.changedItems[guid]) {
+      this.changedItems[guid] = {
+        array:          array,
         index:          index,
         obj:            obj,
-        keyChanged:     keyName,
-        previousValue:  get(obj, keyName)
+        previousValues: {}
       };
     }
+
+    this.changedItems[guid].previousValues[keyName] = get(obj, keyName);
   },
 
   itemPropertyDidChange: function(obj, keyName, array, index) {
     Ember.run.once(this, 'flushChanges');
   },
 
-  // TODO: it probably makes more sense to remove the item during `willChange`
-  // and add it back (with the new value) during `didChange`
   flushChanges: function() {
     var changedItems = this.changedItems, key, c, changeMeta;
     for (key in changedItems) {
       c = changedItems[key];
-      changeMeta = createChangeMeta(c.array, c.obj, c.index, this.instanceMeta.propertyName, this.cp, c.keyChanged, c.previousValue);
+      changeMeta = createChangeMeta(c.array, c.obj, c.index, this.instanceMeta.propertyName, this.cp, c.previousValues);
       this.setValue(
         this.callbacks.removedItem.call(this.instanceMeta.context, this.getValue(), c.obj, changeMeta, this.instanceMeta.sugarMeta));
       this.setValue(
@@ -11165,18 +11164,19 @@ DependentArraysObserver.prototype = {
   }
 };
 
-function createChangeMeta(dependentArray, item, index, propertyName, property, key, previousValue) {
+function createChangeMeta(dependentArray, item, index, propertyName, property, previousValues) {
   var meta = {
     arrayChanged: dependentArray,
     index: index,
     item: item,
     propertyName: propertyName,
-    property: property,
-    // previous value is only available for item property changes!
-    previousValue: previousValue
+    property: property
   };
 
-  if (key) { meta.keyChanged = key; }
+  if (previousValues) {
+    // previous values only available for item property changes
+    meta.previousValues = previousValues;
+  }
 
   return meta;
 }
@@ -11404,7 +11404,122 @@ ReduceComputedProperty.prototype.property = function () {
   return ComputedProperty.prototype.property.apply(this, propertyArgs);
 };
 
+/**
+  Creates a computed property which operates on dependent arrays and
+  is updated with "one at a time" semantics. When items are added or
+  removed from the dependent array(s) a reduce computed only operates
+  on the change instead of re-evaluating the entire array.
 
+  If there are more than one arguments the first arguments are
+  considered to be dependent property keys. The last argument is
+  required to be an options object. The options object can have the
+  following four properties.
+
+  `initialValue` - A value or function that will be used as the initial
+  value for the computed. If this property is a function the result of calling
+  the function will be used as the initial value. This property is required.
+
+  `initialize` - An optional initialize function. Typically this will be used
+  to set up state on the instanceMeta object.
+
+  `removedItem` - A function that is called each time an element is removed
+  from the array.
+
+  `addedItem` - A function that is called each time an element is added to
+  the array.
+
+
+  The `initialize` function has the following signature:
+
+  ```javascript
+   function (initialValue, changeMeta, instanceMeta)
+  ```
+
+  `initialValue` - The value of the `initialValue` property from the
+  options object.
+
+  `changeMeta` - An object which contains meta information about the
+  computed. It contains the following properties:
+
+     - `property` the computed property
+     - `propertyName` the name of the property on the object
+
+  `instanceMeta` - An object that can be used to store meta
+  information needed for calculating your computed. For example a
+  unique computed might use this to store the number of times a given
+  element is found in the dependent array.
+
+
+  The `removedItem` and `addedItem` functions both have the following signature:
+
+  ```javascript
+  function (accumulatedValue, item, changeMeta, instanceMeta)
+  ```
+
+  `accumulatedValue` - The value returned from the last time
+  `removedItem` or `addedItem` was called or `initialValue`.
+
+  `item` - the element added or removed from the array
+
+  `changeMeta` - An object which contains meta information about the
+  change. It contains the following properties:
+
+    - `property` the computed property
+    - `propertyName` the name of the property on the object
+    - `index` the index of the added or removed item
+    - `item` the added or removed item: this is exactly the same as
+      the second arg
+    - `arrayChanged` the array that triggered the change. Can be
+      useful when depending on multiple arrays.
+
+  For property changes triggered on an item property change (when
+  depKey is something like `someArray.@each.someProperty`),
+  `changeMeta` will also contain the following property:
+
+    - `previousValues` an object whose keys are the properties that changed on
+    the item, and whose values are the item's previous values.
+
+  `previousValues` is important Ember coalesces item property changes via
+  Ember.run.once. This means that by the time removedItem gets called, item has
+  the new values, but you may need the previous value (eg for sorting &
+  filtering).
+
+  `instanceMeta` - An object that can be used to store meta
+  information needed for calculating your computed. For example a
+  unique computed might use this to store the number of times a given
+  element is found in the dependent array.
+
+  The `removedItem` and `addedItem` functions should return the accumulated
+  value. It is acceptable to not return anything (ie return undefined)
+  to invalidate the computation. This is generally not a good idea for
+  arrayComputed but it's used in eg max and min.
+
+  Example
+
+  ```javascript
+  Ember.computed.max = function (dependentKey) {
+    return Ember.reduceComputed.call(null, dependentKey, {
+      initialValue: -Infinity,
+
+      addedItem: function (accumulatedValue, item, changeMeta, instanceMeta) {
+        return Math.max(accumulatedValue, item);
+      },
+
+      removedItem: function (accumulatedValue, item, changeMeta, instanceMeta) {
+        if (item < accumulatedValue) {
+          return accumulatedValue;
+        }
+      }
+    });
+  };
+  ```
+
+  @method reduceComputed
+  @for Ember
+  @param {String} [dependentKeys*]
+  @param {Object} options
+  @returns {Ember.ComputedProperty}
+*/
 Ember.reduceComputed = function (options) {
   var args;
 
@@ -11429,7 +11544,6 @@ Ember.reduceComputed = function (options) {
 
   return cp;
 };
-
 
 })();
 
@@ -11475,7 +11589,120 @@ ArrayComputedProperty.prototype.resetValue = function (array) {
   return array;
 };
 
+/**
+  Creates a computed property which operates on dependent arrays and
+  is updated with "one at a time" semantics. When items are added or
+  removed from the dependent array(s) an array computed only operates
+  on the change instead of re-evaluating the entire array. This should
+  return an array, if you'd like to use "one at a time" semantics and
+  compute some value other then an array look at
+  `Ember.reduceComputed`.
 
+  If there are more than one arguments the first arguments are
+  considered to be dependent property keys. The last argument is
+  required to be an options object. The options object can have the
+  following three properties.
+
+  `initialize` - An optional initialize function. Typically this will be used
+  to set up state on the instanceMeta object.
+
+  `removedItem` - A function that is called each time an element is
+  removed from the array.
+
+  `addedItem` - A function that is called each time an element is
+  added to the array.
+
+
+  The `initialize` function has the following signature:
+
+  ```javascript
+   function (array, changeMeta, instanceMeta)
+  ```
+
+  `array` - The initial value of the arrayComputed, an empty array.
+
+  `changeMeta` - An object which contains meta information about the
+  computed. It contains the following properties:
+
+     - `property` the computed property
+     - `propertyName` the name of the property on the object
+
+  `instanceMeta` - An object that can be used to store meta
+  information needed for calculating your computed. For example a
+  unique computed might use this to store the number of times a given
+  element is found in the dependent array.
+
+
+  The `removedItem` and `addedItem` functions both have the following signature:
+
+  ```javascript
+  function (accumulatedValue, item, changeMeta, instanceMeta)
+  ```
+
+  `accumulatedValue` - The value returned from the last time
+  `removedItem` or `addedItem` was called or an empty array.
+
+  `item` - the element added or removed from the array
+
+  `changeMeta` - An object which contains meta information about the
+  change. It contains the following properties:
+
+    - `property` the computed property
+    - `propertyName` the name of the property on the object
+    - `index` the index of the added or removed item
+    - `item` the added or removed item: this is exactly the same as
+      the second arg
+    - `arrayChanged` the array that triggered the change. Can be
+      useful when depending on multiple arrays.
+
+  For property changes triggered on an item property change (when
+  depKey is something like `someArray.@each.someProperty`),
+  `changeMeta` will also contain the following property:
+
+    - `previousValues` an object whose keys are the properties that changed on
+    the item, and whose values are the item's previous values.
+
+  `previousValues` is important Ember coalesces item property changes via
+  Ember.run.once. This means that by the time removedItem gets called, item has
+  the new values, but you may need the previous value (eg for sorting &
+  filtering).
+
+  `instanceMeta` - An object that can be used to store meta
+  information needed for calculating your computed. For example a
+  unique computed might use this to store the number of times a given
+  element is found in the dependent array.
+
+  The `removedItem` and `addedItem` functions should return the accumulated
+  value. It is acceptable to not return anything (ie return undefined)
+  to invalidate the computation. This is generally not a good idea for
+  arrayComputed but it's used in eg max and min.
+
+  Example
+
+  ```javascript
+  Ember.computed.map = function(dependentKey, callback) {
+    var options = {
+      addedItem: function(array, item, changeMeta, instanceMeta) {
+        var mapped = callback(item);
+        array.insertAt(changeMeta.index, mapped);
+        return array;
+      },
+      removedItem: function(array, item, changeMeta, instanceMeta) {
+        array.removeAt(changeMeta.index, 1);
+        return array;
+      }
+    };
+
+    return Ember.arrayComputed(dependentKey, options);
+  };
+  ```
+
+  @method arrayComputed
+  @for Ember
+  @param {String} [dependentKeys*]
+  @param {Object} options
+  @returns {Ember.ComputedProperty}
+*/
 Ember.arrayComputed = function (options) {
   var args;
 
@@ -11509,6 +11736,8 @@ Ember.arrayComputed = function (options) {
 
 var get = Ember.get,
     set = Ember.set,
+    guidFor = Ember.guidFor,
+    merge = Ember.merge,
     a_slice = [].slice,
     forEach = Ember.EnumerableUtils.forEach,
     map = Ember.EnumerableUtils.map;
@@ -11832,7 +12061,7 @@ Ember.computed.uniq = function() {
     },
 
     addedItem: function(array, item, changeMeta, instanceMeta) {
-      var guid = Ember.guidFor(item);
+      var guid = guidFor(item);
 
       if (!instanceMeta.itemCounts[guid]) {
         instanceMeta.itemCounts[guid] = 1;
@@ -11843,7 +12072,7 @@ Ember.computed.uniq = function() {
       return array;
     },
     removedItem: function(array, item, _, instanceMeta) {
-      var guid = Ember.guidFor(item),
+      var guid = guidFor(item),
           itemCounts = instanceMeta.itemCounts;
 
       if (--itemCounts[guid] === 0) {
@@ -11891,7 +12120,7 @@ Ember.computed.union = Ember.computed.uniq;
 Ember.computed.intersect = function () {
   var getDependentKeyGuids = function (changeMeta) {
     return map(changeMeta.property._dependentKeys, function (dependentKey) {
-      return Ember.guidFor(dependentKey);
+      return guidFor(dependentKey);
     });
   };
 
@@ -11902,9 +12131,9 @@ Ember.computed.intersect = function () {
     },
 
     addedItem: function(array, item, changeMeta, instanceMeta) {
-      var itemGuid = Ember.guidFor(item),
+      var itemGuid = guidFor(item),
           dependentGuids = getDependentKeyGuids(changeMeta),
-          dependentGuid = Ember.guidFor(changeMeta.arrayChanged),
+          dependentGuid = guidFor(changeMeta.arrayChanged),
           numberOfDependentArrays = changeMeta.property._dependentKeys.length,
           itemCounts = instanceMeta.itemCounts;
 
@@ -11919,9 +12148,9 @@ Ember.computed.intersect = function () {
       return array;
     },
     removedItem: function(array, item, changeMeta, instanceMeta) {
-      var itemGuid = Ember.guidFor(item),
+      var itemGuid = guidFor(item),
           dependentGuids = getDependentKeyGuids(changeMeta),
-          dependentGuid = Ember.guidFor(changeMeta.arrayChanged),
+          dependentGuid = guidFor(changeMeta.arrayChanged),
           numberOfDependentArrays = changeMeta.property._dependentKeys.length,
           numberOfArraysItemAppearsIn,
           itemCounts = instanceMeta.itemCounts;
@@ -12006,7 +12235,7 @@ Ember.computed.setDiff = function (setAProperty, setBProperty) {
 };
 
 function binarySearch(array, item, low, high) {
-  var mid, midItem, res;
+  var mid, midItem, res, guidMid, guidItem;
 
   if (arguments.length < 4) { high = get(array, 'length'); }
   if (arguments.length < 3) { low = 0; }
@@ -12018,7 +12247,18 @@ function binarySearch(array, item, low, high) {
   mid = low + Math.floor((high - low) / 2);
   midItem = array.objectAt(mid);
 
+  guidMid = _guidFor(midItem);
+  guidItem = _guidFor(item);
+
+  if (guidMid === guidItem) {
+    return mid;
+  }
+
   res = this.order(midItem, item);
+  if (res === 0) {
+    res = guidMid < guidItem ? -1 : 1;
+  }
+
 
   if (res < 0) {
     return this.binarySearch(array, item, mid+1, high);
@@ -12027,6 +12267,13 @@ function binarySearch(array, item, low, high) {
   }
 
   return mid;
+
+  function _guidFor(item) {
+    if (Ember.ObjectProxy.detectInstance(item)) {
+      return guidFor(get(item, 'content'));
+    }
+    return guidFor(item);
+  }
 }
 
 /**
@@ -12167,9 +12414,8 @@ Ember.computed.sort = function (itemsKey, sortDefinition) {
     removedItem: function (array, item, changeMeta, instanceMeta) {
       var proxyProperties, index, searchItem;
 
-      if (changeMeta.keyChanged) {
-        proxyProperties = { content: item };
-        proxyProperties[changeMeta.keyChanged] = changeMeta.previousValue;
+      if (changeMeta.previousValues) {
+        proxyProperties = merge({ content: item }, changeMeta.previousValues);
 
         searchItem = Ember.ObjectProxy.create(proxyProperties);
      } else {
@@ -16314,7 +16560,8 @@ Ember.ObjectProxy = Ember.Object.extend(/** @scope Ember.ObjectProxy.prototype *
 
 
 var set = Ember.set, get = Ember.get, guidFor = Ember.guidFor;
-var forEach = Ember.EnumerableUtils.forEach;
+var forEach = Ember.EnumerableUtils.forEach,
+    indexOf = Ember.ArrayPolyfills.indexOf;
 
 var EachArray = Ember.Object.extend(Ember.Array, {
 
@@ -16372,7 +16619,7 @@ function removeObserverForContentKey(content, keyName, proxy, idx, loc) {
 
       guid = guidFor(item);
       indicies = objects[guid];
-      indicies[indicies.indexOf(loc)] = null;
+      indicies[indexOf.call(indicies, loc)] = null;
     }
   }
 }
@@ -19440,9 +19687,6 @@ var EMPTY_ARRAY = [];
   Using a value for `templateName` that does not have a Handlebars template
   with a matching `data-template-name` attribute will throw an error.
 
-  Assigning a value to both `template` and `templateName` properties will throw
-  an error.
-
   For views classes that may have a template later defined (e.g. as the block
   portion of a `{{view}}` Handlebars helper call in another template or in
   a subclass), you can provide a `defaultTemplate` property set to compiled
@@ -21985,7 +22229,7 @@ Ember.ContainerView = Ember.View.extend(Ember.MutableArray, {
 
   length: Ember.computed(function () {
     return this._childViews.length;
-  }),
+  }).volatile(),
 
   /**
     @private
@@ -22707,6 +22951,7 @@ Ember.Component = Ember.View.extend(Ember.TargetActionSupport, {
       view.appendChild(Ember.View, {
         isVirtual: true,
         tagName: '',
+        _contextView: parentView,
         template: get(this, 'template'),
         context: get(parentView, 'context'),
         controller: get(parentView, 'controller'),
@@ -26421,20 +26666,20 @@ var get = Ember.get, set = Ember.set;
   inserting the view's own rendered output at the `{{yield}}` location.
 
   An empty `<body>` and the following application code:
-  
+
   ```javascript
   AView = Ember.View.extend({
     classNames: ['a-view-with-layout'],
     layout: Ember.Handlebars.compile('<div class="wrapper">{{yield}}</div>'),
     template: Ember.Handlebars.compile('<span>I am wrapped</span>')
   });
-  
+
   aView = AView.create();
   aView.appendTo('body');
   ```
-  
+
   Will result in the following HTML output:
-  
+
   ```html
   <body>
     <div class='ember-view a-view-with-layout'>
@@ -26444,50 +26689,50 @@ var get = Ember.get, set = Ember.set;
     </div>
   </body>
   ```
-  
+
   The `yield` helper cannot be used outside of a template assigned to an
   `Ember.View`'s `layout` property and will throw an error if attempted.
-  
+
   ```javascript
   BView = Ember.View.extend({
     classNames: ['a-view-with-layout'],
     template: Ember.Handlebars.compile('{{yield}}')
   });
-  
+
   bView = BView.create();
   bView.appendTo('body');
-  
+
   // throws
-  // Uncaught Error: assertion failed: 
+  // Uncaught Error: assertion failed:
   // You called yield in a template that was not a layout
   ```
 
   ### Use with Ember.Component
   When designing components `{{yield}}` is used to denote where, inside the component's
   template, an optional block passed to the component should render:
-  
+
   ```handlebars
   <!-- application.hbs -->
   {{#labeled-textfield value=someProperty}}
     First name:
   {{/my-component}}
   ```
-  
+
   ```handlebars
   <!-- components/my-component.hbs -->
   <label>
     {{yield}} {{input value=value}}
   </label>
   ```
-  
+
   Result:
-  
+
   ```html
   <label>
     First name: <input type="text" />
   <label>
   ```
-  
+
   @method yield
   @for Ember.Handlebars.helpers
   @param {Hash} options
@@ -26497,7 +26742,11 @@ Ember.Handlebars.registerHelper('yield', function(options) {
   var view = options.data.view;
 
   while (view && !get(view, 'layout')) {
-    view = get(view, 'parentView');
+    if (view._contextView) {
+      view = view._contextView;
+    } else {
+      view = get(view, 'parentView');
+    }
   }
 
   Ember.assert("You called yield in a template that was not a layout", !!view);
@@ -31308,8 +31557,9 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
       name = this.routeName;
     }
 
+    options = options || {};
     name = name ? name.replace(/\//g, '.') : this.routeName;
-    var viewName = this.viewName || name;
+    var viewName = options.view || this.viewName || name;
     var templateName = this.templateName || name;
 
     var container = this.container,
@@ -31528,7 +31778,7 @@ Ember.onLoad('Ember.Handlebars', function() {
       handlebarsGet = Ember.Handlebars.get;
 
   function resolveParams(context, params, options) {
-    return resolvePaths(context, params, options).map(function(path, i) {
+    return map.call(resolvePaths(context, params, options), function(path, i) {
       if (null === path) {
         // Param was string/number, not a path, so just return raw string/number.
         return params[i];
@@ -34891,10 +35141,8 @@ Ember.runLoadHooks('Ember.Application', Ember.Application);
 
 var get = Ember.get, set = Ember.set;
 
-function verifyNeedsDependencies(controller) {
-  var needs = get(controller, 'needs'),
-      container = get(controller, 'container'),
-      dependency, i, l;
+function verifyNeedsDependencies(controller, container, needs) {
+  var dependency, i, l;
 
   for (i=0, l=needs.length; i<l; i++) {
     dependency = needs[i];
@@ -34902,18 +35150,10 @@ function verifyNeedsDependencies(controller) {
       dependency = "controller:" + dependency;
     }
 
+    // Structure assert to still do verification but not string concat in production
     if (!container.has(dependency)) {
       Ember.assert(Ember.inspect(controller) + " needs " + dependency + " but it does not exist", false);
     }
-  }
-}
-
-function initilizeControllersProxy(controller) {
-  var length = get(controller, 'needs.length');
-
-  if (length > 0) {
-    // if needs then initialize controllers proxy
-    get(controller, 'controllers');
   }
 }
 
@@ -34953,9 +35193,15 @@ Ember.ControllerMixin.reopen({
   needs: [],
 
   init: function() {
-    // Structure asserts to still do verification but not string concat in production
-    verifyNeedsDependencies(this);
-    initilizeControllersProxy(this);
+    var needs = get(this, 'needs'),
+    length = get(needs, 'length');
+
+    if (length > 0) {
+      verifyNeedsDependencies(this, this.container, needs);
+
+      // if needs then initialize controllers proxy
+      get(this, 'controllers');
+    }
 
     this._super.apply(this, arguments);
   },
@@ -36050,7 +36296,7 @@ function chain(app, promise, fn) {
 * using your app.
 *
 * Example:
-* 
+*
 * ```
 * visit('posts/index').then(function() {
 *   // assert something
@@ -36058,7 +36304,7 @@ function chain(app, promise, fn) {
 * ```
 *
 * @method visit
-* @param {String} url the name of the route 
+* @param {String} url the name of the route
 * @returns {RSVP.Promise}
 */
 helper('visit', visit);

@@ -10,5 +10,16 @@ Seanchai.RegistrationController = Ember.ObjectController.extend({
     else {
       return false;
     }
-  }.property("selectedRecoveryOption")
+  }.property("selectedRecoveryOption"),
+  actions: {
+    register: function() {
+      log.info("Registering...");
+      Seanchai.Authentication.register(this);
+    },
+    cancel: function() {
+      log.info("cancelling registration");
+      this.transitionTo('home');
+    }
+  }
+
 });

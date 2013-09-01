@@ -28,15 +28,15 @@ Seanchai.Authentication.login = function(route) {
   });
 };
 
-Seanchai.Authentication.register = function(route) {
+Seanchai.Authentication.register = function(controller) {
   return $.ajax({
     url: Seanchai.urls.register,
     type: "POST",
     data: {
-      "user[username]": route.currentModel.username,
-      "user[email]": route.currentModel.email,
-      "user[password]": route.currentModel.password,
-      "user[password_confirmation]": route.currentModel.password_confirmation
+      "user[username]": controller.username,
+      "user[email]": controller.email,
+      "user[password]": controller.password,
+      "user[password_confirmation]": controller.password_confirmation
     },
     success: function(data) {
       Seanchai.currentUser = data.user;
@@ -44,7 +44,7 @@ Seanchai.Authentication.register = function(route) {
       return route.transitionTo('home');
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      return route.controllerFor('registration').set("errorMsg", "That email/password combo didn't work.  Please try again");
+      return controller.set("errorMsg", "That email/password combo didn't work.  Please try again");
     }
   });
 };

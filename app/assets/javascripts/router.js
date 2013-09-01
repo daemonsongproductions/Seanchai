@@ -35,15 +35,5 @@ Seanchai.LoginRoute = Ember.Route.extend({
 Seanchai.RegistrationRoute = Ember.Route.extend({
   model: function() {
     return Ember.Object.create();
-  },
-  events: {
-    register: function() {
-      log.info("Registering...");
-      Seanchai.Authentication.register(this);
-    },
-    cancel: function() {
-      log.info("cancelling registration");
-      this.transitionTo('home');
-    }
   }
 });

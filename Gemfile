@@ -25,6 +25,6 @@ gem "launchy", ">= 2.1.2", :group => :test
 gem "factory_girl_rails", ">= 4.0.0", :group => [:development, :test]
 gem "devise", ">= 2.1.2"
 gem "ember-rails"
-gem "ember-source", "1.0.0.rc6.4"
+gem "ember-source", "1.0.0.rc8"
 gem "haml"
 gem "active_model_serializers"

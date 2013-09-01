@@ -15,6 +15,7 @@
 //= require handlebars
 //= require ember
 //= require ember-data
+//= require ember-states
 //= require_self
 //= require seanchai
 Seanchai = Ember.Application.create({

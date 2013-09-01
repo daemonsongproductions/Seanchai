@@ -33,15 +33,15 @@ Seanchai.Authentication.register = function(controller) {
     url: Seanchai.urls.register,
     type: "POST",
     data: {
-      "user[username]": controller.username,
-      "user[email]": controller.email,
-      "user[password]": controller.password,
-      "user[password_confirmation]": controller.password_confirmation
+      "user[username]": controller.get('username'),
+      "user[email]": controller.get('email'),
+      "user[password]": controller.get('password'),
+      "user[password_confirmation]": controller.get('password_confirmation')
     },
     success: function(data) {
       Seanchai.currentUser = data.user;
       Seanchai.LoginStateManager.transitionTo("authenticated");
-      return route.transitionTo('home');
+      return controller.transitionTo('home');
     },
     error: function(jqXHR, textStatus, errorThrown) {
       return controller.set("errorMsg", "That email/password combo didn't work.  Please try again");

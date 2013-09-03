@@ -1,5 +1,5 @@
-// Version: v1.0.0-beta.1-2-g08ec4af
-// Last commit: 08ec4af (2013-09-01 06:21:45 -0700)
+// Version: v1.0.0-beta.1-53-g12ef41e
+// Last commit: 12ef41e (2013-09-03 07:29:04 -0700)
 
 
 (function() {
@@ -42,249 +42,6 @@ var define, requireModule;
   };
 })();
 (function() {
-Ember.String.pluralize = function(word) {
-  return Ember.Inflector.inflector.pluralize(word);
-};
-
-Ember.String.singularize = function(word) {
-  return Ember.Inflector.inflector.singularize(word);
-};
-
-})();
-
-
-
-(function() {
-var BLANK_REGEX = /^\s*$/;
-
-function loadUncountable(rules, uncountable) {
-  for (var i = 0, length = uncountable.length; i < length; i++) {
-    rules.uncountable[uncountable[i]] = true;
-  }
-}
-
-function loadIrregular(rules, irregularPairs) {
-  var pair;
-
-  for (var i = 0, length = irregularPairs.length; i < length; i++) {
-    pair = irregularPairs[i];
-
-    rules.irregular[pair[0]] = pair[1];
-    rules.irregularInverse[pair[1]] = pair[0];
-  }
-}
-
-function Inflector(ruleSet) {
-  ruleSet = ruleSet || {};
-  ruleSet.uncountable = ruleSet.uncountable || {};
-  ruleSet.irregularPairs= ruleSet.irregularPairs|| {};
-
-  var rules = this.rules = {
-    plurals:  ruleSet.plurals || [],
-    singular: ruleSet.singular || [],
-    irregular: {},
-    irregularInverse: {},
-    uncountable: {}
-  };
-
-  loadUncountable(rules, ruleSet.uncountable);
-  loadIrregular(rules, ruleSet.irregularPairs);
-}
-
-Inflector.prototype = {
-  pluralize: function(word) {
-    return this.inflect(word, this.rules.plurals);
-  },
-
-  singularize: function(word) {
-    return this.inflect(word, this.rules.singular);
-  },
-
-  inflect: function(word, typeRules) {
-    var inflection, substitution, result, lowercase, isBlank,
-    isUncountable, isIrregular, isIrregularInverse, rule;
-
-    isBlank = BLANK_REGEX.test(word);
-
-    if (isBlank) {
-      return word;
-    }
-
-    lowercase = word.toLowerCase();
-
-    isUncountable = this.rules.uncountable[lowercase];
-
-    if (isUncountable) {
-      return word;
-    }
-
-    isIrregular = this.rules.irregular[lowercase];
-
-    if (isIrregular) {
-      return isIrregular;
-    }
-
-    isIrregularInverse = this.rules.irregularInverse[lowercase];
-
-    if (isIrregularInverse) {
-      return isIrregularInverse;
-    }
-
-    for (var i = typeRules.length, min = 0; i > min; i--) {
-       inflection = typeRules[i-1];
-       rule = inflection[0];
-
-      if (rule.test(word)) {
-        break;
-      }
-    }
-
-    inflection = inflection || [];
-
-    rule = inflection[0];
-    substitution = inflection[1];
-
-    result = word.replace(rule, substitution);
-
-    return result;
-  }
-};
-
-Ember.Inflector = Inflector;
-
-})();
-
-
-
-(function() {
-Ember.Inflector.defaultRules = {
-  plurals: [
-    [/$/, 's'],
-    [/s$/i, 's'],
-    [/^(ax|test)is$/i, '$1es'],
-    [/(octop|vir)us$/i, '$1i'],
-    [/(octop|vir)i$/i, '$1i'],
-    [/(alias|status)$/i, '$1es'],
-    [/(bu)s$/i, '$1ses'],
-    [/(buffal|tomat)o$/i, '$1oes'],
-    [/([ti])um$/i, '$1a'],
-    [/([ti])a$/i, '$1a'],
-    [/sis$/i, 'ses'],
-    [/(?:([^f])fe|([lr])f)$/i, '$1$2ves'],
-    [/(hive)$/i, '$1s'],
-    [/([^aeiouy]|qu)y$/i, '$1ies'],
-    [/(x|ch|ss|sh)$/i, '$1es'],
-    [/(matr|vert|ind)(?:ix|ex)$/i, '$1ices'],
-    [/^(m|l)ouse$/i, '$1ice'],
-    [/^(m|l)ice$/i, '$1ice'],
-    [/^(ox)$/i, '$1en'],
-    [/^(oxen)$/i, '$1'],
-    [/(quiz)$/i, '$1zes']
-  ],
-
-  singular: [
-    [/s$/i, ''],
-    [/(ss)$/i, '$1'],
-    [/(n)ews$/i, '$1ews'],
-    [/([ti])a$/i, '$1um'],
-    [/((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)(sis|ses)$/i, '$1sis'],
-    [/(^analy)(sis|ses)$/i, '$1sis'],
-    [/([^f])ves$/i, '$1fe'],
-    [/(hive)s$/i, '$1'],
-    [/(tive)s$/i, '$1'],
-    [/([lr])ves$/i, '$1f'],
-    [/([^aeiouy]|qu)ies$/i, '$1y'],
-    [/(s)eries$/i, '$1eries'],
-    [/(m)ovies$/i, '$1ovie'],
-    [/(x|ch|ss|sh)es$/i, '$1'],
-    [/^(m|l)ice$/i, '$1ouse'],
-    [/(bus)(es)?$/i, '$1'],
-    [/(o)es$/i, '$1'],
-    [/(shoe)s$/i, '$1'],
-    [/(cris|test)(is|es)$/i, '$1is'],
-    [/^(a)x[ie]s$/i, '$1xis'],
-    [/(octop|vir)(us|i)$/i, '$1us'],
-    [/(alias|status)(es)?$/i, '$1'],
-    [/^(ox)en/i, '$1'],
-    [/(vert|ind)ices$/i, '$1ex'],
-    [/(matr)ices$/i, '$1ix'],
-    [/(quiz)zes$/i, '$1'],
-    [/(database)s$/i, '$1']
-  ],
-
-  irregularPairs: [
-    ['person', 'people'],
-    ['man', 'men'],
-    ['child', 'children'],
-    ['sex', 'sexes'],
-    ['move', 'moves'],
-    ['cow', 'kine'],
-    ['zombie', 'zombies']
-  ],
-
-  uncountable: [
-    'equipment',
-    'information',
-    'rice',
-    'money',
-    'species',
-    'series',
-    'fish',
-    'sheep',
-    'jeans',
-    'police'
-  ]
-};
-
-})();
-
-
-
-(function() {
-if (Ember.EXTEND_PROTOTYPES) {
-  /**
-    See {{#crossLink "Ember.String/pluralize"}}{{/crossLink}}
-
-    @method pluralize
-    @for String
-  */
-  String.prototype.pluralize = function() {
-    return Ember.String.pluralize(this);
-  };
-
-  /**
-    See {{#crossLink "Ember.String/singularize"}}{{/crossLink}}
-
-    @method singularize
-    @for String
-  */
-  String.prototype.singularize = function() {
-    return Ember.String.singularize(this);
-  };
-}
-
-})();
-
-
-
-(function() {
-Ember.Inflector.inflector = new Ember.Inflector(Ember.Inflector.defaultRules);
-
-})();
-
-
-
-(function() {
-
-})();
-
-
-})();
-// Version: v1.0.0-beta.1-2-g08ec4af
-// Last commit: 08ec4af (2013-09-01 06:21:45 -0700)
-
-
-(function() {
 /**
   @module ember-data
 */
@@ -310,118 +67,7 @@ if ('undefined' === typeof DS) {
 
 
 (function() {
-/**
-  @module ember-data
-*/
-
-var isNone = Ember.isNone, isEmpty = Ember.isEmpty;
-
-/**
-  DS.JSONTransforms is a hash of transforms used by DS.Serializer.
-
-  @class JSONTransforms
-  @static
-  @namespace DS
-*/
-DS.JSONTransforms = {
-  string: {
-    deserialize: function(serialized) {
-      return isNone(serialized) ? null : String(serialized);
-    },
-
-    serialize: function(deserialized) {
-      return isNone(deserialized) ? null : String(deserialized);
-    }
-  },
-
-  number: {
-    deserialize: function(serialized) {
-      return isEmpty(serialized) ? null : Number(serialized);
-    },
-
-    serialize: function(deserialized) {
-      return isEmpty(deserialized) ? null : Number(deserialized);
-    }
-  },
-
-  // Handles the following boolean inputs:
-  // "TrUe", "t", "f", "FALSE", 0, (non-zero), or boolean true/false
-  'boolean': {
-    deserialize: function(serialized) {
-      var type = typeof serialized;
-
-      if (type === "boolean") {
-        return serialized;
-      } else if (type === "string") {
-        return serialized.match(/^true$|^t$|^1$/i) !== null;
-      } else if (type === "number") {
-        return serialized === 1;
-      } else {
-        return false;
-      }
-    },
-
-    serialize: function(deserialized) {
-      return Boolean(deserialized);
-    }
-  },
-
-  date: {
-    deserialize: function(serialized) {
-      var type = typeof serialized;
-
-      if (type === "string") {
-        return new Date(Ember.Date.parse(serialized));
-      } else if (type === "number") {
-        return new Date(serialized);
-      } else if (serialized === null || serialized === undefined) {
-        // if the value is not present in the data,
-        // return undefined, not null.
-        return serialized;
-      } else {
-        return null;
-      }
-    },
-
-    serialize: function(date) {
-      if (date instanceof Date) {
-        var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-        var pad = function(num) {
-          return num < 10 ? "0"+num : ""+num;
-        };
-
-        var utcYear = date.getUTCFullYear(),
-            utcMonth = date.getUTCMonth(),
-            utcDayOfMonth = date.getUTCDate(),
-            utcDay = date.getUTCDay(),
-            utcHours = date.getUTCHours(),
-            utcMinutes = date.getUTCMinutes(),
-            utcSeconds = date.getUTCSeconds();
-
-
-        var dayOfWeek = days[utcDay];
-        var dayOfMonth = pad(utcDayOfMonth);
-        var month = months[utcMonth];
-
-        return dayOfWeek + ", " + dayOfMonth + " " + month + " " + utcYear + " " +
-               pad(utcHours) + ":" + pad(utcMinutes) + ":" + pad(utcSeconds) + " GMT";
-      } else {
-        return null;
-      }
-    }
-  }
-};
-
-})();
-
-
-
-(function() {
 var get = Ember.get, set = Ember.set, isNone = Ember.isNone;
-
-var transforms = DS.JSONTransforms;
 
 // Simple dispatcher to support overriding the aliased
 // method in subclasses.
@@ -438,8 +84,9 @@ DS.JSONSerializer = Ember.Object.extend({
     var store = get(this, 'store');
 
     type.eachTransformedAttribute(function(key, type) {
-      data[key] = transforms[type].deserialize(data[key]);
-    });
+      var transform = this.transformFor(type);
+      data[key] = transform.deserialize(data[key]);
+    }, this);
 
     type.eachRelationship(function(key, relationship) {
       // A link (usually a URL) was already provided in
@@ -506,7 +153,8 @@ DS.JSONSerializer = Ember.Object.extend({
       var value = get(record, key), type = attribute.type;
 
       if (type) {
-        value = transforms[type].serialize(value);
+        var transform = this.transformFor(type);
+        value = transform.serialize(value);
       }
 
       // if provided, use the mapping provided by `attrs` in
@@ -541,7 +189,16 @@ DS.JSONSerializer = Ember.Object.extend({
     }
   },
 
-  serializeHasMany: Ember.K,
+  serializeHasMany: function(record, json, relationship) {
+    var key = relationship.key;
+
+    var relationshipType = DS.RelationshipChange.determineRelationshipType(record.constructor, relationship);
+    
+    if (relationshipType === 'manyToNone' || relationshipType === 'manyToMany') {
+      json[key] = get(record, key).mapProperty('id');
+      // TODO support for polymorphic manyToNone and manyToMany relationships
+    }
+  },
 
   // EXTRACT
 
@@ -577,6 +234,10 @@ DS.JSONSerializer = Ember.Object.extend({
     } else {
       return relationship.type;
     }
+  },
+
+  transformFor: function(attributeType) {
+    return this.container.lookup('transform:' + attributeType);
   },
 
   eachEmbeddedRecord: function() {
@@ -699,6 +360,139 @@ DS.DebugAdapter = Ember.DataAdapter.extend({
 
 
 (function() {
+DS.Transform = Ember.Object.extend({
+
+  serialize: Ember.required(),
+  
+  deserialize: Ember.required()
+
+});
+})();
+
+
+
+(function() {
+
+DS.BooleanTransform = DS.Transform.extend({
+  deserialize: function(serialized) {
+    var type = typeof serialized;
+
+    if (type === "boolean") {
+      return serialized;
+    } else if (type === "string") {
+      return serialized.match(/^true$|^t$|^1$/i) !== null;
+    } else if (type === "number") {
+      return serialized === 1;
+    } else {
+      return false;
+    }
+  },
+
+  serialize: function(deserialized) {
+    return Boolean(deserialized);
+  }
+});
+
+})();
+
+
+
+(function() {
+DS.DateTransform = DS.Transform.extend({
+
+  deserialize: function(serialized) {
+    var type = typeof serialized;
+
+    if (type === "string") {
+      return new Date(Ember.Date.parse(serialized));
+    } else if (type === "number") {
+      return new Date(serialized);
+    } else if (serialized === null || serialized === undefined) {
+      // if the value is not present in the data,
+      // return undefined, not null.
+      return serialized;
+    } else {
+      return null;
+    }
+  },
+
+  serialize: function(date) {
+    if (date instanceof Date) {
+      var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+      var pad = function(num) {
+        return num < 10 ? "0"+num : ""+num;
+      };
+
+      var utcYear = date.getUTCFullYear(),
+          utcMonth = date.getUTCMonth(),
+          utcDayOfMonth = date.getUTCDate(),
+          utcDay = date.getUTCDay(),
+          utcHours = date.getUTCHours(),
+          utcMinutes = date.getUTCMinutes(),
+          utcSeconds = date.getUTCSeconds();
+
+
+      var dayOfWeek = days[utcDay];
+      var dayOfMonth = pad(utcDayOfMonth);
+      var month = months[utcMonth];
+
+      return dayOfWeek + ", " + dayOfMonth + " " + month + " " + utcYear + " " +
+             pad(utcHours) + ":" + pad(utcMinutes) + ":" + pad(utcSeconds) + " GMT";
+    } else {
+      return null;
+    }
+  } 
+
+});
+
+})();
+
+
+
+(function() {
+var empty = Ember.isEmpty;
+
+DS.NumberTransform = DS.Transform.extend({
+
+  deserialize: function(serialized) {
+    return empty(serialized) ? null : Number(serialized);
+  },
+
+  serialize: function(deserialized) {
+    return empty(deserialized) ? null : Number(deserialized);
+  }
+});
+})();
+
+
+
+(function() {
+var none = Ember.isNone, empty = Ember.isEmpty;
+
+DS.StringTransform = DS.Transform.extend({
+
+  deserialize: function(serialized) {
+    return none(serialized) ? null : String(serialized);
+  },
+
+  serialize: function(deserialized) {
+    return none(deserialized) ? null : String(deserialized);
+  }
+
+});
+})();
+
+
+
+(function() {
+
+})();
+
+
+
+(function() {
 /**
   @module ember-data
 */
@@ -718,7 +512,7 @@ var set = Ember.set;
   For example, imagine an Ember.js application with the following classes:
 
   App.Store = DS.Store.extend({
-    adapter: 'App.MyCustomAdapter'
+    adapter: 'custom'
   });
 
   App.PostsController = Ember.ArrayController.extend({
@@ -751,17 +545,16 @@ Ember.onLoad('Ember.Application', function(Application) {
     }
   });
 
-  // Keep ED compatible with previous versions of ember
-  // TODO: Remove the if statement for Ember 1.0
-  if (DS.DebugAdapter) {
-    Application.initializer({
-      name: "dataAdapter",
+  Application.initializer({
+    name: "transforms",
 
-      initialize: function(container, application) {
-        application.register('dataAdapter:main', DS.DebugAdapter);
-      }
-    });
-  }
+    initialize: function(container, application) {
+      application.register('transform:boolean', DS.BooleanTransform);
+      application.register('transform:date', DS.DateTransform);
+      application.register('transform:number', DS.NumberTransform);
+      application.register('transform:string', DS.StringTransform);
+    }
+  });
 
   Application.initializer({
     name: "dataAdapter",
@@ -1501,12 +1294,15 @@ DS.Store = Ember.Object.extend(DS._Mappable, {
     This property is cacheable, so the same instance of a specified
     adapter class should be used for the lifetime of the store.
 
-    @property _adapter
+    @property defaultAdapter
     @private
     @returns DS.Adapter
   */
-  _adapter: Ember.computed(function() {
+  defaultAdapter: Ember.computed(function() {
     var adapter = get(this, 'adapter');
+
+    Ember.assert('You tried to set `adapter` property to an instance of `DS.Adapter`, where it should be a name or a factory', !(adapter instanceof DS.Adapter));
+
     if (typeof adapter === 'string') {
       adapter = this.container.lookup('adapter:' + adapter) || this.container.lookup('adapter:application') || this.container.lookup('adapter:_rest');
     }
@@ -2027,6 +1823,8 @@ DS.Store = Ember.Object.extend(DS._Mappable, {
     @return {DS.RecordArray}
   */
   all: function(type) {
+    type = this.modelFor(type);
+
     var typeMap = this.typeMapFor(type),
         findAllCache = typeMap.findAllCache;
 
@@ -2566,7 +2364,7 @@ DS.Store = Ember.Object.extend(DS._Mappable, {
       adapter = container.lookup('adapter:' + type.typeKey) || container.lookup('adapter:application');
     }
 
-    return adapter || get(this, '_adapter');
+    return adapter || get(this, 'defaultAdapter');
   },
 
   // ..............................
@@ -2590,17 +2388,10 @@ DS.Store = Ember.Object.extend(DS._Mappable, {
     @param {String} type the record to serialize
   */
   serializerFor: function(type) {
-    var container = this.container;
+    type = this.modelFor(type);
+    var adapter = this.adapterForType(type);
 
-    // TODO: Make tests pass without this
-
-    if (!container) {
-      return DS.JSONSerializer.create({ store: this });
-    }
-
-    return container.lookup('serializer:'+type) ||
-           container.lookup('serializer:application') ||
-           container.lookup('serializer:_default');
+    return serializerFor(this.container, type.typeKey, adapter && adapter.defaultSerializer);
   }
 });
 
@@ -2621,15 +2412,20 @@ function isThenable(object) {
   return object && typeof object.then === 'function';
 }
 
-function serializerFor(adapter, type) {
+function serializerFor(container, type, defaultSerializer) {
+  return container.lookup('serializer:'+type) ||
+                 container.lookup('serializer:application') ||
+                 container.lookup('serializer:' + defaultSerializer) ||
+                 container.lookup('serializer:_default');
+}
+
+function serializerForAdapter(adapter, type) {
   var serializer = adapter.serializer,
       defaultSerializer = adapter.defaultSerializer,
       container = adapter.container;
 
   if (container && serializer === undefined) {
-    serializer = container.lookup('serializer:'+type.typeKey) ||
-                 container.lookup('serializer:application') ||
-                 container.lookup('serializer:' + defaultSerializer || 'serializer:_default');
+    serializer = serializerFor(container, type.typeKey, defaultSerializer);
   }
 
   if (serializer === null || serializer === undefined) {
@@ -2643,7 +2439,7 @@ function serializerFor(adapter, type) {
 
 function _find(adapter, store, type, id, resolver) {
   var promise = adapter.find(store, type, id),
-      serializer = serializerFor(adapter, type);
+      serializer = serializerForAdapter(adapter, type);
 
   return resolve(promise).then(function(payload) {
     Ember.assert("You made a request for a " + type.typeKey + " with id " + id + ", but the adapter's response did not have any data", payload);
@@ -2655,7 +2451,7 @@ function _find(adapter, store, type, id, resolver) {
 
 function _findMany(adapter, store, type, ids, owner, resolver) {
   var promise = adapter.findMany(store, type, ids, owner),
-      serializer = serializerFor(adapter, type);
+      serializer = serializerForAdapter(adapter, type);
 
   return resolve(promise).then(function(payload) {
     payload = serializer.extract(store, type, payload, null, 'findMany');
@@ -2666,7 +2462,7 @@ function _findMany(adapter, store, type, ids, owner, resolver) {
 
 function _findHasMany(adapter, store, record, link, relationship, resolver) {
   var promise = adapter.findHasMany(store, record, link, relationship),
-      serializer = serializerFor(adapter, relationship.type);
+      serializer = serializerForAdapter(adapter, relationship.type);
 
   return resolve(promise).then(function(payload) {
     payload = serializer.extract(store, relationship.type, payload, null, 'findHasMany');
@@ -2678,7 +2474,7 @@ function _findHasMany(adapter, store, record, link, relationship, resolver) {
 
 function _findAll(adapter, store, type, sinceToken, resolver) {
   var promise = adapter.findAll(store, type, sinceToken),
-      serializer = serializerFor(adapter, type);
+      serializer = serializerForAdapter(adapter, type);
 
   return resolve(promise).then(function(payload) {
     payload = serializer.extract(store, type, payload, null, 'findAll');
@@ -2691,7 +2487,7 @@ function _findAll(adapter, store, type, sinceToken, resolver) {
 
 function _findQuery(adapter, store, type, query, recordArray, resolver) {
   var promise = adapter.findQuery(store, type, query, recordArray),
-      serializer = serializerFor(adapter, type);
+      serializer = serializerForAdapter(adapter, type);
 
   return resolve(promise).then(function(payload) {
     payload = serializer.extract(store, type, payload, null, 'findAll');
@@ -2704,7 +2500,7 @@ function _findQuery(adapter, store, type, query, recordArray, resolver) {
 function _commit(adapter, store, operation, record, resolver) {
   var type = record.constructor,
       promise = adapter[operation](store, type, record),
-      serializer = serializerFor(adapter, type);
+      serializer = serializerForAdapter(adapter, type);
 
   Ember.assert("Your adapter's '" + operation + "' method must return a promise, but it returned " + promise, isThenable(promise));
 
@@ -2978,7 +2774,7 @@ var DirtyState = {
       get(record, 'store').reloadRecord(record, resolver);
     },
 
-    becameClean: function(record) {
+    rolledBack: function(record) {
       record.transitionTo('loaded.saved');
     },
 
@@ -3108,6 +2904,10 @@ var createdState = dirtyState({
   isNew: true
 });
 
+createdState.uncommitted.rolledBack = function(record) {
+  record.transitionTo('deleted.saved');
+};
+
 var updatedState = dirtyState({
   dirtyType: 'updated'
 });
@@ -3137,6 +2937,14 @@ var RootState = {
   isDeleted: false,
   isNew: false,
   isValid: true,
+
+  // DEFAULT EVENTS
+
+  // Trying to roll back if you're not in the dirty state
+  // doesn't change your state. For example, if you're in the
+  // in-flight state, rolling back the record doesn't move
+  // you out of the in-flight state.
+  rolledBack: Ember.K,
 
   // SUBSTATES
 
@@ -3301,7 +3109,7 @@ var RootState = {
       becomeDirty: Ember.K,
       deleteRecord: Ember.K,
 
-      becameClean: function(record) {
+      rolledBack: function(record) {
         record.transitionTo('loaded.saved');
       }
     },
@@ -3322,6 +3130,11 @@ var RootState = {
         record.transitionTo('saved');
 
         record.send('invokeLifecycleCallbacks');
+      },
+
+      becameError: function(record) {
+        record.transitionTo('uncommitted');
+        record.triggerLater('becameError', record);
       }
     },
 
@@ -3730,8 +3543,8 @@ DS.Model = Ember.Object.extend(Ember.Evented, {
   },
 
   rollback: function() {
-    this._setup();
-    this.send('becameClean');
+    this._attributes = {};
+    this.send('rolledBack');
 
     this.suspendRelationshipObservers(function() {
       this.notifyPropertyChange('data');
@@ -3962,19 +3775,28 @@ DS.Model.reopen({
   }
 });
 
-function getAttr(record, options, key) {
-  var attributes = get(record, 'data');
-  var value = attributes[key];
-
-  if (value === undefined) {
-    if (typeof options.defaultValue === "function") {
-      value = options.defaultValue();
-    } else {
-      value = options.defaultValue;
-    }
+function getDefaultValue(record, options, key) {
+  if (typeof options.defaultValue === "function") {
+    return options.defaultValue();
+  } else {
+    return options.defaultValue;
   }
+}
 
-  return value;
+function hasValue(record, key) {
+  return record._attributes.hasOwnProperty(key) ||
+         record._inFlightAttributes.hasOwnProperty(key) ||
+         record._data.hasOwnProperty(key);
+}
+
+function getValue(record, key) {
+  if (record._attributes.hasOwnProperty(key)) {
+    return record._attributes[key];
+  } else if (record._inFlightAttributes.hasOwnProperty(key)) {
+    return record._inFlightAttributes[key];
+  } else {
+    return record._data[key];
+  }
 }
 
 DS.attr = function(type, options) {
@@ -3987,17 +3809,19 @@ DS.attr = function(type, options) {
   };
 
   return Ember.computed(function(key, value, oldValue) {
+    var currentValue;
+
     if (arguments.length > 1) {
       Ember.assert("You may not set `id` as an attribute on your model. Please remove any lines that look like: `id: DS.attr('<type>')` from " + this.constructor.toString(), key !== 'id');
       this.send('didSetProperty', { name: key, oldValue: this._attributes[key] || this._inFlightAttributes[key] || this._data[key], value: value });
       this._attributes[key] = value;
-    } else if (this._attributes[key]) {
-      return this._attributes[key];
+      return value;
+    } else if (hasValue(this, key)) {
+      return getValue(this, key);
     } else {
-      value = getAttr(this, options, key);
+      return getDefaultValue(this, options, key);
     }
 
-    return value;
   // `data` is never set directly. However, it may be
   // invalidated from the state manager's setData
   // event.
@@ -4545,7 +4369,7 @@ function asyncBelongsTo(type, options, meta) {
         store = get(this, 'store');
 
     if (arguments.length === 2) {
-      Ember.assert("You can only add a '" + type + "' record to this relationship", !value || store.modelFor(type).detectInstance(value));
+      Ember.assert("You can only add a '" + type + "' record to this relationship", !value || value instanceof store.modelFor(type));
       return value === undefined ? null : value;
     }
 
@@ -4579,7 +4403,7 @@ DS.belongsTo = function(type, options) {
     }
 
     if (arguments.length === 2) {
-      Ember.assert("You can only add a '" + type + "' record to this relationship", !value || typeClass.detectInstance(value));
+      Ember.assert("You can only add a '" + type + "' record to this relationship", !value || value instanceof typeClass);
       return value === undefined ? null : value;
     }
 
@@ -5712,7 +5536,7 @@ DS.FixtureAdapter = DS.Adapter.extend({
     var fixtures = this.fixturesForType(type),
         fixture;
 
-    Ember.warn("Unable to find fixtures for model type " + type.toString(), fixtures);
+    Ember.assert("Unable to find fixtures for model type "+type.toString(), fixtures);
 
     if (fixtures) {
       fixture = Ember.A(fixtures).findProperty('id', id);
@@ -5734,7 +5558,7 @@ DS.FixtureAdapter = DS.Adapter.extend({
   findMany: function(store, type, ids) {
     var fixtures = this.fixturesForType(type);
 
-    Ember.assert("Unable to find fixtures for model type "+type.toString(), !!fixtures);
+    Ember.assert("Unable to find fixtures for model type "+type.toString(), fixtures);
 
     if (fixtures) {
       fixtures = fixtures.filter(function(item) {
@@ -5757,7 +5581,7 @@ DS.FixtureAdapter = DS.Adapter.extend({
   findAll: function(store, type) {
     var fixtures = this.fixturesForType(type);
 
-    Ember.assert("Unable to find fixtures for model type "+type.toString(), !!fixtures);
+    Ember.assert("Unable to find fixtures for model type "+type.toString(), fixtures);
 
     return this.simulateRemoteCall(function() {
       return fixtures;
@@ -5774,7 +5598,7 @@ DS.FixtureAdapter = DS.Adapter.extend({
   findQuery: function(store, type, query, array) {
     var fixtures = this.fixturesForType(type);
 
-    Ember.assert("Unable to find fixtures for model type "+type.toString(), !!fixtures);
+    Ember.assert("Unable to find fixtures for model type "+type.toString(), fixtures);
 
     fixtures = this.queryFixtures(fixtures, query, type);
 
@@ -5916,16 +5740,46 @@ DS.FixtureAdapter = DS.Adapter.extend({
 var get = Ember.get, set = Ember.set;
 var forEach = Ember.ArrayPolyfills.forEach;
 
-DS.rejectionHandler = function(reason) {
-  Ember.Logger.assert([reason, reason.message, reason.stack]);
-
-  throw reason;
-};
-
 function coerceId(id) {
   return id == null ? null : id+'';
 }
 
+/**
+  Normally, applications will use the `RESTSerializer` by implementing
+  the `normalize` method and individual normalizations under
+  `normalizeHash`.
+
+  This allows you to do whatever kind of munging you need, and is
+  especially useful if your server is inconsistent and you need to
+  do munging differently for many different kinds of responses.
+
+  See the `normalize` documentation for more information.
+
+  ## Across the Board Normalization
+
+  There are also a number of hooks that you might find useful to defined
+  across-the-board rules for your payload. These rules will be useful
+  if your server is consistent, or if you're building an adapter for
+  an infrastructure service, like Parse, and want to encode service
+  conventions.
+
+  For example, if all of your keys are underscored and all-caps, but
+  otherwise consistent with the names you use in your models, you
+  can implement across-the-board rules for how to convert an attribute
+  name in your model to a key in your JSON.
+
+  ```js
+  App.ApplicationSerializer = DS.RESTSerializer.extend({
+    keyForAttribute: function(attr) {
+      return Ember.String.underscore(attr).toUpperCase();
+    }
+  });
+  ```
+
+  You can also implement `keyForRelationship`, which takes the name
+  of the relationship as the first parameter, and the kind of
+  relationship (`hasMany` or `belongsTo`) as the second parameter.
+*/
 DS.RESTSerializer = DS.JSONSerializer.extend({
   /**
     Normalizes a part of the JSON payload returned by
@@ -5993,7 +5847,9 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
   */
   normalize: function(type, prop, hash) {
     this.normalizeId(hash);
-    this.normalizeAttributes(hash);
+    this.normalizeUsingDeclaredMapping(type, hash);
+    this.normalizeAttributes(type, hash);
+    this.normalizeRelationships(type, hash);
 
     if (this.normalizeHash && this.normalizeHash[prop]) {
       return this.normalizeHash[prop](hash);
@@ -6016,19 +5872,55 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
   },
 
   /**
+    @method normalizeUsingDeclaredMapping
+    @private
+  */
+  normalizeUsingDeclaredMapping: function(type, hash) {
+    var attrs = get(this, 'attrs'), payloadKey, key;
+
+    if (attrs) {
+      for (key in attrs) {
+        payloadKey = attrs[key];
+
+        hash[key] = hash[payloadKey];
+        delete hash[payloadKey];
+      }
+    }
+  },
+
+  /**
     @method normalizeAttributes
     @private
   */
-  normalizeAttributes: function(hash) {
-    var attrs = get(this, 'attrs');
+  normalizeAttributes: function(type, hash) {
+    var payloadKey, key;
 
-    if (!attrs) { return; }
+    if (this.keyForAttribute) {
+      type.eachAttribute(function(key) {
+        payloadKey = this.keyForAttribute(key);
+        if (key === payloadKey) { return; }
 
-    for (var key in attrs) {
-      var payloadKey = attrs[key];
+        hash[key] = hash[payloadKey];
+        delete hash[payloadKey];
+      }, this);
+    }
+  },
 
-      hash[key] = hash[payloadKey];
-      delete hash[payloadKey];
+  /**
+    @method normalizeRelationships
+    @private
+  */
+  normalizeRelationships: function(type, hash) {
+    var payloadKey, key;
+
+    if (this.keyForRelationship) {
+      type.eachRelationship(function(key, relationship) {
+        payloadKey = this.keyForRelationship(key, relationship.kind);
+        if (key === payloadKey) { return; }
+
+        hash[key] = hash[payloadKey];
+        delete hash[payloadKey];
+      }, this);
     }
   },
 
@@ -6428,6 +6320,18 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
   }
 });
 
+})();
+
+
+
+(function() {
+/**
+  @module ember-data
+*/
+
+var get = Ember.get, set = Ember.set;
+var forEach = Ember.ArrayPolyfills.forEach;
+
 /**
   The REST adapter allows your store to communicate with an HTTP server by
   transmitting JSON via XHR. Most Ember.js apps that consume a JSON API
@@ -6499,11 +6403,11 @@ DS.RESTSerializer = DS.JSONSerializer.extend({
 
   ### Host customization
 
-  An adapter can target other hosts by setting the `url` property.
+  An adapter can target other hosts by setting the `host` property.
 
   ```js
   DS.RESTAdapter.reopen({
-    url: 'https://api.example.com'
+    host: 'https://api.example.com'
   });
   ```
 
@@ -6585,7 +6489,7 @@ DS.RESTAdapter = DS.Adapter.extend({
     @returns Promise
   */
   findQuery: function(store, type, query) {
-    return this.ajax(this.buildURL(type), 'GET', query);
+    return this.ajax(this.buildURL(type), 'GET', { data: query });
   },
 
   /**
@@ -6625,7 +6529,7 @@ DS.RESTAdapter = DS.Adapter.extend({
     @returns Promise
   */
   findMany: function(store, type, ids) {
-    return this.ajax(this.buildURL(type), 'GET', { ids: ids });
+    return this.ajax(this.buildURL(type), 'GET', { data: { ids: ids } });
   },
 
   /**
@@ -6681,7 +6585,7 @@ DS.RESTAdapter = DS.Adapter.extend({
   */
   createRecord: function(store, type, record) {
     var data = {};
-    data[type.typeKey] = this.serializerFor(type.typeKey).serialize(record, { includeId: true });
+    data[type.typeKey] = store.serializerFor(type.typeKey).serialize(record, { includeId: true });
 
     return this.ajax(this.buildURL(type), "POST", { data: data });
   },
@@ -6705,7 +6609,7 @@ DS.RESTAdapter = DS.Adapter.extend({
   */
   updateRecord: function(store, type, record) {
     var data = {};
-    data[type.typeKey] = this.serializerFor(type.typeKey).serialize(record);
+    data[type.typeKey] = store.serializerFor(type.typeKey).serialize(record);
 
     var id = get(record, 'id');
 
@@ -6747,19 +6651,21 @@ DS.RESTAdapter = DS.Adapter.extend({
     @returns String
   */
   buildURL: function(type, id) {
-    var url = "/" + Ember.String.pluralize(type.typeKey);
-    if (id) { url += "/" + id; }
+    var host = get(this, 'host'),
+        namespace = get(this, 'namespace'),
+        url = [];
+
+    if (host) { url.push(host); }
+    if (namespace) { url.push(namespace); }
+
+    url.push(Ember.String.pluralize(type.typeKey));
+    if (id) { url.push(id); }
+
+    url = url.join('/');
+    if (!host) { url = '/' + url; }
 
     return url;
   },
-
-  serializerFor: function(type) {
-    // This logic has to be kept in sync with DS.Store#serializerFor
-    return this.container.lookup('serializer:' + type) ||
-           this.container.lookup('serializer:application') ||
-           this.container.lookup('serializer:_rest');
-  },
-
 
   /**
     Takes a URL, an HTTP method and a hash of data, and makes an
@@ -6946,3 +6852,242 @@ DS.Model.reopen({
 
 })();
 
+(function() {
+Ember.String.pluralize = function(word) {
+  return Ember.Inflector.inflector.pluralize(word);
+};
+
+Ember.String.singularize = function(word) {
+  return Ember.Inflector.inflector.singularize(word);
+};
+
+})();
+
+
+
+(function() {
+var BLANK_REGEX = /^\s*$/;
+
+function loadUncountable(rules, uncountable) {
+  for (var i = 0, length = uncountable.length; i < length; i++) {
+    rules.uncountable[uncountable[i]] = true;
+  }
+}
+
+function loadIrregular(rules, irregularPairs) {
+  var pair;
+
+  for (var i = 0, length = irregularPairs.length; i < length; i++) {
+    pair = irregularPairs[i];
+
+    rules.irregular[pair[0]] = pair[1];
+    rules.irregularInverse[pair[1]] = pair[0];
+  }
+}
+
+function Inflector(ruleSet) {
+  ruleSet = ruleSet || {};
+  ruleSet.uncountable = ruleSet.uncountable || {};
+  ruleSet.irregularPairs= ruleSet.irregularPairs|| {};
+
+  var rules = this.rules = {
+    plurals:  ruleSet.plurals || [],
+    singular: ruleSet.singular || [],
+    irregular: {},
+    irregularInverse: {},
+    uncountable: {}
+  };
+
+  loadUncountable(rules, ruleSet.uncountable);
+  loadIrregular(rules, ruleSet.irregularPairs);
+}
+
+Inflector.prototype = {
+  pluralize: function(word) {
+    return this.inflect(word, this.rules.plurals);
+  },
+
+  singularize: function(word) {
+    return this.inflect(word, this.rules.singular);
+  },
+
+  inflect: function(word, typeRules) {
+    var inflection, substitution, result, lowercase, isBlank,
+    isUncountable, isIrregular, isIrregularInverse, rule;
+
+    isBlank = BLANK_REGEX.test(word);
+
+    if (isBlank) {
+      return word;
+    }
+
+    lowercase = word.toLowerCase();
+
+    isUncountable = this.rules.uncountable[lowercase];
+
+    if (isUncountable) {
+      return word;
+    }
+
+    isIrregular = this.rules.irregular[lowercase];
+
+    if (isIrregular) {
+      return isIrregular;
+    }
+
+    isIrregularInverse = this.rules.irregularInverse[lowercase];
+
+    if (isIrregularInverse) {
+      return isIrregularInverse;
+    }
+
+    for (var i = typeRules.length, min = 0; i > min; i--) {
+       inflection = typeRules[i-1];
+       rule = inflection[0];
+
+      if (rule.test(word)) {
+        break;
+      }
+    }
+
+    inflection = inflection || [];
+
+    rule = inflection[0];
+    substitution = inflection[1];
+
+    result = word.replace(rule, substitution);
+
+    return result;
+  }
+};
+
+Ember.Inflector = Inflector;
+
+})();
+
+
+
+(function() {
+Ember.Inflector.defaultRules = {
+  plurals: [
+    [/$/, 's'],
+    [/s$/i, 's'],
+    [/^(ax|test)is$/i, '$1es'],
+    [/(octop|vir)us$/i, '$1i'],
+    [/(octop|vir)i$/i, '$1i'],
+    [/(alias|status)$/i, '$1es'],
+    [/(bu)s$/i, '$1ses'],
+    [/(buffal|tomat)o$/i, '$1oes'],
+    [/([ti])um$/i, '$1a'],
+    [/([ti])a$/i, '$1a'],
+    [/sis$/i, 'ses'],
+    [/(?:([^f])fe|([lr])f)$/i, '$1$2ves'],
+    [/(hive)$/i, '$1s'],
+    [/([^aeiouy]|qu)y$/i, '$1ies'],
+    [/(x|ch|ss|sh)$/i, '$1es'],
+    [/(matr|vert|ind)(?:ix|ex)$/i, '$1ices'],
+    [/^(m|l)ouse$/i, '$1ice'],
+    [/^(m|l)ice$/i, '$1ice'],
+    [/^(ox)$/i, '$1en'],
+    [/^(oxen)$/i, '$1'],
+    [/(quiz)$/i, '$1zes']
+  ],
+
+  singular: [
+    [/s$/i, ''],
+    [/(ss)$/i, '$1'],
+    [/(n)ews$/i, '$1ews'],
+    [/([ti])a$/i, '$1um'],
+    [/((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)(sis|ses)$/i, '$1sis'],
+    [/(^analy)(sis|ses)$/i, '$1sis'],
+    [/([^f])ves$/i, '$1fe'],
+    [/(hive)s$/i, '$1'],
+    [/(tive)s$/i, '$1'],
+    [/([lr])ves$/i, '$1f'],
+    [/([^aeiouy]|qu)ies$/i, '$1y'],
+    [/(s)eries$/i, '$1eries'],
+    [/(m)ovies$/i, '$1ovie'],
+    [/(x|ch|ss|sh)es$/i, '$1'],
+    [/^(m|l)ice$/i, '$1ouse'],
+    [/(bus)(es)?$/i, '$1'],
+    [/(o)es$/i, '$1'],
+    [/(shoe)s$/i, '$1'],
+    [/(cris|test)(is|es)$/i, '$1is'],
+    [/^(a)x[ie]s$/i, '$1xis'],
+    [/(octop|vir)(us|i)$/i, '$1us'],
+    [/(alias|status)(es)?$/i, '$1'],
+    [/^(ox)en/i, '$1'],
+    [/(vert|ind)ices$/i, '$1ex'],
+    [/(matr)ices$/i, '$1ix'],
+    [/(quiz)zes$/i, '$1'],
+    [/(database)s$/i, '$1']
+  ],
+
+  irregularPairs: [
+    ['person', 'people'],
+    ['man', 'men'],
+    ['child', 'children'],
+    ['sex', 'sexes'],
+    ['move', 'moves'],
+    ['cow', 'kine'],
+    ['zombie', 'zombies']
+  ],
+
+  uncountable: [
+    'equipment',
+    'information',
+    'rice',
+    'money',
+    'species',
+    'series',
+    'fish',
+    'sheep',
+    'jeans',
+    'police'
+  ]
+};
+
+})();
+
+
+
+(function() {
+if (Ember.EXTEND_PROTOTYPES) {
+  /**
+    See {{#crossLink "Ember.String/pluralize"}}{{/crossLink}}
+
+    @method pluralize
+    @for String
+  */
+  String.prototype.pluralize = function() {
+    return Ember.String.pluralize(this);
+  };
+
+  /**
+    See {{#crossLink "Ember.String/singularize"}}{{/crossLink}}
+
+    @method singularize
+    @for String
+  */
+  String.prototype.singularize = function() {
+    return Ember.String.singularize(this);
+  };
+}
+
+})();
+
+
+
+(function() {
+Ember.Inflector.inflector = new Ember.Inflector(Ember.Inflector.defaultRules);
+
+})();
+
+
+
+(function() {
+
+})();
+
+
+})();

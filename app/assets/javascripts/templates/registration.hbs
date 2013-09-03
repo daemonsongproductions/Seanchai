@@ -6,25 +6,18 @@
       </div>
     {{/if}}
   <div class="control-group">
-    <label class="control-label" for="email">Username</label>
+    <label class="control-label" for="username">Username</label>
     <div class="controls">
         {{view Em.TextField valueBinding="username" id="username" action="register"}}
     </div>
   </div>
-  <div class="control-group">
-    <label class="control-label" for="email">Email</label>
-    <div class="controls">
-        {{view Em.TextField valueBinding="email" id="email" action="register"}}
-      <br/>
-      (we won't use your email for anything but password recovery unless you tell us otherwise)
-    </div>
-  </div>
+    {{view Seanchai.RequiredTextField valueBinding="email" fieldId="email"}}
   <div class="control-group">
     <label class="control-label" for="password">Password</label>
     <div class="controls">
       {{view Ember.TextField valueBinding="password" type="password" id="password" action="register"}}
       <br/>
-      (at least 6 chars)
+      (at least 8 chars)
     </div>
 
   </div>

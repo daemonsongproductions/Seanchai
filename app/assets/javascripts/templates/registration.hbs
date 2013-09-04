@@ -5,28 +5,10 @@
           {{errorMsg}}
       </div>
     {{/if}}
-  <div class="control-group">
-    <label class="control-label" for="username">Username</label>
-    <div class="controls">
-        {{view Em.TextField valueBinding="username" id="username" action="register"}}
-    </div>
-  </div>
-    {{view Seanchai.RequiredTextField valueBinding="email" fieldId="email" action="register"}}
-  <div class="control-group">
-    <label class="control-label" for="password">Password</label>
-    <div class="controls">
-      {{view Ember.TextField valueBinding="password" type="password" id="password" action="register"}}
-      <br/>
-      (at least 8 chars)
-    </div>
-
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="password_confirmation">Confirm Password</label>
-    <div class="controls">
-      {{view Ember.TextField valueBinding="password_confirmation" type="password" id="password_confirmation" action="register"}}
-    </div>
-  </div>
+    {{view Seanchai.RequiredTextField valueBinding="username" fieldId="username" action="register" label="Username"}}
+    {{view Seanchai.RequiredTextField valueBinding="email" fieldId="email" action="register" label="Email"}}
+    {{view Seanchai.RequiredTextField valueBinding="password" fieldId="password" action="register" label="Password" type="password" viewName="passwordField"}}
+    {{view Seanchai.ConfirmationTextField valueBinding="password_confirmation" fieldId="password_confirmation" action="register" type="password" label="Confirm Password" confirmFieldBinding="view.passwordField"}}
   <div class="form-actions">
     <input {{action register}} type="submit" class="btn btn-primary" value="Register" />
     <input {{action cancel}} type="submit" class="btn" value="Cancel" />

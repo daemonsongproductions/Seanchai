@@ -24,6 +24,6 @@ Seanchai.LoginRoute = Ember.Route.extend({
 
 Seanchai.RegistrationRoute = Ember.Route.extend({
   model: function() {
-    return Ember.Object.create();
+    return Ember.Object.create({email: "", username:"", password: "", password_confirmation: ""});
   }
 });

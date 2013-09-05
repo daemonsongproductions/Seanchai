@@ -3,8 +3,8 @@ class Member < Role
 
   protected
 
-  def permit_class
-    MemberPermit
+  def role_permit(user)
+    Permits::MemberPermit.new(user)
   end
 
 end

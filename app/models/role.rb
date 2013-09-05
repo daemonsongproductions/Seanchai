@@ -3,13 +3,13 @@ class Role
   embedded_in :user
 
   def permissions_for(user)
-    @permit ||= permit_class.new(user)
+    @permit ||= role_permit(user)
   end
 
   protected
 
-  def permit_class
-    BasePermit
+  def role_permit(user)
+    BasePermit.new
   end
 
 end

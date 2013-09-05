@@ -10,6 +10,9 @@ Seanchai.RequiredTextField = Ember.View.extend({
   focusOut: function(){
     this.set('changed', true);
   },
+  formError: function(){
+    this.set('changed', (this.get('controller').get('errorMsg')).length > 0)
+  }.observes("controller.content.errorMsg"),
   displayValidationMessage: function(){
     return(this.get('invalid') && this.get('changed'));
   }.property("invalid", "changed"),

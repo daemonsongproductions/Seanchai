@@ -1,4 +1,9 @@
 <label class="control-label" {{bindAttr for='view.inputElement.elementId'}}>{{view.label}}</label>
 <div {{bind-attr class=":controls view.invalid"}}>
     {{view Em.TextField valueBinding='view.value' nameBinding='view.fieldId' typeBinding="view.type" viewName="inputElement" actionBinding="view.action"}}
+  {{#if view.displayValidationMessage}}
+    <span class="help-inline">
+        {{view.validationMessage}}
+    </span>
+  {{/if}}
 </div>

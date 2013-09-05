@@ -5,7 +5,7 @@ Seanchai.ConfirmationTextField = Ember.View.extend({
   changed: false,
   invalid: true,
   validationMessage: function(){
-    return this.get('label') + " has to match what you entered in" + this.confirmField.get('label') + ".";
+    return this.get('label') + " has to match what you entered in " + this.confirmField.get('label') + ".";
   }.property("displayValidationMessage"),
   focusOut: function(){
     this.set('changed', true);

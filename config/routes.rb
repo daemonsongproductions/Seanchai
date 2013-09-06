@@ -5,8 +5,10 @@ Seanchai::Application.routes.draw do
 
   resources :users, only: [:create]
   resources :sessions, only: [:create, :destroy]
-  resources :stories
-  resources :story_sections
+
+  get 'users/:username' => 'users#show'
+  get 'users/:username/edit'  => 'users#edit'
+  put 'users/:username' => 'users#update'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

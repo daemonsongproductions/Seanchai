@@ -1,4 +1,4 @@
-class GuestPermit < BasePermit
+class GuestPermit < Permits::BasePermit
 
   def initialize(user)
     allow :stories, [:index, :show]

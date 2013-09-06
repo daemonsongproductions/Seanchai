@@ -23,7 +23,7 @@ gem "email_spec", ">= 1.2.1", :group => :test
 gem "cucumber-rails", ">= 1.3.0", :group => :test, :require => false
 gem "launchy", ">= 2.1.2", :group => :test
 gem "factory_girl_rails", ">= 4.0.0", :group => [:development, :test]
-gem "devise", ">= 2.1.2"
+gem "devise", "~> 3.0.3"
 gem "ember-rails"
 gem "ember-source", "~>1.0.0"
 gem "haml"

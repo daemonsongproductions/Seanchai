@@ -9,7 +9,7 @@ class Role
   protected
 
   def role_permit(user)
-    BasePermit.new
+    Permits::BasePermit.new
   end
 
 end

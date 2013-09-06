@@ -1,4 +1,4 @@
-class AdminPermit < BasePermit
+class AdminPermit < Permits::BasePermit
 
   def initialize(user)
     @allow_all = true

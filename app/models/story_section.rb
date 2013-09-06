@@ -9,7 +9,7 @@ class StorySection
   field :title_format, type: String, default: "[title]"
   field :body, type: String
   field :include_in_toc, type: Boolean, default: true
-  field :publication_date, type: TimeWithZone
+  field :publication_date, type: ActiveSupport::TimeWithZone
   field :order, type: Integer
   validates_presence_of :order
   validates_uniqueness_of :order, :scope => :story

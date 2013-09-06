@@ -47,7 +47,15 @@ class User
   embeds_one :role, class_name: "Role", inverse_of: nil
   before_create :set_default_role
 
+  index({username: 1}, {unique: true})
+
   attr_accessible :username, :name, :email, :password, :password_confirmation, :remember_me
+
+
+
+  def self.find_by_username(username)
+    self.find_by(username: username)
+  end
 
   def set_default_role
     self.role ||= default_role

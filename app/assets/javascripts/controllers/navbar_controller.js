@@ -5,6 +5,13 @@ Seanchai.NavbarController = Ember.ObjectController.extend({
     log.info("NavbarController authent");
     return this.get("authState") === Seanchai.LoginStateManager.authenticated;
   }).property("authState"),
+  user: (function() {
+    if (this.get("authState") === Seanchai.LoginStateManager.authenticated) {
+      return Seanchai.currentUser;
+    } else {
+      return null;
+    }
+  }).property("authState"),
   actions: {
     logout: function() {
       var me;
@@ -13,6 +20,9 @@ Seanchai.NavbarController = Ember.ObjectController.extend({
       return Seanchai.Authentication.logout(function() {
         return me.transitionToRoute("home");
       });
+    },
+    profile: function() {
+      this.transitionToRoute('user', this.get('user'))
     }
   }
 });

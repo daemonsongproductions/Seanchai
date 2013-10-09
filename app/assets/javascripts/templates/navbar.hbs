@@ -7,6 +7,7 @@
       </ul>
       <div class="btn-group pull-right">
         {{#if authenticated}}
+          <button class="btn" {{action profile}}>Profile</button>
             <button class="btn" {{action logout}}>Logout</button>
         {{else}}
             {{view Seanchai.MenuItem href="#/login" label="Login" }}

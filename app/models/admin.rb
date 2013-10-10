@@ -3,8 +3,9 @@ class Admin < Role
 
   protected
 
-  def permit_class
-    AdminPermit
+  def role_permit(user)
+    Permits::AdminPermit.new(user)
   end
+
 
 end

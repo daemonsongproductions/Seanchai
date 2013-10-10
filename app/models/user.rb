@@ -57,12 +57,22 @@ class User
     self.find_by(username: username)
   end
 
+  def self.guest_user
+    guest = User.new
+    guest.role = Guest.new
+    guest
+  end
+
   def set_default_role
     self.role ||= default_role
   end
 
   def email_required?
     false
+  end
+
+  def permissions
+    role.permissions_for(self)
   end
 
 

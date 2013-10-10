@@ -7,6 +7,7 @@ Seanchai.Router.map(function() {
 
   this.resource('users', function() {
     this.resource('user', {path: ':username'})
+    this.resource('edit_user', {path: ':username/edit'})
   });
 });
 

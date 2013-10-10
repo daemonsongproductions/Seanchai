@@ -9,8 +9,14 @@ class ApplicationController < ActionController::Base
   delegate :allow_param?, to: :current_permission
   helper_method :allow_param?
 
+  before_filter :set_guest_user
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :authorize
+
+
+  def set_guest_user
+    sign_in(User.guest_user) if current_user.blank?
+  end
 
   def current_permission
     user = current_user.nil? ? User.guest_user : current_user

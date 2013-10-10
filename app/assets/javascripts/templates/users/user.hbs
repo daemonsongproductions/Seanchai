@@ -7,4 +7,9 @@
   <div class="span1">Email: </div>
   <div class="span1">{{controller.email}}</div>
 </div>
+{{#if controller.editable}}
+  <div class="row-fluid">
+    {{#link-to 'edit_user' controller}}Edit{{/link-to}}
+  </div>
+{{/if}}
 

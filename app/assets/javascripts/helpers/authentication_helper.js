@@ -38,7 +38,8 @@ Seanchai.Authentication.register = function(controller) {
       "user[password_confirmation]": controller.get('password_confirmation')
     },
     success: function(data) {
-      Seanchai.currentUser = data.user;
+      Seanchai.currentUser = data.user
+      Seanchai.currentUser.editable = true;
       Seanchai.LoginStateManager.transitionTo("authenticated");
       return controller.transitionToRoute('home');
     },

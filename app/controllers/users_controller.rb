@@ -9,7 +9,11 @@ class UsersController < Devise::SessionsController
   end
 
   def edit
-
+    @user = User.find_by_username(params[:username])
+    respond_to do |format|
+      format.html
+      format.json { render json: @user }
+    end
   end
 
   def update

@@ -1,17 +1,14 @@
 <h3>{{controller.username}}</h3>
 <div class="row-fluid">
   <div class="span1">Name: </div>
-  <div class="span1">{{controller.name}}</div>
+  <div class="span1">{{view Em.TextField valueBinding="name" id="name" action="login"}}</div>
 </div>
 <div class="row-fluid">
   <div class="span1">Email: </div>
-  <div class="span1">{{controller.email}}</div>
+  <div class="span1">{{view Em.TextField valueBinding="email" id="email" action="login"}}</div>
 </div>
-{{#if controller.canEdit}}
-  <div class="row-fluid">
-    <div class="span1">{{#link-to 'edit_user' controller classNames="btn"}}Edit{{/link-to}}</div>
+<div class="row-fluid">
+  <div class="span1">
+    <input {{action save}} type="submit" class="btn btn-primary" value="Save" />
   </div>
-{{/if}}
-
-{{Seanchai.currentUser.administrator}}
-
+</div>

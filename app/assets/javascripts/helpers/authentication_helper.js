@@ -11,7 +11,7 @@ Seanchai.Authentication.login = function(controller) {
     },
     success: function(data) {
       log.log("Login Msg " + data.user.dummy_msg);
-      Seanchai.currentUser = data.user;
+      Seanchai.currentUser = controller.store.find('user', data.user.username);
       Seanchai.LoginStateManager.transitionTo("authenticated");
       return controller.transitionToRoute('home');
     },
@@ -38,8 +38,7 @@ Seanchai.Authentication.register = function(controller) {
       "user[password_confirmation]": controller.get('password_confirmation')
     },
     success: function(data) {
-      Seanchai.currentUser = data.user
-      Seanchai.currentUser.editable = true;
+      Seanchai.currentUser = controller.store.find('user', data.user.username);
       Seanchai.LoginStateManager.transitionTo("authenticated");
       return controller.transitionToRoute('home');
     },

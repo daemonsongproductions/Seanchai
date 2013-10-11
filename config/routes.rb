@@ -9,6 +9,7 @@ Seanchai::Application.routes.draw do
     get 'users/:username' => 'users#show'
     get 'users/:username/edit'  => 'users#edit'
     put 'users/:username' => 'users#update'
+    get 'current_user' => 'users#get_current_user'
   end
 
   # The priority is based upon order of creation:

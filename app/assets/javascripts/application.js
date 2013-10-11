@@ -23,3 +23,5 @@ Seanchai = Ember.Application.create({
   LOG_BINDINGS: true
 });
 
+Ember.Inflector.inflector.irregular('current_user', 'current_user');
+

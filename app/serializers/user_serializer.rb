@@ -9,8 +9,4 @@ class UserSerializer < ActiveModel::Serializer
     current_user.role.permissions_for(current_user).allow?(:users, :edit, object)
   end
 
-  def administrable
-    current_user.role.permissions_for(current_user).allow_param?(:topic, :role)
-  end
-
 end

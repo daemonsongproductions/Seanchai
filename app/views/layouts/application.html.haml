@@ -10,8 +10,3 @@
         = yield(:head)
   %body
     = yield
-
-:javascript
-  Seanchai.ready = function() {
-    Seanchai.initApp(jQuery.parseJSON('#{current_user_json}'))
-  }

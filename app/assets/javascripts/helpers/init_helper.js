@@ -7,7 +7,7 @@ Seanchai.initApp = function(currentUser) {
 
 Seanchai.initCurrentUser = function(currentUser) {
   log.info("current user: ", currentUser);
-  if (currentUser != null ? currentUser.username : void 0) {
+  if (currentUser != null ? currentUser.get('username') : void 0) {
     return Seanchai.currentUser = currentUser;
   }
 };

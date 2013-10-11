@@ -20,4 +20,11 @@ class UsersController < Devise::SessionsController
 
   end
 
+
+  def get_current_user
+    respond_to do |format|
+      format.json { render json: [current_user], root: 'current_user' }
+    end
+  end
+
 end

@@ -17,14 +17,31 @@ class UsersController < Devise::SessionsController
   end
 
   def update
+    @user = User.find_by_username(params[:username])
+    user_params = params["user"].symbolize_keys
+
+    respond_to do |format|
+      if @user.update_attributes(name: user_params[:name], email: user_params[:email])
+        format.json { render json: @user }
+      else
+        format.html { render :action => "edit" }
+        format.json  { render :json => @user.errors, :status => :unprocessable_entity }
+      end
+    end
 
   end
 
 
-  def get_current_user
+  def show_current_user
     respond_to do |format|
-      format.json { render json: [current_user], root: 'current_user' }
+      format.json { render json: current_user, root: 'user' }
     end
+  end
+
+  private
+
+  def current_resource
+    @current_resource ||= User.find_by_username(params[:username]) if params[:username]
   end
 
 end

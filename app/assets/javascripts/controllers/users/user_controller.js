@@ -4,7 +4,6 @@ Seanchai.UserController = Ember.ObjectController.extend({
     return Seanchai.currentUser.get('username') === this.get('username');
   }.property("this"),
   canEdit: function(){
-    debugger;
     return (this.get('isMe') === true || Seanchai.currentUser.get('administrator') === true )
   }.property("this")
 });

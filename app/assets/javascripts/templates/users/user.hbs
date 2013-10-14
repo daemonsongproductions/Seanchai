@@ -9,9 +9,7 @@
 </div>
 {{#if controller.canEdit}}
   <div class="row-fluid">
-    <div class="span1">{{#link-to 'edit_user' controller classNames="btn"}}Edit{{/link-to}}</div>
+    <div class="span1">{{#link-to 'edit_user' controller.model classNames="btn"}}Edit{{/link-to}}</div>
   </div>
 {{/if}}
-
-{{Seanchai.currentUser.administrator}}
 

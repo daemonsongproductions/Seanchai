@@ -7,7 +7,7 @@ Seanchai.EditUserController = Ember.ObjectController.extend({
     },
     save: function() {
       log.info("submitting user update...");
-      this.save().then(null, function() {
+      this.get("model").save().then(null, function() {
         this.transitionToRoute('user', this);
       });
     }

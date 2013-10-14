@@ -19,8 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_permission
-    user = current_user.nil? ? User.guest_user : current_user
-    @current_permission ||= user.permissions
+    @current_permission ||= current_user.permissions
   end
 
   def current_resource

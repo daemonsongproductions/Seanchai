@@ -13,5 +13,3 @@ Seanchai.User = DS.Model.extend({
     }
   }.property('permit')
 });
-
-Seanchai.CurrentUser = Seanchai.User.extend({});

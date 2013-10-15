@@ -1,4 +1,9 @@
-<h3>{{controller.username}}</h3>
+<legend>{{controller.username}}</legend>
+{{#if errorMsg}}
+  <div class="alert alert-error">
+      {{errorMsg}}
+  </div>
+{{/if}}
 <div class="row-fluid">
   <div class="span1">Name: </div>
   <div class="span1">{{view Em.TextField valueBinding="name" id="name" action="login"}}</div>

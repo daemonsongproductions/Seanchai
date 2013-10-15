@@ -10,6 +10,7 @@ class User
   ## Database authenticatable
   field :username,           :type => String, :default => ""
   validates_presence_of :username
+  validates_presence_of :email
   validates_uniqueness_of :username, :case_sensitive => true
   field :name,               :type => String, :default => ""
   field :email,              :type => String, :default => ""

@@ -25,7 +25,7 @@ class UsersController < Devise::SessionsController
         format.json { render json: @user }
       else
         format.html { render :action => "edit" }
-        format.json  { render :json => @user.errors, :status => :unprocessable_entity }
+        format.json  { render :json => {error_message: "We had a problem saving this user. Please be sure all required fields are complete."}, :status => :unprocessable_entity }
       end
     end
 

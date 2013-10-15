@@ -1,0 +1,9 @@
+<ul>
+  {{#each controller}}
+    {{#if username}}
+      <li>
+        {{#link-to 'user' this}}{{username}}{{/link-to}} - {{email}}
+      </li>
+    {{/if}}
+  {{/each}}
+</ul>

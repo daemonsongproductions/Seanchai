@@ -6,6 +6,7 @@ Seanchai::Application.routes.draw do
   resources :users, only: [:create]
   resources :sessions, only: [:create, :destroy]
   devise_scope :user do
+    get 'users' => "users#index"
     get 'users/current_user' => 'users#show_current_user'
     get 'users/:username' => 'users#show'
     get 'users/:username/edit'  => 'users#edit'

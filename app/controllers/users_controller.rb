@@ -1,5 +1,11 @@
 class UsersController < Devise::SessionsController
 
+  def index
+    respond_to do |format|
+      format.json {render json: User.where(:username.ne => "")}
+    end
+  end
+
   def show
     @user = User.find_by_username(params[:username])
     respond_to do |format|

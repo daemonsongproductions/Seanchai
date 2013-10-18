@@ -5,8 +5,11 @@ class Story
   field :title, type: String
   validates_presence_of :title
   field :copyright, type: String
+  field :license, type: String
   field :description, type: String
   field :publication_date, type: ActiveSupport::TimeWithZone, default: nil
+  # TODO: Status field
+  # TODO: Meta fields possibly
 
   has_many :story_sections
   has_one :creator, :class_name => "User", :inverse_of => nil

@@ -16,7 +16,8 @@ class StorySection
   validates_uniqueness_of :order, :scope => :story
 
   # TODO: Status field
-  # TODO: Meta fields
+  # Meta fields will store :name, :value and :show
+  field :meta, type: Hash
 
   field :body, type: String
 

@@ -12,7 +12,9 @@ class Story
   # Meta fields will store :name, :value and :display
   # TODO: Validate hash fields are correct: "validate :check_meta"
   field :meta, type: Hash
-  # TODO: Status field
+
+  # Access by: status_id = Status[:published].id
+  field :status_id, type: Integer
 
   has_many :story_sections
   has_one :creator, :class_name => "User", :inverse_of => nil

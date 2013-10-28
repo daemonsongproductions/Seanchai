@@ -15,7 +15,8 @@ class StorySection
   validates_presence_of :order
   validates_uniqueness_of :order, :scope => :story
 
-  # TODO: Status field
+  # Access by: status_id = Status[:published].id
+  field :status_id, type: Integer
 
   # Meta fields will store :name, :value and :display
   # TODO: Validate hash fields are correct: "validate :check_meta"

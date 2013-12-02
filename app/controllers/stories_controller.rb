@@ -18,8 +18,14 @@ class StoriesController < ApplicationController
   end
 
   def create
-
-
+    @story = Story.new(params[:story].merge(creator: current_user))
+    respond_to do |format|
+      if @story.save
+        format.json { render json: @story, status: :ok }
+      else
+        format.json { render json: @story.errors, status: :unprocessable_entity }
+      end
+    end
 
   end
 

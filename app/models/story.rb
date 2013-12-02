@@ -25,10 +25,6 @@ class Story
 
   attr_accessor :creator
 
-  def self.new(params)
-
-  end
-
   def self.find_for_user(user)
     Story.or({created_by: user}, {editors: user})
   end

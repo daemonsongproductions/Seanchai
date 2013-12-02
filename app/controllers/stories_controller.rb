@@ -19,6 +19,8 @@ class StoriesController < ApplicationController
 
   def create
 
+
+
   end
 
   def edit

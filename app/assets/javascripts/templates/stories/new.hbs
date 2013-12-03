@@ -1,1 +1,13 @@
-NEW STORIES
+<div class="form-horizontal">
+  <legend>Add a Story</legend>
+  {{#if errorMsg}}
+    <div class="alert alert-error">
+      {{errorMsg}}
+    </div>
+  {{/if}}
+  {{view Seanchai.RequiredTextField valueBinding="title" fieldId="title" action="create" label="Title"}}
+  <div class="form-actions">
+    <input {{action submit}} type="submit" class="btn btn-primary" value="Register" />
+    <input {{action cancel}} type="submit" class="btn" value="Cancel" />
+  </div>
+</div>

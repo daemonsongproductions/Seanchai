@@ -12,7 +12,7 @@ Seanchai.NewStoryView = Ember.View.extend({
     this.$('input:first').focus();
   },
 
-  cancelForm: function(){
+  cancel: function(){
     this.get('parentView').hideNew();
   },
 

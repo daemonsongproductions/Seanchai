@@ -9,7 +9,13 @@ Seanchai.Router.map(function() {
     this.resource('user', {path: ':username'})
     this.resource('edit_user', {path: ':username/edit'})
   });
+
+  this.resource('stories', function(){
+    this.route('new');
+  });
+
 });
+
 
 Seanchai.IndexRoute = Ember.Route.extend({
   redirect: function() {

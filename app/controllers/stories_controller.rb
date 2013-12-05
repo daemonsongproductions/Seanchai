@@ -18,7 +18,8 @@ class StoriesController < ApplicationController
   end
 
   def create
-    @story = Story.new(params[:story].merge(creator: current_user))
+    @story = Story.new(story_params.merge(creator: current_user))
+
     respond_to do |format|
       if @story.save
         format.json { render json: @story, status: :ok }
@@ -43,6 +44,14 @@ class StoriesController < ApplicationController
         format.json { render json: @story.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  private
+  # Using a private method to encapsulate the permissible parameters is just a good pattern
+  # since you'll be able to reuse the same permit list between create and update. Also, you
+  # can specialize this method with per-user checking of permissible attributes.
+  def story_params
+    params.require(:story).permit(:title, :creator)
   end
 
 end

@@ -17,16 +17,14 @@ class Story
   field :status_id, type: Integer
 
   has_many :story_sections
-  has_one :creator, :class_name => "User", :inverse_of => nil
+  belongs_to :creator, class_name: "User", inverse_of: :created_stories
   validates_presence_of :creator
 
   # TODO: Add ability for other users to be editors
-  has_many :editors, :class_name => "User", :inverse_of => nil
-
-  attr_accessor :creator
+  #belongs_to :editors, :class_name => "User"
 
   def self.find_for_user(user)
-    Story.or({created_by: user}, {editors: user})
+    Story.or({creator: user}, {editors: user})
   end
 
 end

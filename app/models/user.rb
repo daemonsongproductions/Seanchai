@@ -49,6 +49,8 @@ class User
   embeds_one :role, class_name: "Role", inverse_of: nil
   before_create :set_default_role
 
+  has_many :created_stories, class_name: "Story", inverse_of: :creator
+
   index({username: 1}, {unique: true})
 
   attr_accessible :username, :name, :email, :password, :password_confirmation, :remember_me

@@ -3,7 +3,7 @@ class Permits::MemberPermit < Permits::BasePermit
 
   def initialize(user)
     base_permissions
-    allow :stories, [:index, :show]
+    allow :stories, [:index, :show, :create]
     allow :story_sections, [:index, :show, :edit]
     allow :users, [:update] do |user_record|
       user_record.id == user.id

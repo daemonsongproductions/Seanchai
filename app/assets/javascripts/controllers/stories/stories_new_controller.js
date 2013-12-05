@@ -9,12 +9,14 @@ Seanchai.StoriesNewController = Ember.ObjectController.extend({
 
       event.preventDefault();
 
-      story.save()
-          .fail(function(e) {
-            Seanchai.displayError(e);
-          })
-          .done(function() {
+      story.save().then(
+          // fulfill
+          function() {
             Seanchai.storiesController.pushObject(story);
+          },
+          // reject
+          function(e) {
+            Seanchai.displayError(e);
           });
     }
   }

@@ -30,7 +30,9 @@ gem "email_spec", ">= 1.2.1", :group => :test
 gem "cucumber-rails", ">= 1.3.0", :group => :test, :require => false
 gem "launchy", ">= 2.1.2", :group => :test
 gem "factory_girl_rails", ">= 4.0.0", :group => [:development, :test]
-gem "minitest", "~> 5.1.0", :group => :test
-gem "minitest-reporters", "~> 1.0.0", :group => :test
-gem "minitest-matchers", "~> 1.4.1", :group => :test
+gem "minitest", "~> 4.7.0", :group => :test
+gem "minitest-reporters", "~> 0.14.23", :group => :test
+gem "minitest-matchers", "~> 1.3.0", :group => :test
+gem "minitest-rails", "~> 0.9.2", :group => :test
+gem "minitest-rails-capybara", "~> 0.10.0", :group => :test
 gem "poltergeist", "~> 1.4.1", :group => :test

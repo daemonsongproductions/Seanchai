@@ -15,6 +15,13 @@ gem 'uglifier', '>= 1.0.3'
 gem 'strong_parameters'
 gem 'jquery-rails', '~> 2.3'
 gem "mongoid", ">= 3.0.3"
+gem "devise", "~> 3.0.3"
+gem "ember-rails"
+gem "ember-source", "~>1.0.0"
+gem "haml"
+gem "active_model_serializers"
+
+
 gem "rspec-rails", ">= 2.11.0", :group => [:development, :test]
 gem "capybara", ">= 1.1.2", :group => :test
 gem "database_cleaner", ">= 0.8.0", :group => :test
@@ -23,8 +30,7 @@ gem "email_spec", ">= 1.2.1", :group => :test
 gem "cucumber-rails", ">= 1.3.0", :group => :test, :require => false
 gem "launchy", ">= 2.1.2", :group => :test
 gem "factory_girl_rails", ">= 4.0.0", :group => [:development, :test]
-gem "devise", "~> 3.0.3"
-gem "ember-rails"
-gem "ember-source", "~>1.0.0"
-gem "haml"
-gem "active_model_serializers"
+gem "minitest", "~> 5.1.0", :group => :test
+gem "minitest-reporters", "~> 1.0.0", :group => :test
+gem "minitest-matchers", "~> 1.4.1", :group => :test
+gem "poltergeist", "~> 1.4.1", :group => :test

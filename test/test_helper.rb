@@ -31,4 +31,8 @@ end
 
 class MiniTest::Spec
   include Mongoid::Matchers
+  before :all do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean
+  end
 end

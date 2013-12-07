@@ -4,7 +4,7 @@ class UserTest < MiniTest::Unit::TestCase
   include Mongoid::Matchers
 
   def test_sanity
-    flunk "Need real tests"
+    skip("leaving this as an example of unit test syntax in minitest")
   end
 
 end

@@ -17,6 +17,8 @@ class User
   field :email,              :type => String, :default => ""
 
   field :encrypted_password, :type => String, :default => ""
+
+  field :guest_user, :type => Boolean, :default => false
   
   ## Recoverable
   field :reset_password_token,   :type => String
@@ -62,8 +64,13 @@ class User
   end
 
   def self.guest_user
-    guest = User.new
-    guest.role = Guest.new
+
+    guest = User.create(name: "guest",
+                        email: "guest_#{Time.now.to_i}#{rand(99)}@example.com",
+                        role: Guest.new,
+                        guest_user: true
+    )
+    guest.save!(:validate => false)
     guest
   end
 

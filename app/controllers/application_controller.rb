@@ -9,13 +9,16 @@ class ApplicationController < ActionController::Base
   delegate :allow_param?, to: :current_permission
   helper_method :allow_param?
 
-  before_filter :set_guest_user
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :authorize
 
 
-  def set_guest_user
-    sign_in(User.guest_user) if current_user.blank?
+  def current_user
+    super || guest_user
+  end
+
+  def guest_user
+    User.find(session[:guest_user_id].nil? ? session[:guest_user_id] = User.guest_user.id : session[:guest_user_id])
   end
 
   def current_permission

@@ -26,9 +26,7 @@ describe User do
       User.must have_field(:last_sign_in_at)
       User.must have_field(:current_sign_in_ip)
       User.must have_field(:last_sign_in_ip)
-      User.must have_field(:name)
-      User.must have_field(:name)
-      User.must have_field(:name)
+      User.must have_field(:guest_user)
     end
 
     it "should not have unencrypted password fields" do

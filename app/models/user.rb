@@ -67,9 +67,9 @@ class User
 
     guest = User.create(name: "guest",
                         email: "guest_#{Time.now.to_i}#{rand(99)}@example.com",
-                        role: Guest.new,
                         guest_user: true
     )
+    guest.role = Guest.new
     guest.save!(:validate => false)
     guest
   end

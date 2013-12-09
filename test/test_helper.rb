@@ -8,6 +8,8 @@ require 'minitest/reporters'
 require 'minitest/matchers'
 require 'mongoid-minitest'
 
+Minitest::Reporters.use!
+
 # To add Capybara feature tests add `gem "minitest-rails-capybara"`
 # to the test group in the Gemfile and uncomment the following:
 # require "minitest/rails/capybara"

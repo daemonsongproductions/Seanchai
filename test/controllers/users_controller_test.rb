@@ -18,8 +18,11 @@ describe "UsersController" do
   describe "show" do
     it "should return successfully" do
 
-        get :index
-        assert_response :success
+      user = mock("user", :permissions => Permits::AdminPermit.new(mock("user", :id => "id")))
+      @controller.stubs(:current_user).returns(user)
+
+      get :index, format: 'json'
+      assert_response :success
     end
   end
 

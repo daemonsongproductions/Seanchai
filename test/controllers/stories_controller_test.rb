@@ -11,9 +11,10 @@ end
 
 describe "StoriesController" do
 
-  describe "show" do
-    it "should have needed fields" do
-      skip("Pending")
+  describe "index" do
+    it "should return successfully" do
+      get :index
+      assert_response :success
     end
   end
 

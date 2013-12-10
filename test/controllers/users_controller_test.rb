@@ -11,9 +11,15 @@ end
 
 describe "UsersController" do
 
+  before :each do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+  end
+
   describe "show" do
-    it "should have needed fields" do
-      skip("Pending")
+    it "should return successfully" do
+
+        get :index
+        assert_response :success
     end
   end
 

@@ -35,3 +35,4 @@ gem "minitest-rails", "~> 0.9.2", :group => [:development, :test]
 gem "minitest-rails-capybara", "~> 0.10.0", :group => [:development, :test]
 gem "mongoid-minitest", "~> 1.0.0", :group => [:development, :test]
 gem "poltergeist", "~> 1.4.1", :group => [:development, :test]
+gem "mocha", "~> 0.14.0", :group => [:development, :test], :require => false

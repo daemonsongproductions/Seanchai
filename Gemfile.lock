@@ -116,6 +116,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    metaclass (0.0.1)
     mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
@@ -144,6 +145,8 @@ GEM
       builder
       minitest (>= 2.12, < 5.0)
       powerbar
+    mocha (0.14.0)
+      metaclass (~> 0.0.1)
     mongoid (3.1.6)
       activemodel (~> 3.2)
       moped (~> 1.4)
@@ -251,6 +254,7 @@ DEPENDENCIES
   minitest-rails (~> 0.9.2)
   minitest-rails-capybara (~> 0.10.0)
   minitest-reporters (~> 0.14.23)
+  mocha (~> 0.14.0)
   mongoid (>= 3.0.3)
   mongoid-minitest (~> 1.0.0)
   poltergeist (~> 1.4.1)

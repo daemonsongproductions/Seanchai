@@ -43,3 +43,5 @@ class MiniTest::Spec
     DatabaseCleaner.clean
   end
 end
+
+require "mocha/setup"

@@ -18,4 +18,26 @@ describe "StoriesController" do
     end
   end
 
+  describe "create" do
+    it "should return unauthorized for guest" do
+      set_guest_user
+      post :create, format: 'json'
+      assert_response :unauthorized
+
+    end
+
+    it "should return Bad Request for a member's empty post" do
+      set_member_user
+      post :create, format: 'json'
+      assert_response :bad_request
+    end
+
+    it "should return Bad Request for an admin's empty post" do
+      set_admin_user
+      post :create, format: 'json'
+      assert_response :bad_request
+
+    end
+  end
+
 end

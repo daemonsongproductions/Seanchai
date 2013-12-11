@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
 
       respond_to do |format|
         format.html {redirect_to root_url, alert: "Not authorized."}
-        format.json { render json: "You don't have permission to see this.", status: :unauthorized }
+        format.json { render json: {error_message: "You don't have permission to see this."}, status: :unauthorized }
       end
 
     end

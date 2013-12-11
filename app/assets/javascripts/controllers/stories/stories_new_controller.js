@@ -6,7 +6,7 @@ Seanchai.StoriesNewController = Ember.ObjectController.extend({
 
     submit: function(){
       var story = this.get('model');
-      var self = this;
+      var controller = this;
 
       event.preventDefault();
 
@@ -17,7 +17,7 @@ Seanchai.StoriesNewController = Ember.ObjectController.extend({
           },
           // reject
           function(e) {
-            self.set("errorMsg", "We had a problem creating your story. Did you fill out the form completely?");
+            controller.set("errorMsg", "We had a problem creating your story. Did you fill out the form completely?");
           });
     }
   }

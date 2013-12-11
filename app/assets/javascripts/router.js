@@ -11,6 +11,7 @@ Seanchai.Router.map(function() {
   });
 
   this.resource('stories', function(){
+    this.route('show')
     this.route('new');
   });
 

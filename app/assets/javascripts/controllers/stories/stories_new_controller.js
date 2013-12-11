@@ -5,15 +5,14 @@ Seanchai.StoriesNewController = Ember.ObjectController.extend({
     },
 
     submit: function(){
-      var story = this.get('model');
       var controller = this;
 
       event.preventDefault();
 
-      story.save().then(
+      this.get('model').save().then(
           // fulfill
-          function() {
-            Seanchai.storiesController.pushObject(story);
+          function(answer) {
+            return controller.transitionToRoute('stories.show', answer);
           },
           // reject
           function(e) {

@@ -19,25 +19,47 @@ describe "StoriesController" do
   end
 
   describe "create" do
-    it "should return unauthorized for guest" do
-      set_guest_user
-      post :create, format: 'json'
-      assert_response :unauthorized
 
+    describe "authorization" do
+      it "should return unauthorized for guest" do
+        set_guest_user
+        post :create, format: 'json'
+        assert_response :unauthorized
+      end
+
+      it "should return Bad Request for a member's empty post" do
+        set_member_user
+        post :create, format: 'json'
+        assert_response :bad_request
+      end
+
+      it "should return Bad Request for an admin's empty post" do
+        set_admin_user
+        post :create, format: 'json'
+        assert_response :bad_request
+      end
     end
 
-    it "should return Bad Request for a member's empty post" do
+    it "should return success on successful creation" do
       set_member_user
-      post :create, format: 'json'
-      assert_response :bad_request
+      story = mock("story")
+      Story.expects(:new).with('title' => "Title", 'creator' => @controller.current_user).returns(story)
+      story.expects(:save).returns(true)
+      story.expects(:as_json).returns({})
+      post :create, format: 'json', story: {title: "Title"}
+      assert_response :success
     end
 
-    it "should return Bad Request for an admin's empty post" do
-      set_admin_user
-      post :create, format: 'json'
-      assert_response :bad_request
-
+    it "should return unprocessable entity on unsuccessful creation" do
+      set_member_user
+      story = mock("story")
+      Story.expects(:new).returns(story)
+      story.expects(:save).returns(false)
+      story.expects(:errors).returns({})
+      post :create, format: 'json', story: {title: "Title"}
+      assert_response :unprocessable_entity
     end
+
   end
 
 end

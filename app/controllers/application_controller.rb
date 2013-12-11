@@ -33,7 +33,12 @@ class ApplicationController < ActionController::Base
     if current_permission.allow?(params[:controller], params[:action], current_resource)
       current_permission.permit_params! params
     else
-      redirect_to root_url, alert: "Not authorized."
+
+      respond_to do |format|
+        format.html {redirect_to root_url, alert: "Not authorized."}
+        format.json { render json: "You don't have permission to see this.", status: :unauthorized }
+      end
+
     end
   end
 

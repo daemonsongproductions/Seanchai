@@ -8,6 +8,6 @@ Seanchai.TextField = Ember.View.extend({
     this.set('changed', true);
   },
   classesProperty: function() {
-   return [this.get('field-size')];
+    return [this.get('field-size') + ' form-control'];
   }.property()
 });

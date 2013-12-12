@@ -1,4 +1,4 @@
 <label class="control-label" {{bindAttr for='view.inputElement.elementId'}}>{{view.label}}</label>
 <div {{bind-attr class=":controls"}}>
-  {{view Em.TextArea valueBinding='view.value' nameBinding='view.fieldId' typeBinding="view.type" viewName="inputElement" actionBinding="view.action" rows="10"}}
+  {{view Em.TextArea classBinding = "view.classes"  valueBinding='view.value' nameBinding='view.fieldId' typeBinding="view.type" viewName="inputElement" actionBinding="view.action" rows="10"}}
 </div>

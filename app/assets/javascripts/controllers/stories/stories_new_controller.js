@@ -12,7 +12,7 @@ Seanchai.StoriesNewController = Ember.ObjectController.extend({
       this.get('model').save().then(
           // fulfill
           function(answer) {
-            return controller.transitionToRoute('stories.show', answer);
+            return controller.transitionToRoute('story', answer);
           },
           // reject
           function(e) {

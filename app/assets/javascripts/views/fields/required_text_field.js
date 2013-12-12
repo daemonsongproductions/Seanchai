@@ -4,6 +4,7 @@ Seanchai.RequiredTextField = Ember.View.extend({
   type: "text",
   changed: false,
   invalid: true,
+  classesBinding: 'classesProperty',
   validationMessage: function(){
     return this.label + " is required."
   }.property("displayValidationMessage"),
@@ -18,5 +19,8 @@ Seanchai.RequiredTextField = Ember.View.extend({
   }.property("invalid", "changed"),
   isInvalid: function(){
     this.set('invalid', (0 === this.get('value').length));
-  }.observes("value")
+  }.observes("value"),
+  classesProperty: function() {
+    return [this.get('field-size')];
+  }.property()
 });

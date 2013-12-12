@@ -1,0 +1,4 @@
+<label class="control-label" {{bindAttr for='view.inputElement.elementId'}}>{{view.label}}</label>
+<div {{bind-attr class=":controls"}}>
+  {{view Em.TextField classBinding = "view.classes" valueBinding='view.value' nameBinding='view.fieldId' typeBinding="view.type" viewName="inputElement" actionBinding="view.action"}}
+</div>

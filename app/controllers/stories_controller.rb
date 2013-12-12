@@ -11,6 +11,12 @@ class StoriesController < ApplicationController
 
   def show
 
+    @story = Story.find(params[:id])
+
+    respond_to do |format|
+      format.json{ render json: @story }
+    end
+
   end
 
   def new

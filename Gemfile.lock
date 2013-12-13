@@ -259,6 +259,7 @@ DEPENDENCIES
   mongoid-minitest (~> 1.0.0)
   poltergeist (~> 1.4.1)
   rails (= 3.2.13)
+  rake
   sass-rails (~> 3.2.3)
   strong_parameters
   thin

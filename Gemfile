@@ -6,7 +6,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-
+gem "rake"
 gem 'sass-rails',   '~> 3.2.3'
 gem "bootstrap-sass", "~> 3.0.3.0"
 gem "thin"

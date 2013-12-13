@@ -10,13 +10,11 @@ class StoriesController < ApplicationController
   end
 
   def show
-
     @story = Story.find(params[:id])
 
     respond_to do |format|
       format.json{ render json: @story }
     end
-
   end
 
   def new
@@ -41,8 +39,6 @@ class StoriesController < ApplicationController
   end
 
   def update
-
-
     respond_to do |format|
       if @story.update_attributes(params[:story])
         format.json { render json: nil, status: :ok }

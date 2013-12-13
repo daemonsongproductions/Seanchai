@@ -7,6 +7,7 @@ require 'minitest/rails/capybara'
 require 'minitest/reporters'
 require 'minitest/matchers'
 require 'mongoid-minitest'
+require "factory_girl"
 
 Minitest::Reporters.use!
 
@@ -61,9 +62,23 @@ end
 class MiniTest::Spec
   include Mongoid::Matchers
   include Devise::TestHelpers
+  include FactoryGirl::Syntax::Methods
   before :all do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean
+  end
+
+  FactoryGirl.define do
+    factory :user, aliases: [:creator, :editor] do
+      username "saalon"
+    end
+  end
+
+  FactoryGirl.define do
+    factory :story do
+      creator
+      title "Title Of My Story"
+    end
   end
 end
 

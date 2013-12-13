@@ -4,6 +4,9 @@ class Story
 
   field :title, type: String
   validates_presence_of :title
+  field :permalink, type: String
+  validates_presence_of :permalink
+  validates_uniqueness_of :permalink
   field :copyright, type: String
   field :license, type: String
   field :description, type: String

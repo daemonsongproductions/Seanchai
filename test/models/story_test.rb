@@ -1,4 +1,5 @@
 require "test_helper"
+require "factory_girl"
 
 class StoryTest < MiniTest::Unit::TestCase
   include Mongoid::Matchers
@@ -20,7 +21,7 @@ describe "Story" do
       Story.must have_field(:publication_date)
       Story.must have_field(:meta)
       Story.must have_field(:status_id)
-      Story.must have_field(:path)
+      Story.must have_field(:permalink)
     end
   end
 
@@ -33,6 +34,21 @@ describe "Story" do
 
   describe "friendly paths" do
 
+    before :each do
+      @story = FactoryGirl.build(:story)
+    end
+
+    it "should generate a friendly path out of the title" do
+
+      assert_equal @story.permalink, "title-of-my-story"
+
+    end
+
+    it "should increment a number for the friendly path if the generated path is already taken"
+
+    it "should override the id with the permalink"
+
+    it "should recover from a permalink validation failure by incrementing and trying again"
 
   end
 

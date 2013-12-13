@@ -20,6 +20,7 @@ describe "Story" do
       Story.must have_field(:publication_date)
       Story.must have_field(:meta)
       Story.must have_field(:status_id)
+      Story.must have_field(:path)
     end
   end
 
@@ -28,6 +29,11 @@ describe "Story" do
     it "should belong to a creator" do
       Story.must belong_to(:creator)
     end
+  end
+
+  describe "friendly paths" do
+
+
   end
 
 end

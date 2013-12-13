@@ -57,7 +57,7 @@ class StoriesController < ApplicationController
   # since you'll be able to reuse the same permit list between create and update. Also, you
   # can specialize this method with per-user checking of permissible attributes.
   def story_params
-    params.require(:story).permit(:title, :creator)
+    params.require(:story).permit(:title, :creator, :description, :copyright)
   end
 
 end

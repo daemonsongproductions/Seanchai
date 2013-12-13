@@ -75,10 +75,13 @@ describe "StoriesController" do
     it "should return success on successful creation" do
       set_member_user
       story = mock("story")
-      Story.expects(:new).with('title' => "Title", 'creator' => @controller.current_user).returns(story)
+      Story.expects(:new).with('title' => "Title",
+                               'description' => 'description',
+                               'copyright' => 'copyright',
+                               'creator' => @controller.current_user).returns(story)
       story.expects(:save).returns(true)
       story.expects(:as_json).returns({})
-      post :create, format: 'json', story: {title: "Title"}
+      post :create, format: 'json', story: {title: "Title", description: "description", copyright: "copyright"}
       assert_response :success
     end
 

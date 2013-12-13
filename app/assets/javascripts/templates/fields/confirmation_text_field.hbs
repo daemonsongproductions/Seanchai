@@ -1,8 +1,8 @@
-<label class="control-label" {{bindAttr for='view.inputElement.elementId'}}>{{view.label}}</label>
-<div {{bind-attr class=":controls view.invalid"}}>
-    {{view Em.TextField valueBinding='view.value' nameBinding='view.fieldId' typeBinding="view.type" viewName="inputElement" actionBinding="view.action"}}
+<label class="col-sm-2 control-label" {{bindAttr for='view.inputElement.elementId'}}>{{view.label}}</label>
+<div {{bind-attr class=":col-sm-10 :controls view.invalid"}}>
+    {{view Em.TextField classBinding = "view.classes" valueBinding='view.value' nameBinding='view.fieldId' typeBinding="view.type" viewName="inputElement" actionBinding="view.action"}}
   {{#if view.displayValidationMessage}}
-    <span class="help-inline">
+    <span class="help-block">
         {{view.validationMessage}}
     </span>
   {{/if}}

@@ -1,5 +1,5 @@
 Seanchai.RequiredTextField = Ember.View.extend({
-  classNameBindings: [':control-group', 'invalid:has-error', ':col-sm-10'],
+  classNameBindings: [':form-group', 'invalid:has-error'],
   templateName: "fields/required_text_field",
   type: "text",
   changed: false,

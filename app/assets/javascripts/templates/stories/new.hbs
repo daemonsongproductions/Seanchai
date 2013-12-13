@@ -8,8 +8,10 @@
   {{view Seanchai.RequiredTextField valueBinding="title" fieldId="title" action="submit" label="Title" size="100" field-size="col-xs-2"}}
   {{view Seanchai.TextAreaField valueBinding="description" fieldId="description" action="submit" label="Description"}}
   {{view Seanchai.TextField valueBinding="copyright" fieldId="copyright" action="submit" label="Copyright"}}
-  <div class="form-actions">
-    <input {{action submit}} type="submit" class="btn btn-primary" value="Register" />
-    <input {{action cancel}} type="submit" class="btn" value="Cancel" />
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input {{action submit}} type="submit" class="btn btn-primary" value="Register" />
+      <input {{action cancel}} type="submit" class="btn" value="Cancel" />
+    </div>
   </div>
 </div>

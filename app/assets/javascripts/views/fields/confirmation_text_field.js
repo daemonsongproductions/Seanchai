@@ -1,9 +1,10 @@
 Seanchai.ConfirmationTextField = Ember.View.extend({
-  classNameBindings: [':control-group', 'invalid:error'],
+  classNameBindings: [':form-group', 'invalid:has-error'],
   templateName: "fields/confirmation_text_field",
   fieldType: "text",
   changed: false,
   invalid: true,
+  classesBinding: 'classesProperty',
   validationMessage: function(){
     return this.get('label') + " has to match what you entered in " + this.confirmField.get('label') + ".";
   }.property("displayValidationMessage"),
@@ -24,5 +25,8 @@ Seanchai.ConfirmationTextField = Ember.View.extend({
   },
   different: function(view) {
     return (view.confirmField.get('value') !== view.get('value'));
-}
+  },
+  classesProperty: function() {
+    return [this.get('field-size') + ' form-control'];
+  }.property()
 });

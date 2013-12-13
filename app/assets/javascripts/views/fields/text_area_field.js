@@ -1,5 +1,5 @@
 Seanchai.TextAreaField = Ember.View.extend({
-  classNameBindings: [':control-group'],
+  classNameBindings: [':form-group'],
   templateName: "fields/text_area_field",
   type: "text",
   classesBinding: 'classesProperty',

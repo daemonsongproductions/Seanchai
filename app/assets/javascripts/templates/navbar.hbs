@@ -1,20 +1,26 @@
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <div class="brand strong">{{#link-to 'home'}}Seanchai{{/link-to}}</div>
-      <ul class="nav">
-          <li>{{#link-to 'help'}}Help{{/link-to}}</li>
-        <li>{{#link-to 'stories.new'}}New Stories{{/link-to}}</li>
-      </ul>
-      <div class="btn-group pull-right">
-        {{#if authenticated}}
-          <button class="btn" {{action profile}}>Profile</button>
-            <button class="btn" {{action logout}}>Logout</button>
-        {{else}}
-            {{view Seanchai.MenuItem href="#/login" label="Login" }}
-            {{view Seanchai.MenuItem href="#/registration" label="Register"}}
-        {{/if}}
-      </div>
-    </div>
+<div class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    {{#link-to 'home' classNames="navbar-brand"}}Seanchai{{/link-to}}
+  </div>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      <li>{{#link-to 'help'}}Help{{/link-to}}</li>
+      <li>{{#link-to 'stories.new'}}New Stories{{/link-to}}</li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      {{#if authenticated}}
+        <li><a {{action profile}}>Profile</a></li>
+        <li><a {{action logout}}>Logout</a></li>
+      {{else}}
+        <li>{{view Seanchai.MenuItem href="#/login" label="Login" }}</li>
+        <li>{{view Seanchai.MenuItem href="#/registration" label="Register"}}</li>
+      {{/if}}
+    </ul>
   </div>
 </div>

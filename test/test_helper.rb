@@ -71,13 +71,19 @@ class MiniTest::Spec
   FactoryGirl.define do
     factory :user, aliases: [:creator, :editor] do
       username "saalon"
+      password "password"
+      email "email@email.com"
     end
   end
 
   FactoryGirl.define do
     factory :story do
-      creator
-      title "Title Of My Story"
+      ignore do
+        creator
+        title "Title Of My Story"
+      end
+
+      initialize_with { Story.new(title: title, creator: creator) }
     end
   end
 end

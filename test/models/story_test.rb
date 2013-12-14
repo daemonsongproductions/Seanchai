@@ -39,8 +39,7 @@ describe "Story" do
     end
 
     it "should generate a friendly path out of the title" do
-
-      assert_equal @story.permalink, "title-of-my-story"
+      assert_equal "title-of-my-story", @story.permalink
 
     end
 

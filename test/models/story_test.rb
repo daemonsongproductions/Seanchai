@@ -48,7 +48,7 @@ describe "Story" do
       story_2 = FactoryGirl.build(:story)
       story_2.save
 
-      assert_equal "title-of-my-story-4", story_2.permalink
+      assert_equal "title-of-my-story-4", story_2.slug
     end
 
     it "should override the id with the permalink" do

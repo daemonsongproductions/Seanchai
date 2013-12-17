@@ -51,8 +51,6 @@ describe "Story" do
       assert_equal "title-of-my-story-1", story_2.slug
     end
 
-    it "should recover from a permalink validation failure by incrementing and trying again"
-
   end
 
 end

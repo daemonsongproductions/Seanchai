@@ -34,12 +34,13 @@ describe "Story" do
 
   describe "friendly paths" do
 
-    before :each do
-      @story = FactoryGirl.build(:story)
-    end
-
     it "should generate a friendly path out of the title" do
-      assert_equal "title-of-my-story", @story.permalink
+
+      Story.expects(:find_by).with(title: "title-of-my-story").returns(true)
+      story = FactoryGirl.build(:story)
+
+
+      assert_equal "title-of-my-story", story.permalink
 
     end
 

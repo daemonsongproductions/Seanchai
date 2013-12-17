@@ -26,7 +26,13 @@ class Story
   # TODO: Add ability for other users to be editors
   #belongs_to :editors, :class_name => "User"
 
+  index({permalink: 1}, {unique: true})
+
   after_initialize :generate_permalink
+
+  def to_param
+    permalink
+  end
 
   def self.find_for_user(user)
     Story.or({creator: user}, {editors: user})
@@ -34,7 +40,17 @@ class Story
 
 
   def generate_permalink
-    self.permalink = self.title.parameterize
+
+    if Story.find_by(permalink: self.title.parameterize)
+      incrementer = 2
+      while Story.find_by(permalink: ("#{self.title} #{incrementer.to_s}").parameterize)
+        incrementer += 1
+      end
+      self.permalink = ("#{self.title} #{incrementer.to_s}").parameterize
+    else
+      self.permalink = self.title.parameterize
+    end
+
   end
 
 end

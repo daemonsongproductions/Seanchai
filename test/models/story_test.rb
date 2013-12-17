@@ -36,17 +36,30 @@ describe "Story" do
 
     it "should generate a friendly path out of the title" do
 
-      Story.expects(:find_by).with(title: "title-of-my-story").returns(true)
+      Story.expects(:find_by).with(permalink: "title-of-my-story").returns(nil)
       story = FactoryGirl.build(:story)
 
-
       assert_equal "title-of-my-story", story.permalink
-
     end
 
-    it "should increment a number for the friendly path if the generated path is already taken"
+    it "should increment a number for the friendly path if the generated path is already taken" do
 
-    it "should override the id with the permalink"
+      Story.expects(:find_by).with(permalink: "title-of-my-story").returns(mock("records"))
+      Story.expects(:find_by).with(permalink: "title-of-my-story-2").returns(mock("records"))
+      Story.expects(:find_by).with(permalink: "title-of-my-story-3").returns(mock("records"))
+      Story.expects(:find_by).with(permalink: "title-of-my-story-4").returns(nil)
+      story = FactoryGirl.build(:story)
+
+      assert_equal "title-of-my-story-4", story.permalink
+    end
+
+    it "should override the id with the permalink" do
+
+      Story.expects(:find_by).with(permalink: "title-of-my-story").returns(nil)
+      story = FactoryGirl.build(:story)
+
+      assert_equal "title-of-my-story", story.id
+    end
 
     it "should recover from a permalink validation failure by incrementing and trying again"
 

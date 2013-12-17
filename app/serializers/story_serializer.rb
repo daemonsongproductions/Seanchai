@@ -1,6 +1,10 @@
 class StorySerializer < ActiveModel::Serializer
   attributes :id, :title
 
+  def id
+    object.slug
+  end
+
   def permit
     object.role.permissions_for(object).name
   end

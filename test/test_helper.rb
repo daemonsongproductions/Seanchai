@@ -21,7 +21,10 @@ DatabaseCleaner.strategy = :truncation
 
 def mock_user_with_permit(permit_class)
   user = mock("user")
+  role = mock("role")
+  role.stubs(:permissions_for).returns(permit_class.new(user))
   user.stubs(:id).returns("id")
+  user.stubs(:role).returns(role)
   user.stubs(:permissions).returns(permit_class.new(user))
   user
 end
@@ -51,6 +54,13 @@ end
 
 class ActionController::TestCase
   include Devise::TestHelpers
+  before :each do
+    DatabaseCleaner.start
+  end
+
+  after :each do
+    DatabaseCleaner.clean
+  end
 end
 
 class ActionDispatch::IntegrationTest
@@ -63,8 +73,12 @@ class MiniTest::Spec
   include Mongoid::Matchers
   include Devise::TestHelpers
   include FactoryGirl::Syntax::Methods
-  before :all do
-    DatabaseCleaner.strategy = :truncation
+
+  before :each do
+    DatabaseCleaner.start
+  end
+
+  after :each do
     DatabaseCleaner.clean
   end
 

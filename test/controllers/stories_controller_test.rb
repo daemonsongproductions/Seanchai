@@ -74,15 +74,17 @@ describe "StoriesController" do
 
     it "should return success on successful creation" do
       set_member_user
-      story = mock("story")
-      Story.expects(:new).with('title' => "Title",
+      story = FactoryGirl.create(:story, title: "This is a thing I'm doing")
+      Story.expects(:new).with('title' => "This is a thing I'm doing",
                                'description' => 'description',
                                'copyright' => 'copyright',
                                'creator' => @controller.current_user).returns(story)
-      story.expects(:save).returns(true)
-      story.expects(:as_json).returns({})
-      post :create, format: 'json', story: {title: "Title", description: "description", copyright: "copyright"}
+      #story.expects(:save).returns(true)
+      #story.expects(:as_json).returns({})
+      post :create, format: 'json', story: {title: "This is a thing I'm doing", description: "description", copyright: "copyright"}
       assert_response :success
+      puts response.body
+      assert_equal "this-is-a-thing-im-doing", ActiveSupport::JSON.decode(response.body)["story"]["id"]
     end
 
     it "should return unprocessable entity on unsuccessful creation" do

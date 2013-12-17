@@ -48,15 +48,7 @@ describe "Story" do
       story_2 = FactoryGirl.build(:story)
       story_2.save
 
-      assert_equal "title-of-my-story-4", story_2.slug
-    end
-
-    it "should override the id with the permalink" do
-
-      Story.expects(:find_by).with(permalink: "title-of-my-story").returns(nil)
-      story = FactoryGirl.build(:story)
-
-      assert_equal "title-of-my-story", story.id
+      assert_equal "title-of-my-story-1", story_2.slug
     end
 
     it "should recover from a permalink validation failure by incrementing and trying again"

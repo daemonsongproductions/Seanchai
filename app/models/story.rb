@@ -1,12 +1,11 @@
 class Story
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Slug
 
   field :title, type: String
   validates_presence_of :title
-  field :permalink, type: String
-  validates_presence_of :permalink
-  validates_uniqueness_of :permalink
+  slug :title
   field :copyright, type: String
   field :license, type: String
   field :description, type: String
@@ -26,31 +25,8 @@ class Story
   # TODO: Add ability for other users to be editors
   #belongs_to :editors, :class_name => "User"
 
-  index({permalink: 1}, {unique: true})
-
-  after_initialize :generate_permalink
-
-  def to_param
-    permalink
-  end
-
   def self.find_for_user(user)
     Story.or({creator: user}, {editors: user})
-  end
-
-
-  def generate_permalink
-
-    if Story.find_by(permalink: self.title.parameterize)
-      incrementer = 2
-      while Story.find_by(permalink: ("#{self.title} #{incrementer.to_s}").parameterize)
-        incrementer += 1
-      end
-      self.permalink = ("#{self.title} #{incrementer.to_s}").parameterize
-    else
-      self.permalink = self.title.parameterize
-    end
-
   end
 
 end

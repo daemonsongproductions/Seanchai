@@ -1,13 +1,15 @@
-<td>{{story.id}}</td>
-<td class="data">
-  {{#if isEditing}}
-    {{view Seanchai.EditStoryView}}
-  {{else}}
-    {{story.title}}
-  {{/if}}
-  <div class="commands">
-    {{#unless isEditing}}
-      <a href="#" {{action "showEdit"}}>Edit</a>
-    {{/unless}}
+<legend>{{controller.title}}</legend>
+<div class="row">
+  <div class="col-md-1"><b>Description: </b></div>
+  <div class="col-md-offset-1 col-md-10"><p>{{controller.description}}</p></div>
+</div>
+<div class="row">
+  <div class="col-md-1"><b>Copyright: </b></div>
+  <div class="col-md-offset-1 col-md-10"><p>{{controller.copyright}}</p></div>
+</div>
+{{#if controller.canEdit}}
+  <div class="row">
+    <div class="col-md-1">{{#link-to 'edit_story' controller.model classNames="btn"}}Edit{{/link-to}}</div>
   </div>
-</td>
+{{/if}}
+

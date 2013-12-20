@@ -18,6 +18,41 @@ describe "StoriesController" do
     end
   end
 
+  describe "index" do
+
+    describe "authorization" do
+
+      it "should return successfully for guest" do
+        set_guest_user
+        get :index
+        assert_response :success
+      end
+
+      it "should return successfully for member" do
+        set_member_user
+        get :index
+        assert_response :success
+      end
+
+      it "should return successfully for admin" do
+        set_admin_user
+        get :index
+        assert_response :success
+      end
+    end
+
+    it "should return a list of all stories" do
+      set_guest_user
+      FactoryGirl.create(:story, title: "This is a thing I'm doing")
+      FactoryGirl.create(:story, title: "I will read this story")
+
+      get :index, format: 'json'
+      assert_equal 2, ActiveSupport::JSON.decode(response.body)["stories"].count
+      assert_equal 'this-is-a-thing-im-doing', ActiveSupport::JSON.decode(response.body)["stories"][0]["id"]
+    end
+
+  end
+
   describe "show" do
 
     describe "authorization" do
@@ -79,8 +114,7 @@ describe "StoriesController" do
                                'description' => 'description',
                                'copyright' => 'copyright',
                                'creator' => @controller.current_user).returns(story)
-      #story.expects(:save).returns(true)
-      #story.expects(:as_json).returns({})
+
       post :create, format: 'json', story: {title: "This is a thing I'm doing", description: "description", copyright: "copyright"}
       assert_response :success
       puts response.body

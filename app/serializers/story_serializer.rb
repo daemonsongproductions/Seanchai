@@ -1,5 +1,5 @@
 class StorySerializer < ActiveModel::Serializer
-  attributes :id, :title
+  attributes :id, :title, :description, :copyright
 
   def id
     object.slug

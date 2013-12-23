@@ -3,6 +3,7 @@ Seanchai.Story = DS.Model.extend({
   description: DS.attr('string'),
   copyright: DS.attr('string'),
   license: DS.attr('string'),
+  editable: DS.attr('boolean'),
 
   validate: function(){
     if(this.get('title') === undefined || this.get('title') === '') {

@@ -136,26 +136,24 @@ describe "StoriesController" do
   describe "edit" do
 
     before :each do
-      story = mock("story")
-      story.expects(:as_json).returns({})
-      Story.expects(:find).with("id").returns(story)
+      @story = FactoryGirl.create(:story, title: "This is a thing I'm doing")
     end
 
     it "should return successfully for guest" do
       set_guest_user
-      get :edit, id: "id", format: 'json'
+      get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :success
     end
 
     it "should return successfully for member" do
       set_member_user
-      get :edit, id: "id", format: 'json'
+      get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :success
     end
 
     it "should return successfully for admin" do
       set_admin_user
-      get :edit, id: "id", format: 'json'
+      get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :success
     end
 

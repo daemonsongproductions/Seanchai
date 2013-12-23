@@ -35,7 +35,11 @@ class StoriesController < ApplicationController
   end
 
   def edit
+    @story = Story.find(params[:id])
 
+    respond_to do |format|
+      format.json{ render json: @story }
+    end
   end
 
   def update

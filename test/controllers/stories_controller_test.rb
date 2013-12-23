@@ -133,4 +133,36 @@ describe "StoriesController" do
 
   end
 
+  describe "edit" do
+
+    before :each do
+      story = mock("story")
+      story.expects(:as_json).returns({})
+      Story.expects(:find).with("id").returns(story)
+    end
+
+    it "should return successfully for guest" do
+      set_guest_user
+      get :edit, id: "id", format: 'json'
+      assert_response :success
+    end
+
+    it "should return successfully for member" do
+      set_member_user
+      get :edit, id: "id", format: 'json'
+      assert_response :success
+    end
+
+    it "should return successfully for admin" do
+      set_admin_user
+      get :edit, id: "id", format: 'json'
+      assert_response :success
+    end
+
+  end
+
+  describe "destroy" do
+
+  end
+
 end

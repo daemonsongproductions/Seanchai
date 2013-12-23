@@ -139,13 +139,19 @@ describe "StoriesController" do
       @story = FactoryGirl.create(:story, title: "This is a thing I'm doing")
     end
 
-    it "should return successfully for guest" do
+    it "should return unauthorized for guest" do
       set_guest_user
+      get :edit, id: "this-is-a-thing-im-doing", format: 'json'
+      assert_response :unauthorized
+    end
+
+    it "should return successfully for the creator" do
+      set_member_user
       get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :success
     end
 
-    it "should return successfully for member" do
+    it "should return unauthorized for any user but the creator" do
       set_member_user
       get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :success

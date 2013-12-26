@@ -59,8 +59,8 @@ describe "StoriesController" do
 
       before :each do
         story = mock("story")
-        story.expects(:as_json).returns({})
-        Story.expects(:find).with("id").returns(story)
+        story.stubs(:as_json).returns({})
+        Story.stubs(:find).with("id").returns(story)
       end
 
       it "should return successfully for guest" do
@@ -117,7 +117,6 @@ describe "StoriesController" do
 
       post :create, format: 'json', story: {title: "This is a thing I'm doing", description: "description", copyright: "copyright"}
       assert_response :success
-      puts response.body
       assert_equal "this-is-a-thing-im-doing", ActiveSupport::JSON.decode(response.body)["story"]["id"]
     end
 
@@ -137,6 +136,7 @@ describe "StoriesController" do
 
     before :each do
       @story = FactoryGirl.create(:story, title: "This is a thing I'm doing")
+      @story.save
     end
 
     it "should return unauthorized for guest" do
@@ -145,10 +145,19 @@ describe "StoriesController" do
       assert_response :unauthorized
     end
 
-    it "should returns succesfully for members" do
+    it "should return successfully for the creator" do
       set_member_user
+      @controller.expects(:current_resource).returns(@story)
+      @story.creator.expects(:id).returns("id")
       get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :success
+    end
+
+    it "should return unauthorized for any user but the creator" do
+      user = mock_user_with_permit(Permits::MemberPermit, "other_id")
+      set_current_user(user)
+      get :edit, id: "this-is-a-thing-im-doing", format: 'json'
+      assert_response :unauthorized
     end
 
     it "should return successfully for admin" do
@@ -164,7 +173,6 @@ describe "StoriesController" do
     it "should return successfully for the creator" do
       skip("Not here yet, but want to save the test code")
       set_member_user
-      @controller.stubs(:current_user).returns(@story.creator)
       get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :success
     end

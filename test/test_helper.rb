@@ -19,11 +19,11 @@ Minitest::Reporters.use!
 # require "minitest/pride"
 DatabaseCleaner.strategy = :truncation
 
-def mock_user_with_permit(permit_class)
+def mock_user_with_permit(permit_class, id = "id")
   user = mock("user")
   role = mock("role")
   role.stubs(:permissions_for).returns(permit_class.new(user))
-  user.stubs(:id).returns("id")
+  user.stubs(:id).returns(id)
   user.stubs(:role).returns(role)
   user.stubs(:permissions).returns(permit_class.new(user))
   user

@@ -60,4 +60,10 @@ class StoriesController < ApplicationController
     params.require(:story).permit(:title, :creator, :description, :copyright)
   end
 
+  private
+
+  def current_resource
+    @current_resource ||= Story.find(params[:id]) if params[:id]
+  end
+
 end

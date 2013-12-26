@@ -7,9 +7,9 @@
   <div class="col-md-1"><b>Copyright: </b></div>
   <div class="col-md-offset-1 col-md-10"><p>{{controller.copyright}}</p></div>
 </div>
-{{#if controller.canEdit}}
+{{#if controller.editable}}
   <div class="row">
-    <div class="col-md-1">{{#link-to 'edit_story' controller.model classNames="btn"}}Edit{{/link-to}}</div>
+    <div class="col-lg-4">{{#link-to 'edit_story' controller.model classNames="btn"}}Edit{{/link-to}}</div>
   </div>
 {{/if}}
 

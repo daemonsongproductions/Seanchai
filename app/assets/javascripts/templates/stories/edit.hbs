@@ -1,12 +1,4 @@
-<tr>
-{{#with view.story}}
-  <td>*</td>
- <td>{{view Ember.TextField valueBinding="title" placeholder="Title"}}</td>
-  <td>
-  <button {{action submit target="view"}}>
-    {{#if id}}Update{{else}}Create{{/if}}
-  </button>
-  </td>
-{{/with}}
-</tr>
-<a href="#" {{action "hideNew"}}>Cancel</a>
+<div class="form-horizontal">
+  <legend>{{controller.title}}</legend>
+  {{view Seanchai.StoryFormView}}
+</div>

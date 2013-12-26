@@ -145,13 +145,7 @@ describe "StoriesController" do
       assert_response :unauthorized
     end
 
-    it "should return successfully for the creator" do
-      set_member_user
-      get :edit, id: "this-is-a-thing-im-doing", format: 'json'
-      assert_response :success
-    end
-
-    it "should return unauthorized for any user but the creator" do
+    it "should returns succesfully for members" do
       set_member_user
       get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :success
@@ -161,6 +155,25 @@ describe "StoriesController" do
       set_admin_user
       get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :success
+    end
+
+  end
+
+  describe "update" do
+
+    it "should return successfully for the creator" do
+      skip("Not here yet, but want to save the test code")
+      set_member_user
+      @controller.stubs(:current_user).returns(@story.creator)
+      get :edit, id: "this-is-a-thing-im-doing", format: 'json'
+      assert_response :success
+    end
+
+    it "should return unauthorized for any user but the creator" do
+      skip("Not here yet, but want to save the test code")
+      set_member_user
+      get :edit, id: "this-is-a-thing-im-doing", format: 'json'
+      assert_response :unauthorized
     end
 
   end

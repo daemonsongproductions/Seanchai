@@ -8,6 +8,7 @@ Seanchai.Router.map(function() {
   this.resource('users', function() {
     this.resource('user', {path: ':username'})
     this.resource('edit_user', {path: ':username/edit'})
+    this.resource('user_stories', {path: ':username/stories'})
   });
 
   this.resource('stories', function(){

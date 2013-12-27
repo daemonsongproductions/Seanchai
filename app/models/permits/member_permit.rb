@@ -12,6 +12,14 @@ class Permits::MemberPermit < Permits::BasePermit
       user_record.id == user.id
     end
 
+
+    allow_param :story, :title
+    allow_param :story, :creator
+    allow_param :story, :description
+    allow_param :story, :license
+    allow_param :story, :copyright
+
+
   end
 
   def name

@@ -90,20 +90,8 @@ describe "StoriesController" do
     describe "authorization" do
       it "should return unauthorized for guest" do
         set_guest_user
-        post :create, format: 'json'
+        post :create, {story: {title: "This"}, format: 'json'}
         assert_response :unauthorized
-      end
-
-      it "should return Bad Request for a member's empty post" do
-        set_member_user
-        post :create, format: 'json'
-        assert_response :bad_request
-      end
-
-      it "should return Bad Request for an admin's empty post" do
-        set_admin_user
-        post :create, format: 'json'
-        assert_response :bad_request
       end
     end
 
@@ -170,18 +158,34 @@ describe "StoriesController" do
 
   describe "update" do
 
-    it "should return successfully for the creator" do
-      skip("Not here yet, but want to save the test code")
-      set_member_user
-      get :edit, id: "this-is-a-thing-im-doing", format: 'json'
-      assert_response :success
-    end
+    describe "authorization" do
 
-    it "should return unauthorized for any user but the creator" do
-      skip("Not here yet, but want to save the test code")
-      set_member_user
-      get :edit, id: "this-is-a-thing-im-doing", format: 'json'
-      assert_response :unauthorized
+      before :each do
+        @story = FactoryGirl.create(:story, title: "This is a thing I'm doing")
+        @story.save
+      end
+
+      it "should return unauthorized for guest" do
+        set_guest_user
+        put :update, {id: "this-is-a-thing-im-doing", story: { title: 'the poop'}, format: 'json'}
+        assert_response :unauthorized
+      end
+
+      it "should return successfully for the creator" do
+        set_member_user
+        @controller.expects(:current_resource).returns(@story)
+        @story.creator.expects(:id).returns("id")
+        put :update, {id: "this-is-a-thing-im-doing", story: { title: 'the poop'}, format: 'json'}
+        assert_response :success
+      end
+
+      it "should return unauthorized for any user but the creator" do
+        set_member_user
+        put :update, {id: "this-is-a-thing-im-doing", story: { title: 'the poop'}, format: 'json'}
+        #get :edit, id: "this-is-a-thing-im-doing", format: 'json'
+        assert_response :unauthorized
+      end
+
     end
 
   end

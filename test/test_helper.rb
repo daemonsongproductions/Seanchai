@@ -93,11 +93,8 @@ class MiniTest::Spec
 
   FactoryGirl.define do
     factory :story do
-      ignore do
-        creator
-        title "Title Of My Story"
-      end
-
+      creator
+      title "Title Of My Story"
       initialize_with { Story.new(title: title, creator: creator) }
     end
   end

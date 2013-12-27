@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
 
   def index
-    @stories = Story.all
+    @stories = Story.where(search_parameters)
 
     respond_to do |format|
       format.html
@@ -56,6 +56,13 @@ class StoriesController < ApplicationController
   end
 
   private
+
+  def search_parameters
+    search_params = {}
+    creator = User.find_by_username(params[:username]) if params[:username]
+    search_params[:creator] = creator if creator
+    search_params
+  end
 
   def current_resource
     @current_resource ||= Story.find(params[:id]) if params[:id]

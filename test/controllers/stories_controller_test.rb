@@ -51,6 +51,19 @@ describe "StoriesController" do
       assert_equal 'this-is-a-thing-im-doing', ActiveSupport::JSON.decode(response.body)["stories"][0]["id"]
     end
 
+    it "should returns all stories from a specific user" do
+      set_guest_user
+      FactoryGirl.create(:story, title: "This is a thing I'm doing")
+      FactoryGirl.create(:story, title: "I will read this story", creator:
+          FactoryGirl.create(:user, username: "user2", email: "user2@user.com")
+      )
+
+      get :index, {username: "saalon", format: 'json'}
+      assert_equal 1, ActiveSupport::JSON.decode(response.body)["stories"].count
+      assert_equal "This is a thing I'm doing", ActiveSupport::JSON.decode(response.body)["stories"][0]["title"]
+
+    end
+
   end
 
   describe "show" do

@@ -3,7 +3,7 @@ Seanchai.RequiredTextField = Ember.View.extend({
   templateName: "fields/required_text_field",
   type: "text",
   changed: false,
-  invalid: true,
+  invalid: false,
   classesBinding: 'classesProperty',
   validationMessage: function(){
     return this.label + " is required."

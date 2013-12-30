@@ -43,7 +43,15 @@ Seanchai.Authentication.register = function(controller) {
       return controller.transitionToRoute('home');
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      return controller.set("errorMsg", "That email/password combo didn't work.  Please try again");
+      var jsonResponse = jQuery.parseJSON(jqXHR.responseText);
+      var errorMessage = "";
+      if (jsonResponse.errors.username !== undefined) {
+        errorMessage += "<li>A user already exists with this username.</li>";
+      }
+      if (jsonResponse.errors.email !== undefined) {
+        errorMessage += "<li>A user already exists with this email address.</li>";
+      }
+      return controller.set("errorMsg", "<ul>" + errorMessage  + "</ul>");
     }
   });
 };

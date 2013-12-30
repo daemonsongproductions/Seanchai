@@ -2,7 +2,7 @@
   <legend>Registration</legend>
     {{#if errorMsg}}
       <div class="alert alert-danger">
-          {{errorMsg}}
+        {{{errorMsg}}}
       </div>
     {{/if}}
     {{view Seanchai.RequiredTextField valueBinding="username" fieldId="username" action="register" label="Username"}}

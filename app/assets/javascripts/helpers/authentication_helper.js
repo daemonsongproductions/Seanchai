@@ -37,7 +37,7 @@ Seanchai.Authentication.register = function(controller) {
       "user[password]": controller.get('password'),
       "user[password_confirmation]": controller.get('password_confirmation')
     },
-    success: function(data) {            j
+    success: function(data) {
       Seanchai.currentUser = controller.store.find('user', data.user.username);
       Seanchai.LoginStateManager.transitionTo("authenticated");
       return controller.transitionToRoute('home');
@@ -50,6 +50,9 @@ Seanchai.Authentication.register = function(controller) {
       }
       if (jsonResponse.errors.email !== undefined) {
         errorMessage += "<li>A user already exists with this email address.</li>";
+      }
+      if (jsonResponse.errors.password !== undefined) {
+        errorMessage += "<li>Your password must be at least 8 characters.</li>";
       }
       return controller.set("errorMsg", "<ul>" + errorMessage  + "</ul>");
     }

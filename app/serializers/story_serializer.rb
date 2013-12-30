@@ -1,5 +1,5 @@
 class StorySerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :copyright, :editable
+  attributes :id, :title, :description, :copyright, :editable, :creator_id
 
   def id
     object.slug
@@ -11,6 +11,10 @@ class StorySerializer < ActiveModel::Serializer
 
   def editable
     current_user.role.permissions_for(current_user).allow?(:stories, :edit, object)
+  end
+
+  def creator_id
+    object.creator.username
   end
 
 end

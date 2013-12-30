@@ -1,0 +1,10 @@
+<legend>{{controller.firstObject.creator_id}}'s Stories</legend>
+<ul>
+  {{#each controller}}
+    {{#if title}}
+      <li>
+        {{#link-to 'story' this}}{{title}}{{/link-to}}
+      </li>
+    {{/if}}
+  {{/each}}
+</ul>

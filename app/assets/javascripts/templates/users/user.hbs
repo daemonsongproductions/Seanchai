@@ -9,7 +9,7 @@
 </div>
 {{#if controller.canEdit}}
   <div class="row">
-    <div class="col-md-offset-1 col-md-10">{{#link-to 'user_stories' controller.model classNames="btn"}}See My Stories{{/link-to}}</div>
+    <div class="col-md-offset-1 col-md-10">{{#link-to 'user_stories' controller.model.username classNames="btn"}}See My Stories{{/link-to}}</div>
     <div class="col-md-offset-1 col-md-10">{{#link-to 'edit_user' controller.model classNames="btn"}}Edit{{/link-to}}</div>
   </div>
 {{/if}}

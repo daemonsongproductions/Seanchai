@@ -30,6 +30,10 @@ class Story
     Story.or({creator: user}, {editors: user})
   end
 
+  def self.find_visible_for(user, search_parameters = {})
+    self.where(search_parameters).or([{status_id: Status[:published].id}, {creator: user}])
+  end
+
   def status
     Status.find(status_id)
   end

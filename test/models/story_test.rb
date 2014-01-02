@@ -79,4 +79,40 @@ describe "Story" do
 
   end
 
+  describe "querying" do
+
+    describe "find_visible_for" do
+
+      before :each do
+        @user = FactoryGirl.create(:user)
+        @creator_1 = FactoryGirl.create(:user, username: "user2", email: "user2@user.com")
+        @creator_2 = FactoryGirl.create(:user, username: "user3", email: "user3@user.com")
+
+        @story_1 = FactoryGirl.build(:story, creator: @creator_1)
+        @story_1.save
+        @story_2 = FactoryGirl.build(:story, {status: Status[:published], creator: @creator_1})
+        @story_2.save
+
+        @story_3 = FactoryGirl.build(:story, creator: @creator_2)
+        @story_3.save
+        @story_4 = FactoryGirl.build(:story, {status: Status[:published], creator: @creator_2})
+        @story_4.save
+
+      end
+
+      it "should return only published stories for non-creators" do
+        results = Story.find_visible_for(@user)
+        assert_equal 2, results.count
+      end
+
+      it "should only return other statuses for the creator" do
+        results = Story.find_visible_for(@creator_1)
+        assert_equal 3, results.count
+      end
+
+      it "should any other search criteria passed"
+    end
+
+  end
+
 end

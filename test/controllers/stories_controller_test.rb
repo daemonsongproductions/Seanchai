@@ -9,6 +9,7 @@ describe "StoriesController" do
     end
   end
 
+
   describe "index" do
 
     describe "authorization" do

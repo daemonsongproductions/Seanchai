@@ -16,7 +16,7 @@ class Story
   field :meta, type: Hash
 
   # Access by: status_id = Status[:published].id
-  field :status_id, type: Integer
+  field :status_id, type: Integer, default: Status[:draft].id
 
   has_many :story_sections
   belongs_to :creator, class_name: "User", inverse_of: :created_stories

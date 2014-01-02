@@ -53,4 +53,13 @@ describe "Story" do
 
   end
 
+  describe "status" do
+
+    it "should have draft as its default status" do
+      story = FactoryGirl.build(:story)
+      assert_equal Status[:draft].id, story.status_id
+    end
+
+  end
+
 end

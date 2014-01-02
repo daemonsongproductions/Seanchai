@@ -88,14 +88,14 @@ describe "Story" do
         @creator_1 = FactoryGirl.create(:user, username: "user2", email: "user2@user.com")
         @creator_2 = FactoryGirl.create(:user, username: "user3", email: "user3@user.com")
 
-        @story_1 = FactoryGirl.build(:story, creator: @creator_1)
+        @story_1 = FactoryGirl.build(:story, {title: "Title 1", creator: @creator_1})
         @story_1.save
-        @story_2 = FactoryGirl.build(:story, {status: Status[:published], creator: @creator_1})
+        @story_2 = FactoryGirl.build(:story, {title: "Title 2", status: Status[:published], creator: @creator_1})
         @story_2.save
 
-        @story_3 = FactoryGirl.build(:story, creator: @creator_2)
+        @story_3 = FactoryGirl.build(:story, {title: "Title 3",  creator: @creator_2})
         @story_3.save
-        @story_4 = FactoryGirl.build(:story, {status: Status[:published], creator: @creator_2})
+        @story_4 = FactoryGirl.build(:story, {title: "Title 4", status: Status[:published], creator: @creator_2})
         @story_4.save
 
       end
@@ -110,7 +110,12 @@ describe "Story" do
         assert_equal 3, results.count
       end
 
-      it "should any other search criteria passed"
+      it "should any other search criteria passed" do
+        creator_results = Story.find_visible_for(@creator_1, {title: "Title 1"})
+        non_creator_results = Story.find_visible_for(@creator_1, {title: "Title 3"})
+        assert_equal 1, creator_results.count
+        assert_equal 0, non_creator_results.count
+      end
     end
 
   end

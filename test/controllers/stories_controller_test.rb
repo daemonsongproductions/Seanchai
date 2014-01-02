@@ -71,9 +71,7 @@ describe "StoriesController" do
     describe "authorization" do
 
       before :each do
-        story = mock("story")
-        story.stubs(:as_json).returns({})
-        Story.stubs(:find).with("id").returns(story)
+        FactoryGirl.create(:story, title: "id")
       end
 
       it "should return successfully for guest" do

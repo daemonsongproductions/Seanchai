@@ -17,6 +17,7 @@ class Story
 
   # Access by: status_id = Status[:published].id
   field :status_id, type: Integer, default: Status[:draft].id
+  validates_inclusion_of :status_id, in: Status.find_all.map {|status| status.id }
 
   has_many :story_sections
   belongs_to :creator, class_name: "User", inverse_of: :created_stories

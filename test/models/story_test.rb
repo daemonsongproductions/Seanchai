@@ -70,6 +70,13 @@ describe "Story" do
       assert_equal Status[:published].id, story.status_id
     end
 
+    it "should validate the status_id is valid" do
+      story = FactoryGirl.build(:story, status_id: 100000)
+      story.save
+      assert_equal 1, story.errors.count
+      assert_equal [:status_id, "is not included in the list"], story.errors.first
+    end
+
   end
 
 end

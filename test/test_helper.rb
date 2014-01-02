@@ -19,14 +19,8 @@ Minitest::Reporters.use!
 # require "minitest/pride"
 DatabaseCleaner.strategy = :truncation
 
-def mock_user_with_permit(permit_class, id = "id")
-  user = mock("user")
-  role = mock("role")
-  role.stubs(:permissions_for).returns(permit_class.new(user))
-  user.stubs(:id).returns(id)
-  user.stubs(:role).returns(role)
-  user.stubs(:permissions).returns(permit_class.new(user))
-  user
+def mock_user_with_role(role_class, id = "id")
+  FactoryGirl.create(:user, id: id, role: role_class.new)
 end
 
 def set_current_user(user)
@@ -34,15 +28,15 @@ def set_current_user(user)
 end
 
 def set_admin_user
-  set_current_user(mock_user_with_permit(Permits::AdminPermit))
+  set_current_user(mock_user_with_role(Admin))
 end
 
 def set_member_user
-  set_current_user(mock_user_with_permit(Permits::MemberPermit))
+  set_current_user(mock_user_with_role(Member))
 end
 
 def set_guest_user
-  set_current_user(mock_user_with_permit(Permits::GuestPermit))
+  set_current_user(mock_user_with_role(Guest))
 end
 
 class ActiveSupport::TestCase

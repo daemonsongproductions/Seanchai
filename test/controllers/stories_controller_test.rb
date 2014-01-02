@@ -155,7 +155,7 @@ describe "StoriesController" do
     end
 
     it "should return unauthorized for any user but the creator" do
-      user = mock_user_with_permit(Permits::MemberPermit, "other_id")
+      user = mock_user_with_role(Member, "other_id")
       set_current_user(user)
       get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :unauthorized

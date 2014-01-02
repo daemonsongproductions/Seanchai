@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
 
   def index
-    @stories = Story.where(search_parameters)
+    @stories = Story.find_visible_for(current_user, search_parameters)
 
     respond_to do |format|
       format.html
@@ -10,7 +10,7 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = Story.find(params[:id])
+    @story = Story.find_visible_for(current_user, {:_slugs.in => [params[:id]]})
 
     respond_to do |format|
       format.json{ render json: @story }

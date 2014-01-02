@@ -31,10 +31,11 @@ class Status
   end
 
   @@statuses = [
-    Status.new(:id => 1,   :name => 'Draft'    ),
-    Status.new(:id => 90,  :name => 'Scheduled'),
-    Status.new(:id => 100, :name => 'Published'),
-    Status.new(:id => 101, :name => 'Private'   )
+    Status.new(:id => 1,  :name => 'Draft'    ),
+    Status.new(:id => 2,  :name => 'Scheduled'),
+    Status.new(:id => 3,  :name => 'Private'   ),
+    Status.new(:id => 4,  :name => 'Published')
+
   ]
 
 end

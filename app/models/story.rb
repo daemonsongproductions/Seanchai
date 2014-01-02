@@ -29,4 +29,13 @@ class Story
     Story.or({creator: user}, {editors: user})
   end
 
+  def status
+    Status.find(status_id)
+  end
+
+  def status=(value)
+    self.status_id = value.id
+  end
+
+
 end

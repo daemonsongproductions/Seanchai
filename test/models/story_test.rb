@@ -60,6 +60,16 @@ describe "Story" do
       assert_equal Status[:draft].id, story.status_id
     end
 
+    it "should save the supplied status_id" do
+      story = FactoryGirl.build(:story, status_id: Status[:published].id)
+      assert_equal Status[:published].id, story.status_id
+    end
+
+    it "should save the supplies status" do
+      story = FactoryGirl.build(:story, status: Status[:published])
+      assert_equal Status[:published].id, story.status_id
+    end
+
   end
 
 end

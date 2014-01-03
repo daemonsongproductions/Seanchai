@@ -66,8 +66,15 @@ describe "StoriesController" do
         get :index, {username: "saalon", format: 'json'}
         assert_equal 3, ActiveSupport::JSON.decode(response.body)["stories"].count
         assert_equal true, ActiveSupport::JSON.decode(response.body)["stories"].any? {|story| story["title"] == "This is a thing I'm doing"}
-
       end
+
+      it "should return all stories for the current user" do
+        set_current_user(FactoryGirl.create(:user, username: "user2", email: "user2@user.com"))
+        get :index, {username: "user2", format: 'json'}
+        assert_equal 2, ActiveSupport::JSON.decode(response.body)["stories"].count
+        assert_equal true, ActiveSupport::JSON.decode(response.body)["stories"].any? {|story| story["title"] == "This is a draft story by another user"}
+      end
+
     end
   end
 

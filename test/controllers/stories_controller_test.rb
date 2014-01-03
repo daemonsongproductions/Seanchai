@@ -33,29 +33,42 @@ describe "StoriesController" do
       end
     end
 
-    it "should return a list of all stories" do
-      set_guest_user
-      FactoryGirl.create(:story, title: "This is a thing I'm doing")
-      FactoryGirl.create(:story, title: "I will read this story")
+    describe "returned stories" do
 
-      get :index, format: 'json'
-      assert_equal 2, ActiveSupport::JSON.decode(response.body)["stories"].count
-      assert_equal 'this-is-a-thing-im-doing', ActiveSupport::JSON.decode(response.body)["stories"][0]["id"]
+      before :each do
+
+        # There are 4 published stories. Three by "saalon" and one by "user2"
+        FactoryGirl.create(:story, title: "This is a thing I'm doing", status: Status.published)
+        FactoryGirl.create(:story, title: "I will read this story", status: Status.published)
+        FactoryGirl.create(:story, title: "I will read this story again", status: Status.published)
+        FactoryGirl.create(:story, title: "This is a published story by another user", status: Status.published, creator:
+            FactoryGirl.create(:user, username: "user2", email: "user2@user.com")
+        )
+
+        # There are 3 draft stories. Two by "saalon" and one by "user2"
+        FactoryGirl.create(:story, title: "I am a draft", status: Status.draft)
+        FactoryGirl.create(:story, title: "I am another draft", status: Status.draft)
+        FactoryGirl.create(:story, title: "This is a draft story by another user", status: Status.draft, creator:
+            FactoryGirl.create(:user, username: "user2", email: "user2@user.com")
+        )
+      end
+
+      it "should return a list of all published stories" do
+        set_guest_user
+
+        get :index, format: 'json'
+        assert_equal 4, ActiveSupport::JSON.decode(response.body)["stories"].count
+        assert_equal true, ActiveSupport::JSON.decode(response.body)["stories"].any? {|story| story["title"] == "This is a thing I'm doing"}
+      end
+
+      it "should returns all published stories from a specific user" do
+        set_guest_user
+        get :index, {username: "saalon", format: 'json'}
+        assert_equal 3, ActiveSupport::JSON.decode(response.body)["stories"].count
+        assert_equal true, ActiveSupport::JSON.decode(response.body)["stories"].any? {|story| story["title"] == "This is a thing I'm doing"}
+
+      end
     end
-
-    it "should returns all stories from a specific user" do
-      set_guest_user
-      FactoryGirl.create(:story, title: "This is a thing I'm doing")
-      FactoryGirl.create(:story, title: "I will read this story", creator:
-          FactoryGirl.create(:user, username: "user2", email: "user2@user.com")
-      )
-
-      get :index, {username: "saalon", format: 'json'}
-      assert_equal 1, ActiveSupport::JSON.decode(response.body)["stories"].count
-      assert_equal "This is a thing I'm doing", ActiveSupport::JSON.decode(response.body)["stories"][0]["title"]
-
-    end
-
   end
 
   describe "show" do

@@ -30,6 +30,18 @@ class Status
     self.selectable.map(&:name)
   end
 
+  def self.draft
+    self[:draft]
+  end
+
+  def self.private
+    self[:private]
+  end
+
+  def self.published
+    self[:published]
+  end
+
   @@statuses = [
     Status.new(:id => 1,  :name => 'Draft'    ),
     Status.new(:id => 2,  :name => 'Scheduled'),

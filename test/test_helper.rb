@@ -20,7 +20,7 @@ Minitest::Reporters.use!
 DatabaseCleaner.strategy = :truncation
 
 def mock_user_with_role(role_class, id = "id")
-  FactoryGirl.create(:user, id: id, role: role_class.new)
+  FactoryGirl.create(:user, id: id, role: role_class.new, email: "current@user.com", username: "currentuser")
 end
 
 def set_current_user(user)

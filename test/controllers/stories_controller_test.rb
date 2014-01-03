@@ -80,27 +80,51 @@ describe "StoriesController" do
 
   describe "show" do
 
-    describe "authorization" do
+    before :each do
+      FactoryGirl.create(:story, title: "Story 1", status: Status.published)
+      FactoryGirl.create(:story, title: "Story 2", status: Status.draft, creator:
+          FactoryGirl.create(:user, username: "user2", email: "user2@user.com")
+      )
+    end
 
-      before :each do
-        FactoryGirl.create(:story, title: "id")
-      end
+    describe "authorization" do
 
       it "should return successfully for guest" do
         set_guest_user
-        get :show, id: "id", format: 'json'
+        get :show, id: "story-1", format: 'json'
         assert_response :success
       end
 
       it "should return successfully for member" do
         set_member_user
-        get :show, id: "id", format: 'json'
+        get :show, id: "story-1", format: 'json'
         assert_response :success
       end
 
       it "should return successfully for admin" do
         set_admin_user
-        get :show, id: "id", format: 'json'
+        get :show, id: "story-1", format: 'json'
+        assert_response :success
+      end
+    end
+
+    describe "visibility" do
+
+      it "should return successfully for any user viewing a published story" do
+        set_guest_user
+        get :show, id: "story-1", format: 'json'
+        assert_response :success
+      end
+
+      it "should return not found for any user but the creator viewing a draft story" do
+        set_guest_user
+        get :show, id: "story-2", format: 'json'
+        assert_response :not_found
+      end
+
+      it "should return successfully for the current user viewing his own story, regardless of status" do
+        set_current_user(FactoryGirl.create(:user, username: "user2", email: "user2@user.com"))
+        get :show, id: "story-2", format: 'json'
         assert_response :success
       end
 

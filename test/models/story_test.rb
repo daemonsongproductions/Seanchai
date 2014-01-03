@@ -114,7 +114,7 @@ describe "Story" do
         creator_results = Story.find_visible_for(@creator_1, {title: "Title 1"})
         non_creator_results = Story.find_visible_for(@creator_1, {title: "Title 3"})
         assert_equal 1, creator_results.count
-        assert_equal 0, non_creator_results.count
+        assert_equal nil, non_creator_results
       end
     end
 

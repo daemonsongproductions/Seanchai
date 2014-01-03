@@ -13,7 +13,12 @@ class StoriesController < ApplicationController
     @story = Story.find_visible_for(current_user, {:_slugs.in => [params[:id]]})
 
     respond_to do |format|
-      format.json{ render json: @story }
+      if @story
+        format.json{ render json: @story }
+      else
+        format.json{ render json: {}, status: :not_found}
+      end
+
     end
   end
 
@@ -65,7 +70,7 @@ class StoriesController < ApplicationController
   end
 
   def current_resource
-    @current_resource ||= Story.find(params[:id]) if params[:id]
+    @current_resource ||= Story.find_visible_for(current_user, {:_slugs.in => [params[:id]]}) if params[:id]
   end
 
 end

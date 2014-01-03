@@ -31,7 +31,8 @@ class Story
   end
 
   def self.find_visible_for(user, search_parameters = {})
-    self.where(search_parameters).or([{status_id: Status[:published].id}, {creator: user}])
+    results = self.where(search_parameters).or([{status_id: Status[:published].id}, {creator: user}])
+    results if results.count > 0
   end
 
   def status

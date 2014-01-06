@@ -19,7 +19,7 @@ class StorySection
   validates_uniqueness_of :order, :scope => :story
 
   # Access by: status_id = Status[:published].id
-  field :status_id, type: Integer, default: Status[:draft].id
+  field :status_id, type: Integer, default: Status.draft
   validates_inclusion_of :status_id, in: Status.find_all.map {|status| status.id }
 
   # Meta fields will store :name, :value and :display

@@ -63,6 +63,33 @@ describe "StorySection" do
 
   end
 
+  describe "order" do
+
+    it "should fail if a non-unique order is supplied at creation" do
+      story = FactoryGirl.create(:story, title: "Story 1")
+      section_1 = FactoryGirl.build(:story_section, {title: "Chapter 2", story: story, order: 1})
+      section_1.save
+      section_2 = FactoryGirl.build(:story_section, {title: "Chapter 2", story: story, order: 1})
+      section_2.save
+
+      assert_equal 1, section_2.errors.count
+      assert_equal [:order, "is already taken"], section_2.errors.first
+    end
+
+    it "should scope order by story" do
+      story_1 = FactoryGirl.create(:story, title: "Story 1")
+      story_2 = FactoryGirl.create(:story, title: "Story 2")
+      section_1 = FactoryGirl.build(:story_section, {title: "Chapter 2", story: story_1, order: 1})
+      section_1.save
+      section_2 = FactoryGirl.build(:story_section, {title: "Chapter 2", story: story_2, order: 1})
+      section_2.save
+
+      assert_equal 1, section_2.order
+
+    end
+
+  end
+
   describe "status" do
 
     it "should have draft as its default status" do

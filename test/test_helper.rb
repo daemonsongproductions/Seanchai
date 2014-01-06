@@ -99,6 +99,11 @@ class MiniTest::Spec
       include_in_toc true
       order 1
       title "Chapter 1"
+      initialize_with { StorySection.new(title: title,
+                                         story:title,
+                                         include_in_toc: include_in_toc,
+                                         order: order,
+                                         story: story) }
     end
   end
 

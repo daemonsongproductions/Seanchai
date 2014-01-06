@@ -1,12 +1,14 @@
 class StorySection
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Slug
   include Mongoid::Versioning
   include Seanchai::StatusMethods
 
 
   field :title, type: String
   validates_presence_of :title
+  slug :title, :scope => :story
 
   field :include_in_toc, type: Boolean, default: true
   field :publication_date, type: ActiveSupport::TimeWithZone

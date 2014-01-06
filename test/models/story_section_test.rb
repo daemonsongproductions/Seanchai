@@ -23,6 +23,46 @@ describe "StorySection" do
 
   end
 
+  describe "friendly paths" do
+
+    it "should generate a friendly slug out of the title" do
+
+      section = FactoryGirl.build(:story_section, title: "Chapter 1")
+      section.save
+
+      assert_equal "chapter-1", section.slug
+    end
+
+    it "should increment a number for the friendly path if the generated path is already taken" do
+
+      story = FactoryGirl.create(:story, title: "Story 1")
+      section_1 = FactoryGirl.build(:story_section, {title: "Chapter 1", story: story, order: 1})
+      section_1.save
+      section_2 = FactoryGirl.build(:story_section, {title: "Chapter 1", story: story, order: 2})
+      section_2.save
+
+      assert_equal "chapter-1-1", section_2.slug
+    end
+
+    it "should scope friendly paths by story" do
+
+      story_1 = FactoryGirl.create(:story, title: "Story 1")
+      story_2 = FactoryGirl.create(:story, title: "Story 2")
+
+      section_1 = FactoryGirl.build(:story_section, {title: "Chapter 2", story: story_1, order: 1})
+      section_1.save
+      section_2 = FactoryGirl.build(:story_section, {title: "Chapter 2", story: story_1, order: 2})
+      section_2.save
+      section_3 = FactoryGirl.build(:story_section, {title: "Chapter 2", story: story_2})
+      section_3.save
+
+      assert_equal "chapter-2-1", section_2.slug
+      assert_equal "chapter-2", section_3.slug
+
+    end
+
+  end
+
   describe "status" do
 
     it "should have draft as its default status" do

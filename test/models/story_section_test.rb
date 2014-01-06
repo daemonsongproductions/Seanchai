@@ -15,4 +15,12 @@ describe "StorySection" do
     end
   end
 
+  describe "Story associations" do
+
+    it "should belong to a story" do
+      StorySection.must belong_to(:story)
+    end
+
+  end
+
 end

@@ -29,6 +29,11 @@ describe "Story" do
     it "should belong to a creator" do
       Story.must belong_to(:creator)
     end
+
+    it "should have many story sections" do
+      Story.must have_many(:story_sections)
+    end
+
   end
 
   describe "friendly paths" do

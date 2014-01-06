@@ -2,6 +2,7 @@ class Story
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Slug
+  include Seanchai::StatusMethods
 
   field :title, type: String
   validates_presence_of :title
@@ -34,14 +35,5 @@ class Story
     results = self.where(search_parameters).or([{status_id: Status[:published].id}, {creator: user}])
     results if results.count > 0
   end
-
-  def status
-    Status.find(status_id)
-  end
-
-  def status=(value)
-    self.status_id = value.id
-  end
-
 
 end

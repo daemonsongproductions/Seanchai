@@ -92,6 +92,16 @@ class MiniTest::Spec
       initialize_with { Story.new(title: title, creator: creator) }
     end
   end
+
+  FactoryGirl.define do
+    factory :story_section do
+      story
+      include_in_toc true
+      order 1
+      title "Chapter 1"
+    end
+  end
+
 end
 
 require "mocha/setup"

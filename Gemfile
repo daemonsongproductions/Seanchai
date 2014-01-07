@@ -21,7 +21,7 @@ gem "ember-rails"
 gem "ember-source", "~>1.0.0"
 gem "haml"
 gem "active_model_serializers"
-gem "acts_as_list_mongoid", "~> 0.2.5.1"
+gem "mongoid_orderable", "~> 4.0.0"
 
 
 gem "capybara", ">= 1.1.2", :group => [:development, :test]

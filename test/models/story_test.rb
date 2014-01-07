@@ -130,9 +130,9 @@ describe "Story" do
     it "should return story sections in Order Ascending" do
 
       story = FactoryGirl.create(:story, title: "Story")
-      section_1 = FactoryGirl.create(:story_section, title: "Chapter 2", story: story)
-      section_2 = FactoryGirl.create(:story_section, title: "Chapter 3", story: story)
-      section_3 = FactoryGirl.create(:story_section, title: "Chapter 1", story: story)
+      section_1 =story.story_sections.create(title: "Chapter 2")
+      section_2 = story.story_sections.create(title: "Chapter 3")
+      section_3 = story.story_sections.create(title: "Chapter 1")
 
       section_3.move_to :top
       section_3.save

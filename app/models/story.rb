@@ -20,7 +20,7 @@ class Story
   field :status_id, type: Integer, default: Status[:draft].id
   validates_inclusion_of :status_id, in: Status.find_all.map {|status| status.id }
 
-  has_many :story_sections
+  has_many :story_sections, order: :order.asc
   belongs_to :creator, class_name: "User", inverse_of: :created_stories
   validates_presence_of :creator
 

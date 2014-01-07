@@ -125,4 +125,25 @@ describe "Story" do
 
   end
 
+  describe "Story Sections" do
+
+    it "should return story sections in Order Ascending" do
+
+      story = FactoryGirl.create(:story, title: "Story")
+      section_1 = FactoryGirl.create(:story_section, title: "Chapter 2", story: story)
+      section_2 = FactoryGirl.create(:story_section, title: "Chapter 3", story: story)
+      section_3 = FactoryGirl.create(:story_section, title: "Chapter 1", story: story)
+
+      section_3.move_to :top
+      section_3.save
+
+      story_sections = story.story_sections
+      assert_equal "Chapter 1", story_sections.first.title
+      assert_equal "Chapter 2", story_sections.second.title
+      assert_equal "Chapter 3", story_sections.third.title
+
+    end
+
+  end
+
 end

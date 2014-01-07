@@ -7,7 +7,13 @@ class Permits::MemberPermit < Permits::BasePermit
     allow :stories, [:edit, :update] do |story|
       story.creator.id == user.id
     end
-    allow :story_sections, [:index, :show, :edit]
+    allow :story_sections, [:index, :show]
+    allow :story_sections, [:create] do |story|
+      story.creator.id == user.id
+    end
+    allow :story_sections, [:edit, :update] do |story_section|
+      story_section.story.creator.id = user.id
+    end
     allow :users, [:update] do |user_record|
       user_record.id == user.id
     end

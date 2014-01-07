@@ -4,8 +4,9 @@ describe "StorySectionsController" do
 
     describe "authorization" do
       it "should return unauthorized for guest" do
-        skip("Working out authorization for this")
+        #skip("Working out authorization for this")
         set_guest_user
+        FactoryGirl.create(:story, title: "This")
         post :create, {story_id: "this", story_section: {title: "This"}, format: 'json'}
         assert_response :unauthorized
       end

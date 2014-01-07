@@ -3,6 +3,7 @@ class StorySection
   include Mongoid::Timestamps
   include Mongoid::Slug
   include Mongoid::Versioning
+  include ActsAsList::Mongoid
   include Seanchai::StatusMethods
 
 
@@ -14,9 +15,8 @@ class StorySection
   field :publication_date, type: ActiveSupport::TimeWithZone
 
   # TODO: Order by this field; look up the docs
-  field :order, type: Integer
-  validates_presence_of :order
-  validates_uniqueness_of :order, :scope => :story
+  field :position, as: :order, :type => Integer
+  #acts_as_list :column => :order
 
   # Access by: status_id = Status[:published].id
   field :status_id, type: Integer, default: Status.draft.id
@@ -34,5 +34,13 @@ class StorySection
 
   belongs_to :story
   validates_presence_of :story
+
+  after_create :initialize_in_list
+
+  private
+
+  def initialize_in_list
+    self.init_list_item!
+  end
 
 end

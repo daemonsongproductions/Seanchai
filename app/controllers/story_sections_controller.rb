@@ -14,11 +14,12 @@ class StorySectionsController < ApplicationController
   end
 
   def create
-    @story = Story.find(params[:story_id])
+    story = Story.find(params[:story_id])
+    @story_section = story.story_sections.new(params[:story_section])
 
     respond_to do |format|
-      if @story
-        format.json{ render json: @story }
+      if @story_section.save
+        format.json{ render json: @story_section }
       else
         format.json{ render json: {}, status: :not_found}
       end

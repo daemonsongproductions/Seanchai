@@ -24,6 +24,12 @@ class Permits::MemberPermit < Permits::BasePermit
     allow_param :story, :description
     allow_param :story, :license
     allow_param :story, :copyright
+    allow_param :story, :status_id
+
+    allow_param :story_section, :title
+    allow_param :story_section, :body
+    allow_param :story_section, :include_in_toc
+    allow_param :story_section, :status_id
 
 
   end

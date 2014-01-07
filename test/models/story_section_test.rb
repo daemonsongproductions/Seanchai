@@ -69,10 +69,13 @@ describe "StorySection" do
       story_1 = FactoryGirl.create(:story, title: "Story 1")
       story_2 = FactoryGirl.create(:story, title: "Story 2")
       section_1 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: story_1})
-      section_2 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: story_2})
-      section_3 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: story_1})
+      section_2 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: story_1})
+      section_3 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: story_2})
       section_4 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: story_2})
 
+      assert_equal 1, section_1.order
+      assert_equal 2, section_2.order
+      assert_equal 1, section_3.order
       assert_equal 2, section_4.order
 
     end

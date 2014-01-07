@@ -4,7 +4,6 @@ describe "StorySectionsController" do
 
     describe "authorization" do
       it "should return unauthorized for guest" do
-        #skip("Working out authorization for this")
         set_guest_user
         FactoryGirl.create(:story, title: "This")
         post :create, {story_id: "this", story_section: {title: "This"}, format: 'json'}
@@ -13,7 +12,6 @@ describe "StorySectionsController" do
     end
 
     it "should return success on successful creation" do
-      skip("Working out authorization for this")
       set_member_user
       story = FactoryGirl.create(:story, title: "This is a thing I'm doing")
       Story.expects(:find).with('this-is-a-thing-im-doing').returns(story)

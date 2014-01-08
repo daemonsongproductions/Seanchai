@@ -170,8 +170,8 @@ describe "StoriesController" do
   describe "edit" do
 
     before :each do
-      @story = FactoryGirl.create(:story, title: "This is a thing I'm doing")
-      @story.save
+      @creator = FactoryGirl.create(:user, email: "creator@creator.com", username: "creatrix")
+      @story = FactoryGirl.create(:story, title: "This is a thing I'm doing", creator: @creator)
     end
 
     it "should return unauthorized for guest" do
@@ -181,16 +181,13 @@ describe "StoriesController" do
     end
 
     it "should return successfully for the creator" do
-      set_member_user
-      @controller.expects(:current_resource).returns(@story)
-      @story.creator.expects(:id).returns("id")
+      set_current_user(@creator)
       get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :success
     end
 
     it "should return unauthorized for any user but the creator" do
-      user = mock_user_with_role(Member, "other_id")
-      set_current_user(user)
+      set_member_user
       get :edit, id: "this-is-a-thing-im-doing", format: 'json'
       assert_response :unauthorized
     end

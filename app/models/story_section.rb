@@ -33,5 +33,9 @@ class StorySection
   # TODO: Order by this field; look up the docs
   orderable :scope => :story, :column => :order
 
+  def creator
+    self.story.creator
+  end
+
 
 end

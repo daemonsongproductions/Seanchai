@@ -208,8 +208,8 @@ describe "StoriesController" do
     describe "authorization" do
 
       before :each do
-        @story = FactoryGirl.create(:story, title: "This is a thing I'm doing")
-        @story.save
+        @creator = FactoryGirl.create(:user, email: "creator@creator.com", username: "creatrix")
+        @story = FactoryGirl.create(:story, title: "This is a thing I'm doing", creator: @creator)
       end
 
       it "should return unauthorized for guest" do
@@ -219,9 +219,7 @@ describe "StoriesController" do
       end
 
       it "should return successfully for the creator" do
-        set_member_user
-        @controller.expects(:current_resource).returns(@story)
-        @story.creator.expects(:id).returns("id")
+        set_current_user(@creator)
         put :update, {id: "this-is-a-thing-im-doing", story: { title: 'the poop'}, format: 'json'}
         assert_response :success
       end

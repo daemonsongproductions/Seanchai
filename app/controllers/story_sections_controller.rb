@@ -28,7 +28,6 @@ class StorySectionsController < ApplicationController
   private
 
   def current_resource
-    #@current_resource ||= StorySection.find_visible_for(current_user, {:_slugs.in => [params[:id]]}) if params[:id]
     if params[:id]
       @current_resource ||= StorySection.find(params[:id])
     elsif params[:story_id]

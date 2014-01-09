@@ -1,27 +1,5 @@
 <legend>{{controller.title}}</legend>
-<div class="row">
-  <div class="col-md-6 col-lg-6">
-  <div class="row">
-    <div class="col-md-2"><b>Description: </b></div>
-    <div class="col-md-offset-1 col-md-8"><p>{{controller.description}}</p></div>
-  </div>
-  <div class="row">
-    <div class="col-md-2"><b>Copyright: </b></div>
-    <div class="col-md-offset-1 col-md-8"><p>{{controller.copyright}}</p></div>
-  </div>
-  {{#if controller.editable}}
-    <div class="row">
-      <p><div class="col-md-1">{{#link-to 'stories_edit' controller.model classNames="btn btn-primary"}}Edit Story Details{{/link-to}}</div></p>
-    </div>
-    <div class="row">
-      <p><div class="col-md-1">{{#link-to 'story_sections_new' controller.model classNames="btn btn-default"}}Add Section{{/link-to}}</div></p>
-    </div>
-  {{/if}}
-  </div>
-  <div class="col-md-4 cold-lg-4">
-    {{outlet}}
-  </div>
-</div>
+{{outlet}}
 
 
 

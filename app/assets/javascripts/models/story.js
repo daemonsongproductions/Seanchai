@@ -6,6 +6,7 @@ Seanchai.Story = DS.Model.extend({
   creator_id: DS.attr('string'),
   editable: DS.attr('boolean'),
   status_id: DS.attr('number'),
+  story_sections: DS.hasMany('story_section'),
 
   validate: function(){
     if(this.get('title') === undefined || this.get('title') === '') {

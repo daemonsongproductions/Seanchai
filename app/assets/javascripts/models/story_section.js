@@ -5,6 +5,7 @@ Seanchai.StorySection = DS.Model.extend({
   status_id: DS.attr('number'),
   story_id: DS.attr('string'),
   editable: DS.attr('boolean'),
+  story: DS.belongsTo('story'),
 
   validate: function(){
     if(this.get('title') === undefined || this.get('title') === '') {

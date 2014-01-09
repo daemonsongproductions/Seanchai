@@ -15,7 +15,11 @@ Seanchai.Router.map(function() {
     this.route('new');
     this.resource('stories_edit', {path: ':story_id/edit'})
   });
-  this.resource('story', { path: '/story/:story_id' });
+  this.resource('story', { path: '/story/:story_id' }, function() {
+    this.resource('story_sections_index', {path: ''});
+    this.resource('story_sections_new', {path: 'story_sections/new'});
+  });
+  this.resource('story_section_show', {path: '/story/:story_id/:story_section_id'})
 
 });
 

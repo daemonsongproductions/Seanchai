@@ -1,11 +1,10 @@
-Seanchai.Story = DS.Model.extend({
+Seanchai.StorySection = DS.Model.extend({
   title: DS.attr('string'),
-  description: DS.attr('string'),
-  copyright: DS.attr('string'),
-  license: DS.attr('string'),
-  creator_id: DS.attr('string'),
-  editable: DS.attr('boolean'),
+  body: DS.attr('string'),
+  include_in_toc: DS.attr('string'),
   status_id: DS.attr('number'),
+  story_id: DS.attr('string'),
+  editable: DS.attr('boolean'),
 
   validate: function(){
     if(this.get('title') === undefined || this.get('title') === '') {

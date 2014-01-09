@@ -1,1 +1,14 @@
-<b>NEW STORY SECTION</b>
+<legend>Add a new section to your story</legend>
+{{#if errorMsg}}
+  <div class="alert alert-danger">
+    {{errorMsg}}
+  </div>
+{{/if}}
+{{view Seanchai.RequiredTextField valueBinding="title" fieldId="title" action="submit" label="Title" size="100" field-size="col-xs-2"}}
+{{view Seanchai.TextAreaField valueBinding="body" fieldId="body" label="Body"}}
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <input {{action submit}} type="submit" class="btn btn-primary" value="Save" />
+    <input {{action cancel}} type="submit" class="cancel btn" value="Cancel" />
+  </div>
+</div>

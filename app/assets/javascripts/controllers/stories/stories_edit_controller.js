@@ -1,7 +1,7 @@
 Seanchai.StoriesEditController = Ember.ObjectController.extend({
   actions: {
     cancel: function(){
-      this.transitionToRoute('story', this);
+      this.transitionToRoute('story_sections_index', this);
     },
 
     submit: function(){

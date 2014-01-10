@@ -13,7 +13,7 @@
         <p><div class="col-md-1">{{#link-to 'stories_edit' controllers.story.model classNames="btn btn-primary"}}Edit Story Details{{/link-to}}</div></p>
       </div>
       <div class="row">
-        <p><div class="col-md-1">{{#link-to 'story_sections_new' controllers.story.model classNames="btn btn-default"}}Add Section{{/link-to}}</div></p>
+        <p><div class="col-md-1">{{#link-to 'story_sections_new' controller.story.model.id classNames="btn btn-default"}}Add Section{{/link-to}}</div></p>
       </div>
     {{/if}}
   </div>

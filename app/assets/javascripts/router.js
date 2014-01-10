@@ -17,8 +17,8 @@ Seanchai.Router.map(function() {
   });
   this.resource('story', { path: '/story/:story_id' }, function() {
     this.resource('story_sections_index', {path: ''});
-    this.resource('story_sections_new', {path: '/story/:story_id/story_sections/new'});
   });
+  this.resource('story_sections_new', {path: '/story/:story_id/story_sections/new'});
   this.resource('story_section_show', {path: '/story/:story_id/:story_section_id'});
 
 });

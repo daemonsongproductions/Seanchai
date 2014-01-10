@@ -1,7 +1,7 @@
 class StorySectionsController < ApplicationController
 
   def new
-    @story = Story.find(params[:story_id])
+    @story = Story.find(params[:story_section][:story_id])
 
     respond_to do |format|
       if @story
@@ -14,7 +14,7 @@ class StorySectionsController < ApplicationController
   end
 
   def create
-    story = Story.find(params[:story_id]) if params[:story_id]
+    story = Story.find(params[:story_section][:story_id]) if params[:story_section][:story_id]
     @story_section = story.story_sections.new(params[:story_section])
     respond_to do |format|
       if @story_section.save
@@ -30,8 +30,8 @@ class StorySectionsController < ApplicationController
   def current_resource
     if params[:id]
       @current_resource ||= StorySection.find(params[:id])
-    elsif params[:story_id]
-      @current_resource ||= Story.find(params[:story_id]) if params[:story_id]
+    elsif params[:story_section][:story_id]
+      @current_resource ||= Story.find(params[:story_section][:story_id]) if params[:story_section][:story_id]
     end
   end
 

@@ -30,6 +30,7 @@ class Permits::MemberPermit < Permits::BasePermit
     allow_param :story_section, :body
     allow_param :story_section, :include_in_toc
     allow_param :story_section, :status_id
+    allow_param :story_section, :story_id
 
 
   end

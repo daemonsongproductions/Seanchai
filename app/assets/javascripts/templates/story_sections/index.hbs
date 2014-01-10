@@ -18,7 +18,15 @@
     {{/if}}
   </div>
   <div class="col-md-4 cold-lg-4">
-    <b>THIS IS THE STORY SECTIONS INDEX</b>
+    <ul>
+      {{#each controller}}
+        {{#if title}}
+          <li>
+            {{title}}
+          </li>
+        {{/if}}
+      {{/each}}
+    </ul>
   </div>
 </div>
 

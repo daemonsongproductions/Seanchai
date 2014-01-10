@@ -9,29 +9,34 @@ describe "StorySectionsController" do
       @story.story_sections.create(title: "Chapter 3")
     end
 
-    describe "authorization" do
 
-      it "should return successfully for guest" do
-        set_guest_user
-        get :index, format: 'json', story_id: 'story-1'
-        assert_response :success
-        assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["id"] == "chapter-1"}
-      end
-
-      it "should return successfully for member" do
-        set_member_user
-        get :index, format: 'json', story_id: 'story-1'
-        assert_response :success
-        assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["id"] == "chapter-1"}
-      end
-
-      it "should return successfully for admin" do
-        set_admin_user
-        get :index, format: 'json', story_id: 'story-1'
-        assert_response :success
-        assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["id"] == "chapter-1"}
-      end
+    it "should return successfully for guest" do
+      set_guest_user
+      get :index, format: 'json', story_id: 'story-1'
+      assert_response :success
+      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["id"] == "chapter-1"}
     end
+
+    it "should return successfully for member" do
+      set_member_user
+      get :index, format: 'json', story_id: 'story-1'
+      assert_response :success
+      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["id"] == "chapter-1"}
+    end
+
+    it "should return successfully for admin" do
+      set_admin_user
+      get :index, format: 'json', story_id: 'story-1'
+      assert_response :success
+      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["id"] == "chapter-1"}
+    end
+
+    it "should return not found for invalid story ids" do
+      set_guest_user
+      get :index, format: 'json', story_id: 'story-2'
+      assert_response :not_found
+    end
+
 
   end
 

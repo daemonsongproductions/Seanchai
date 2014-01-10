@@ -1,5 +1,17 @@
 class StorySectionsController < ApplicationController
 
+  def index
+    @story = Story.find(params[:story_id])
+
+    respond_to do |format|
+      if @story
+        format.json{ render json: @story.story_sections }
+      else
+        format.json{ render json: {}, status: :not_found}
+      end
+    end
+  end
+
   def new
     @story = Story.find(params[:story_section][:story_id])
 
@@ -29,8 +41,10 @@ class StorySectionsController < ApplicationController
   def current_resource
     if params[:id]
       @current_resource ||= StorySection.find(params[:id])
-    elsif params[:story_section][:story_id]
-      @current_resource ||= Story.find(params[:story_section][:story_id]) if params[:story_section][:story_id]
+    elsif params[:story_section] && params[:story_section][:story_id]
+      @current_resource ||= Story.find(params[:story_section][:story_id])
+    elsif params[:story_id]
+      @current_resource ||= Story.find([:story_id])
     end
   end
 

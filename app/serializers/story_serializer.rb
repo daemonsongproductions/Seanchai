@@ -1,5 +1,5 @@
 class StorySerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :copyright, :editable, :creator_id
+  attributes :id, :title, :description, :copyright, :editable, :creator_id, :story_sections
 
   def id
     object.slug
@@ -15,6 +15,10 @@ class StorySerializer < ActiveModel::Serializer
 
   def creator_id
     object.creator.username
+  end
+
+  def story_sections
+    object.story_sections.map { |section| section.id }
   end
 
 end

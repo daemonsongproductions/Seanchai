@@ -33,6 +33,12 @@ class StorySection
   # TODO: Order by this field; look up the docs
   orderable :scope => :story, :column => :order
 
+
+  def initialize(attrs = nil, options = nil)
+    super
+    self.story_id = Story.find(attrs[:story_id]).id if attrs[:story_id]
+  end
+
   def creator
     self.story.creator
   end

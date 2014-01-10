@@ -14,8 +14,7 @@ class StorySectionsController < ApplicationController
   end
 
   def create
-    story = Story.find(params[:story_section][:story_id]) if params[:story_section][:story_id]
-    @story_section = story.story_sections.new(params[:story_section])
+    @story_section = StorySection.new(params[:story_section])
     respond_to do |format|
       if @story_section.save
         format.json{ render json: @story_section }

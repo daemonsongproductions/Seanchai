@@ -12,6 +12,18 @@ class StorySectionsController < ApplicationController
     end
   end
 
+  def show
+    @story = params[:story_id] ?  Story.find(params[:story_id]) : nil
+    @story_section = @story.story_sections.find(params[:id]) if @story
+    respond_to do |format|
+      if @story_section
+        format.json{ render json: @story_section }
+      else
+        format.json{ render json: {}, status: :not_found}
+      end
+    end
+  end
+
   def new
     @story = Story.find(params[:story_section][:story_id])
 

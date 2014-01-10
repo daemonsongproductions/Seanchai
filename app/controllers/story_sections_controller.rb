@@ -1,7 +1,7 @@
 class StorySectionsController < ApplicationController
 
   def index
-    @story = Story.find(params[:story_id])
+    @story = params[:story_id] ?  Story.find(params[:story_id]) : nil
 
     respond_to do |format|
       if @story

@@ -3,7 +3,6 @@ Seanchai.StorySection = DS.Model.extend({
   body: DS.attr('string'),
   //include_in_toc: DS.attr('string'),
   //status_id: DS.attr('number'),
-  slug: DS.attr('string'),
   editable: DS.attr('boolean'),
   story: DS.belongsTo('story'),
 

@@ -18,7 +18,7 @@ class StorySerializer < ActiveModel::Serializer
   end
 
   def story_sections
-    object.story_sections.map { |section| section.id }
+    object.story_sections.map { |section| section.slug }
   end
 
 end

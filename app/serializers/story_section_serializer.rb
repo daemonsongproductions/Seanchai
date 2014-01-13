@@ -1,7 +1,7 @@
 class StorySectionSerializer < ActiveModel::Serializer
-  attributes :id, :slug, :title, :body, :include_in_toc, :editable, :story_id, :creator_id
+  attributes :id, :title, :body, :include_in_toc, :editable, :story_id, :creator_id
 
-  def slug
+  def id
     object.slug
   end
 

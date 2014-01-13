@@ -1,7 +1,7 @@
 class StorySectionsController < ApplicationController
 
   def index
-    @story_sections = StorySection.any_in(:id => params[:ids])
+    @story_sections = section_search
 
     respond_to do |format|
       if @story_sections
@@ -49,12 +49,21 @@ class StorySectionsController < ApplicationController
 
   private
 
+  def section_search
+    if params[:ids]
+      StorySection.any_in(:id => params[:ids])
+    else
+      search_parameters = {}
+      search_parameters[:story_id] = Story.find(params[:story_id]).id if params[:story_id]
+      search_parameters.merge!(:_slugs.in => [params[:id]]) if params[:id]
+      StorySection.where(search_parameters)
+    end
+
+  end
+
   def current_resource
-    Rails.logger.error(params.to_s)
-    if params[:id]
-      @current_resource ||= StorySection.find(params[:id])
-    elsif params[:ids]
-      @current_resource ||= StorySection.find(params[:ids].first)
+    if params[:story_id]
+      @current_resource ||= Story.find(params[:story_id].first)
     elsif params[:story_section] && params[:story_section][:story_id]
       @current_resource ||= Story.find(params[:story_section][:story_id])
     end

@@ -22,7 +22,7 @@
       {{#each controller}}
         {{#if title}}
           <li>
-            {{#link-to 'story_sections_show' controller}}{{title}}{{/link-to}}
+            {{#link-to 'story_sections_show' this.id}}{{title}}{{/link-to}}
           </li>
         {{/if}}
       {{/each}}

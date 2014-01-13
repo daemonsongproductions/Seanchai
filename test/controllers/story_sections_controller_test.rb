@@ -42,26 +42,26 @@ describe "StorySectionsController" do
 
     before :each do
       @story = FactoryGirl.create(:story, title: "Story 1")
-      @story.story_sections.create(title: "Chapter 1")
+      @section_1 = @story.story_sections.create(title: "Chapter 1")
       @story.story_sections.create(title: "Chapter 2")
       @story.story_sections.create(title: "Chapter 3")
     end
 
     it "should return successfully for guest" do
       set_guest_user
-      get :show, story_id: "story-1", id: "chapter-1", format: 'json'
+      get :show, id: @section_1.id, format: 'json'
       assert_response :success
     end
 
     it "should return successfully for member" do
       set_member_user
-      get :show, story_id: "story-1", id: "chapter-1", format: 'json'
+      get :show, id: @section_1.id, format: 'json'
       assert_response :success
     end
 
     it "should return successfully for admin" do
       set_admin_user
-      get :show, story_id: "story-1", id: "chapter-1", format: 'json'
+      get :show, id: @section_1.id, format: 'json'
       assert_response :success
     end
 

@@ -13,8 +13,7 @@ class StorySectionsController < ApplicationController
   end
 
   def show
-    @story = params[:story_id] ?  Story.find(params[:story_id]) : nil
-    @story_section = @story.story_sections.find(params[:id]) if @story
+    @story_section = StorySection.find(params[:id])
     respond_to do |format|
       if @story_section
         format.json{ render json: @story_section }
@@ -55,8 +54,6 @@ class StorySectionsController < ApplicationController
       @current_resource ||= StorySection.find(params[:id])
     elsif params[:story_section] && params[:story_section][:story_id]
       @current_resource ||= Story.find(params[:story_section][:story_id])
-    elsif params[:story_id]
-      @current_resource ||= Story.find([:story_id])
     end
   end
 

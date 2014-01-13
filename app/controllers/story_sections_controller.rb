@@ -1,11 +1,11 @@
 class StorySectionsController < ApplicationController
 
   def index
-    @story = params[:story_id] ?  Story.find(params[:story_id]) : nil
+    @story_sections = StorySection.any_in(:id => params[:ids])
 
     respond_to do |format|
-      if @story
-        format.json{ render json: @story.story_sections }
+      if @story_sections
+        format.json{ render json: @story_sections }
       else
         format.json{ render json: {}, status: :not_found}
       end
@@ -50,8 +50,11 @@ class StorySectionsController < ApplicationController
   private
 
   def current_resource
+    Rails.logger.error(params.to_s)
     if params[:id]
       @current_resource ||= StorySection.find(params[:id])
+    elsif params[:ids]
+      @current_resource ||= StorySection.find(params[:ids].first)
     elsif params[:story_section] && params[:story_section][:story_id]
       @current_resource ||= Story.find(params[:story_section][:story_id])
     end

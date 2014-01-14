@@ -47,6 +47,18 @@ class StorySectionsController < ApplicationController
     end
   end
 
+  def update
+    @story_section = StorySection.find(params[:id])
+
+    respond_to do |format|
+      if @story_section.update_attributes(params[:story_section])
+        format.json{ render json: @story_section }
+      else
+        format.json{ render json: @story_section.errors, status: :unprocessable_entity }
+        end
+    end
+  end
+
   private
 
   def section_search
@@ -65,6 +77,8 @@ class StorySectionsController < ApplicationController
   def current_resource
     if params[:story_id]
       @current_resource ||= Story.find(params[:story_id])
+    elsif params[:id]
+      @current_resource ||= StorySection.find(params[:id])
     elsif params[:story_section] && params[:story_section][:story_id]
       @current_resource ||= Story.find(params[:story_section][:story_id])
     end

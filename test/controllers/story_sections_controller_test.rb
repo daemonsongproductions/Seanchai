@@ -119,4 +119,35 @@ describe "StorySectionsController" do
 
   end
 
+  describe "update" do
+
+    before :each do
+      @creator = FactoryGirl.create(:user, email: "creator@creator.com", username: "creatrix")
+      @story = FactoryGirl.create(:story, title: "Story 1", creator: @creator, status: Status.published)
+      @story_section = @story.story_sections.create(title: "Chapter 1")
+    end
+
+    it "should return unauthorized for guest" do
+      set_guest_user
+      put :update, {format: 'json', id: @story_section.id,
+                    story_section: {title: "Chapter 1 is death", story_id: @story.id}}
+      assert_response :unauthorized
+    end
+
+    it "should return successfully for the creator" do
+      set_current_user(@creator)
+      put :update, {format: 'json', id: @story_section.id,
+                    story_section: {title: "Chapter 1 is death", story_id: @story.id}}
+      assert_response :success
+    end
+
+    it "should return unauthorized for any user but the creator" do
+      set_member_user
+      put :update, {format: 'json', id: @story_section.id,
+                    story_section: {title: "Chapter 1 is death", story_id: @story.id}}
+      assert_response :unauthorized
+    end
+
+  end
+
 end

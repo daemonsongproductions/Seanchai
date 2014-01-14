@@ -11,8 +11,8 @@ class Permits::MemberPermit < Permits::BasePermit
     allow :story_sections, [:create] do |story|
       story.creator.id == user.id
     end
-    allow :story_sections, [:edit, :update] do |story_section|
-      story_section.creator.id = user.id
+    allow :story_sections, [:update] do |story_section|
+      story_section.creator.id == user.id
     end
     allow :users, [:update] do |user_record|
       user_record.id == user.id

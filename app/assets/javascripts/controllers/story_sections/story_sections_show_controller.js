@@ -1,5 +1,6 @@
-Seanchai.StorySectionsIndexController = Ember.ArrayController.extend({
+Seanchai.StorySectionsShowController = Ember.ObjectController.extend({
   sortProperties: ['title'],
   sortAscending: true,
-  needs: "story"
+  needs: "story",
+  story: Ember.computed.alias("controllers.story")
 });

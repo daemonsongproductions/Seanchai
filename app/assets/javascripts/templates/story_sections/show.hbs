@@ -1,4 +1,8 @@
-{{#each controller}}
-  <h3>{{title}}</h3>
-  {{{body}}}
-{{/each}}
+<h3>{{title}}</h3>
+{{{body}}}
+{{#if editable}}
+  <div class="row">
+    <p><div class="col-md-1">{{#link-to 'story_sections_edit' this classNames="btn btn-primary"}}Edit Section{{/link-to}}</div></p>
+  </div>
+{{/if}}
+

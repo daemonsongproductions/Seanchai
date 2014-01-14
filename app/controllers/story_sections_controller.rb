@@ -13,7 +13,13 @@ class StorySectionsController < ApplicationController
   end
 
   def show
-    @story_section = StorySection.find(params[:id])
+    @story_section = nil
+    if params[:story_id]
+      story = Story.find(params[:story_id])
+      @story_section = StorySection.where(story: story, order: params[:id]).first
+    else
+      @story_section = StorySection.find(params[:id])
+    end
     respond_to do |format|
       if @story_section
         format.json{ render json: @story_section }

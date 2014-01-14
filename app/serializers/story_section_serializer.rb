@@ -6,7 +6,7 @@ class StorySectionSerializer < ActiveModel::Serializer
   end
 
   def editable
-    current_user.role.permissions_for(current_user).allow?(:story_sections, :edit, object)
+    current_user.role.permissions_for(current_user).allow?(:story_sections, :update, object)
   end
 
   def creator_id

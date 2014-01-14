@@ -36,6 +36,18 @@ describe "StorySectionsController" do
       assert_response :not_found
     end
 
+    it "should return the correct section by story and order" do
+      set_guest_user
+      get :index, format: 'json', story_id: 'story-1', order: 2
+      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["slug"] == "chapter-2"}
+    end
+
+    it "should returns a list of sections for the supplied ids" do
+      set_guest_user
+      get :index, format: 'json', ids: [@story.story_sections[1]]
+      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["slug"] == "chapter-2"}
+    end
+
   end
 
   describe "show" do

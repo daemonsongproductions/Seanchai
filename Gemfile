@@ -22,6 +22,7 @@ gem "ember-source", "~>1.0.0"
 gem "haml"
 gem "active_model_serializers"
 gem "mongoid_orderable", "~> 4.0.0"
+gem "tinymce-rails", "~> 4.0.12"
 
 
 gem "capybara", ">= 1.1.2", :group => [:development, :test]

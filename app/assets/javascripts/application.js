@@ -18,6 +18,7 @@
 //= require ember-states
 //= require_self
 //= require seanchai
+//= require tinymce-jquery
 Seanchai = Ember.Application.create({
   LOG_TRANSITIONS: true,
   LOG_BINDINGS: true

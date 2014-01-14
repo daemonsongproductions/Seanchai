@@ -10,7 +10,7 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = Story.find_visible_for(current_user, )
+    @story = Story.find_visible_for(current_user, {:_slugs.in => [params[:id]]})
 
     respond_to do |format|
       if @story

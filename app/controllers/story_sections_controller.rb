@@ -4,7 +4,7 @@ class StorySectionsController < ApplicationController
     @story_sections = section_search
 
     respond_to do |format|
-      if @story_sections
+      if @story_sections.count > 0
         format.json{ render json: @story_sections }
       else
         format.json{ render json: {}, status: :not_found}
@@ -54,7 +54,7 @@ class StorySectionsController < ApplicationController
       StorySection.any_in(:id => params[:ids])
     else
       search_parameters = {}
-      search_parameters[:story_id] = Story.find(params[:story_id]).id if params[:story_id]
+      search_parameters[:story] = Story.find(params[:story_id]) if params[:story_id]
       search_parameters[:order] = params[:order] if params[:order]
       search_parameters.merge!(:_slugs.in => [params[:id]]) if params[:id]
       StorySection.where(search_parameters)

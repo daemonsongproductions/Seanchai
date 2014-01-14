@@ -13,21 +13,21 @@ describe "StorySectionsController" do
       set_guest_user
       get :index, format: 'json', story_id: 'story-1'
       assert_response :success
-      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["id"] == "chapter-1"}
+      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["slug"] == "chapter-1"}
     end
 
     it "should return successfully for member" do
       set_member_user
       get :index, format: 'json', story_id: 'story-1'
       assert_response :success
-      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["id"] == "chapter-1"}
+      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["slug"] == "chapter-1"}
     end
 
     it "should return successfully for admin" do
       set_admin_user
       get :index, format: 'json', story_id: 'story-1'
       assert_response :success
-      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["id"] == "chapter-1"}
+      assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["slug"] == "chapter-1"}
     end
 
     it "should return not found for invalid story ids" do
@@ -86,7 +86,7 @@ describe "StorySectionsController" do
       post :create, {format: 'json',
                      story_section: {title: "Chapter 1", story_id: 'this-is-a-thing-im-doing',}}
       assert_response :success
-      assert_equal "chapter-1", ActiveSupport::JSON.decode(response.body)["story_section"]["id"]
+      assert_equal "chapter-1", ActiveSupport::JSON.decode(response.body)["story_section"]["slug"]
     end
 
     it "should return unprocessable entity on unsuccessful creation" do

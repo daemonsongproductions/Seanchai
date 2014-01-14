@@ -4,7 +4,7 @@ class StorySectionsController < ApplicationController
     @story_sections = section_search
 
     respond_to do |format|
-      if @story_sections.count > 0
+      if @story_sections
         format.json{ render json: @story_sections }
       else
         format.json{ render json: {}, status: :not_found}

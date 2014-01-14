@@ -44,7 +44,7 @@ describe "StorySectionsController" do
 
     it "should returns a list of sections for the supplied ids" do
       set_guest_user
-      get :index, format: 'json', ids: [@story.story_sections[1]]
+      get :index, format: 'json', ids: [@story.story_sections[1].id]
       assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["slug"] == "chapter-2"}
     end
 

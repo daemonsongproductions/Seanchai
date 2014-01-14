@@ -57,14 +57,14 @@ class StorySectionsController < ApplicationController
       search_parameters[:story] = Story.find(params[:story_id]) if params[:story_id]
       search_parameters[:order] = params[:order] if params[:order]
       search_parameters.merge!(:_slugs.in => [params[:id]]) if params[:id]
-      StorySection.where(search_parameters)
+      StorySection.where(search_parameters) if search_parameters[:story]
     end
 
   end
 
   def current_resource
     if params[:story_id]
-      @current_resource ||= Story.find(params[:story_id].first)
+      @current_resource ||= Story.find(params[:story_id])
     elsif params[:story_section] && params[:story_section][:story_id]
       @current_resource ||= Story.find(params[:story_section][:story_id])
     end

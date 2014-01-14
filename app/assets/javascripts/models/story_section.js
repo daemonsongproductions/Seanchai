@@ -1,6 +1,7 @@
 Seanchai.StorySection = DS.Model.extend({
   title: DS.attr('string'),
   body: DS.attr('string'),
+  order: DS.attr('number'),
   //include_in_toc: DS.attr('string'),
   //status_id: DS.attr('number'),
   editable: DS.attr('boolean'),

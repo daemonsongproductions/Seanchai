@@ -5,7 +5,7 @@ Seanchai.StorySection = DS.Model.extend({
   //include_in_toc: DS.attr('string'),
   //status_id: DS.attr('number'),
   editable: DS.attr('boolean'),
-  story: DS.belongsTo('story'),
+  story: DS.belongsTo('story',{async:true}),
   story_id: DS.attr('string'),
 
   validate: function(){

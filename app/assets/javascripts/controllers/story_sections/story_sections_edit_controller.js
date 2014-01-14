@@ -12,7 +12,7 @@ Seanchai.StorySectionsEditController = Ember.ObjectController.extend({
       this.get('model').save().then(
           // fulfill
           function(answer) {
-            return controller.transitionToRoute('story_sections_show', [answer]);
+            return controller.transitionToRoute('story_sections_show', answer);
           },
           // reject
           function(e) {

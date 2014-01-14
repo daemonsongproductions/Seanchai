@@ -14,7 +14,7 @@ class StorySectionSerializer < ActiveModel::Serializer
   end
 
   def story_id
-    object.story.id
+    object.story.slug
   end
 
 end

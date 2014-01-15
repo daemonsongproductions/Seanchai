@@ -5,6 +5,7 @@
 {{/if}}
 {{view Seanchai.RequiredTextField valueBinding="title" fieldId="title" action="submit" label="Title" size="100" field-size="col-xs-2"}}
 {{view Seanchai.TextAreaField valueBinding="body" fieldId="body" label="Body"}}
+{{view Seanchai.SelectField valueBinding="controller.status_id" statusesBinding="statuses" fieldId="status_id" label="Status"}}
 <div class="form-group">
   <div class="col-sm-offset-2 col-sm-10">
     <input {{action submit}} type="submit" class="btn btn-primary" value="Save" />

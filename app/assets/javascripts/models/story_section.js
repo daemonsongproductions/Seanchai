@@ -7,6 +7,7 @@ Seanchai.StorySection = DS.Model.extend({
   editable: DS.attr('boolean'),
   story: DS.belongsTo('story',{async:true}),
   story_id: DS.attr('string'),
+  partial: DS.attr('boolean'),
 
   validate: function(){
     if(this.get('title') === undefined || this.get('title') === '') {

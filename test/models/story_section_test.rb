@@ -146,10 +146,10 @@ describe "StorySection" do
       end
 
       it "should search by any other search criteria passed" do
-        creator_results = StorySection.find_visible_for(@creator_1, {title: "Title 1"})
-        non_creator_results = StorySection.find_visible_for(@creator_1, {title: "Title 3"})
+        creator_results = StorySection.find_visible_for(@creator_1, {id: @section_2.id})
+        non_creator_results = StorySection.find_visible_for(@creator_1, {id: @section_4.id})
         assert_equal 1, creator_results.count
-        assert_equal nil, non_creator_results
+        assert_equal 0, non_creator_results.count
       end
     end
 

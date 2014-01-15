@@ -44,7 +44,7 @@ class StorySection
 
   def self.find_visible_for(user, search_parameters = {})
     results = self.where(search_parameters).or([{status_id: Status.published.id}, {creator: user}])
-    results if results.count > 0
+    results
   end
 
   private

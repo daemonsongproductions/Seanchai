@@ -55,8 +55,8 @@ describe "StorySectionsController" do
   describe "show" do
 
     before :each do
-      @story = FactoryGirl.create(:story, title: "Story 1")
-      @section_1 = @story.story_sections.create(title: "Chapter 1")
+      @story = FactoryGirl.create(:story, title: "Story 1", status: Status.published)
+      @section_1 = @story.story_sections.create(title: "Chapter 1", status: Status.published)
       @story.story_sections.create(title: "Chapter 2")
       @story.story_sections.create(title: "Chapter 3")
     end

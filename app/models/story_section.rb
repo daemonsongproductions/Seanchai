@@ -30,8 +30,11 @@ class StorySection
 
   belongs_to :story
   validates_presence_of :story
+  belongs_to :creator, class_name: "User", inverse_of: :created_story_sections
   # TODO: Order by this field; look up the docs
   orderable :scope => :story, :column => :order
+
+  before_create :set_creator
 
 
   def initialize(attrs = nil, options = nil)
@@ -39,8 +42,15 @@ class StorySection
     self.story_id = Story.find(attrs[:story_id]).id if attrs[:story_id]
   end
 
-  def creator
-    self.story.creator
+  def self.find_visible_for(user, search_parameters = {})
+    results = self.where(search_parameters).or([{status_id: Status.published.id}, {creator: user}])
+    results if results.count > 0
+  end
+
+  private
+
+  def set_creator
+    self.creator = self.story.creator
   end
 
 

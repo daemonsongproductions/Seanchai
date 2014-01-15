@@ -20,7 +20,7 @@ class StorySectionSerializer < ActiveModel::Serializer
   end
 
   def creator_id
-    object.story.creator.username
+    object.creator.username
   end
 
   def story_id

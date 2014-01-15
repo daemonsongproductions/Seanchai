@@ -52,6 +52,7 @@ class User
   before_create :set_default_role
 
   has_many :created_stories, class_name: "Story", inverse_of: :creator
+  has_many :created_story_sections, class_name: "StorySection", inverse_of: :creator
 
   index({username: 1}, {unique: true})
 

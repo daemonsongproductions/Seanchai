@@ -108,4 +108,51 @@ describe "StorySection" do
 
   end
 
+  describe "querying" do
+
+    describe "find_visible_for" do
+
+      before :each do
+        @user = FactoryGirl.create(:user)
+        @creator_1 = FactoryGirl.create(:user, username: "user2", email: "user2@user.com")
+        @creator_2 = FactoryGirl.create(:user, username: "user3", email: "user3@user.com")
+
+        @story_1 = FactoryGirl.create(:story, {title: "Title 1", creator: @creator_1})
+        @section_1 = FactoryGirl.create(:story_section, {title: "Chapter 1", story: @story_1, status: Status.published})
+        @section_2 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: @story_1})
+
+        @story_2 = FactoryGirl.create(:story, {title: "Title 2", status: Status[:published], creator: @creator_2})
+        @section_3 = FactoryGirl.create(:story_section, {title: "Chapter 1", story: @story_2, status: Status.published})
+        @section_4 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: @story_2})
+
+        @story_3 = FactoryGirl.create(:story, {title: "Title 3",  creator: @creator_1})
+        @section_5 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: @story_3, status: Status.published})
+        @section_6 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: @story_3})
+
+        @story_4 = FactoryGirl.build(:story, {title: "Title 4", status: Status[:published], creator: @creator_2})
+        @section_7 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: @story_4, status: Status.published})
+        @section_8 = FactoryGirl.create(:story_section, {title: "Chapter 2", story: @story_4})
+
+      end
+
+      it "should return only published stories for non-creators" do
+        results = StorySection.find_visible_for(@user)
+        assert_equal 4, results.count
+      end
+
+      it "should only return other statuses for the creator" do
+        results = StorySection.find_visible_for(@creator_1)
+        assert_equal 6, results.count
+      end
+
+      it "should search by any other search criteria passed" do
+        creator_results = StorySection.find_visible_for(@creator_1, {title: "Title 1"})
+        non_creator_results = StorySection.find_visible_for(@creator_1, {title: "Title 3"})
+        assert_equal 1, creator_results.count
+        assert_equal nil, non_creator_results
+      end
+    end
+
+  end
+
 end

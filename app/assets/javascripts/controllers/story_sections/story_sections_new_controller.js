@@ -1,7 +1,7 @@
 Seanchai.StorySectionsNewController = Ember.ObjectController.extend({
   actions: {
     cancel: function(){
-      this.transitionToRoute('story_sections_index', this.get('model').get('story_id'));
+      this.transitionToRoute('story_sections_index', this.get('model').get('story_slug'));
     },
 
     submit: function(){
@@ -12,7 +12,7 @@ Seanchai.StorySectionsNewController = Ember.ObjectController.extend({
       this.get('model').save().then(
           // fulfill
           function(answer) {
-            return controller.transitionToRoute('story_sections_index', answer.get('story_id'));
+            return controller.transitionToRoute('story_sections_index', answer.get('story_slug'));
           },
           // reject
           function(e) {

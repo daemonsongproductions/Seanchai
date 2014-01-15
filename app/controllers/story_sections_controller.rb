@@ -75,7 +75,7 @@ class StorySectionsController < ApplicationController
       search_parameters[:story] = Story.find(params[:story_id]) if params[:story_id]
       search_parameters[:order] = params[:order] if params[:order]
       search_parameters.merge!(:_slugs.in => [params[:id]]) if params[:id]
-      StorySection.where(search_parameters) if search_parameters[:story]
+      StorySection.where(search_parameters).only(:id, :order, :title, :editable, :story_id, :creator_id) if search_parameters[:story]
     end
 
   end

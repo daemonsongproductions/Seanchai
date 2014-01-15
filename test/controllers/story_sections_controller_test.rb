@@ -1,10 +1,11 @@
+require "test_helper"
 describe "StorySectionsController" do
 
   describe "index" do
 
     before :each do
       @story = FactoryGirl.create(:story, title: "Story 1")
-      section = @story.story_sections.create(title: "Chapter 1")
+      @story.story_sections.create(title: "Chapter 1")
       @story.story_sections.create(title: "Chapter 2")
       @story.story_sections.create(title: "Chapter 3")
     end

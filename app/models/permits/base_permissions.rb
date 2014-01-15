@@ -4,6 +4,7 @@ module Permits::BasePermissions
     allow :home, [:index]
     allow :sessions, [:new, :create, :destroy]
     allow :users, [:show, :create, :show_current_user]
+    allow :statuses, [:index]
 
     allow 'devise/passwords', [:new, :edit, :update, :create]
     allow 'devise/registrations', [:cancel, :create, :new, :edit, :update, :destroy]

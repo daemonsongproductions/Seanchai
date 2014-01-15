@@ -5,9 +5,9 @@ describe "StorySectionsController" do
 
     before :each do
       @story = FactoryGirl.create(:story, title: "Story 1")
-      @story.story_sections.create(title: "Chapter 1")
-      @story.story_sections.create(title: "Chapter 2")
-      @story.story_sections.create(title: "Chapter 3")
+      @story.story_sections.create(title: "Chapter 1", status: Status.published)
+      @story.story_sections.create(title: "Chapter 2", status: Status.published)
+      @story.story_sections.create(title: "Chapter 3", status: Status.published)
     end
 
     it "should return successfully for guest" do

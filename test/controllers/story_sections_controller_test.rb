@@ -4,7 +4,7 @@ describe "StorySectionsController" do
 
     before :each do
       @story = FactoryGirl.create(:story, title: "Story 1")
-      @story.story_sections.create(title: "Chapter 1")
+      section = @story.story_sections.create(title: "Chapter 1")
       @story.story_sections.create(title: "Chapter 2")
       @story.story_sections.create(title: "Chapter 3")
     end
@@ -20,6 +20,7 @@ describe "StorySectionsController" do
       set_member_user
       get :index, format: 'json', story_id: 'story-1'
       assert_response :success
+      assert_equal 'chapter-1', ActiveSupport::JSON.decode(response.body)["story_sections"][0]["slug"]
       assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["slug"] == "chapter-1"}
     end
 

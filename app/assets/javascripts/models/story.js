@@ -5,7 +5,7 @@ Seanchai.Story = DS.Model.extend({
   license: DS.attr('string'),
   creator_id: DS.attr('string'),
   editable: DS.attr('boolean'),
-  //status_id: DS.attr('number'),
+  status_id: DS.attr('string'),
   story_sections: DS.hasMany('story_section',{async:true}),
 
   validate: function(){

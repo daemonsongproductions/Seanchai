@@ -9,10 +9,11 @@ Seanchai.Authentication.login = function(controller) {
       "user[username]": controller.get('username'),
       "user[password]": controller.get('password')
     },
-    success: function(data) {
+    success: function(data, status, jqXHR) {
       log.log("Login Msg " + data.user.dummy_msg);
       Seanchai.currentUser = controller.store.find('user', data.user.username);
       Seanchai.LoginStateManager.transitionTo("authenticated");
+      $('meta[name="csrf-token"]').attr('content', jqXHR.getResponseHeader('X-CSRF-Token'));
       return controller.transitionToRoute('home');
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -37,7 +38,7 @@ Seanchai.Authentication.register = function(controller) {
       "user[password]": controller.get('password'),
       "user[password_confirmation]": controller.get('password_confirmation')
     },
-    success: function(data) {
+    success: function(data, status, jqXHR) {
       Seanchai.currentUser = controller.store.find('user', data.user.username);
       Seanchai.LoginStateManager.transitionTo("authenticated");
       return controller.transitionToRoute('home');

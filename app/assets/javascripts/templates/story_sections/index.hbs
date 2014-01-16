@@ -1,23 +1,24 @@
 <div class="row">
-  <div class="col-md-6 col-lg-6">
+  <div class="col-sm-6">
     <div class="row">
-      <div class="col-md-2"><b>Description: </b></div>
-      <div class="col-md-offset-1 col-md-8"><p>{{{controllers.story.description}}}</p></div>
+      <div class="col-sm-2"><b>Description: </b></div>
+      <div class="col-sm-offset-1 col-sm-8">{{{controllers.story.description}}}</div>
     </div>
     <div class="row">
-      <div class="col-md-2"><b>Copyright: </b></div>
-      <div class="col-md-offset-1 col-md-8"><p>{{controllers.story.copyright}}</p></div>
+      <div class="col-sm-2"><b>Copyright: </b></div>
+      <div class="col-sm-offset-1 col-sm-8"><p>{{controllers.story.copyright}}</p></div>
     </div>
     {{#if controllers.story.editable}}
       <div class="row">
-        <p><div class="col-md-1">{{#link-to 'stories_edit' controllers.story.model classNames="btn btn-primary"}}Edit Story Details{{/link-to}}</div></p>
+        <p><div class="col-sm-1">{{#link-to 'stories_edit' controllers.story.model classNames="btn btn-primary"}}Edit Story Details{{/link-to}}</div></p>
       </div>
       <div class="row">
-        <p><div class="col-md-1">{{#link-to 'story_sections_new' controllers.story.model.id classNames="btn btn-default"}}Add Section{{/link-to}}</div></p>
+        <p><div class="col-sm-1">{{#link-to 'story_sections_new' controllers.story.model.id classNames="btn btn-default"}}Add Section{{/link-to}}</div></p>
       </div>
     {{/if}}
   </div>
-  <div class="col-md-4 cold-lg-4">
+  <div class="col-sm-4">
+    <p><b>Table of Contents</b></p>
     <ul>
       {{#each controller}}
         {{#if title}}

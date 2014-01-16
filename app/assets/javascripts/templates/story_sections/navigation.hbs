@@ -1,1 +1,17 @@
-NAVIGATION
+<div class="col-xs-2 col-sm-2 ">
+  {{#if previous_section_visible}}
+    {{#link-to 'story_sections_show' previous_section}}Previous{{/link-to}}
+  {{/if}}
+</div>
+<div class="clearfix visible-xs"></div>
+
+<div class="col-xs-offset-0 col-sm-offset-3 col-xs-8 col-sm-2">
+  {{#link-to 'story_sections_index' controllers.story}} Table of Contents {{/link-to}}
+</div>
+<div class="clearfix visible-xs"></div>
+
+<div class="col-xs-offset-0 col-sm-offset-3 col-xs-2 col-sm-2">
+  {{#if next_section_visible}}
+    {{#link-to 'story_sections_show' next_section}}Next{{/link-to}}
+  {{/if}}
+</div>

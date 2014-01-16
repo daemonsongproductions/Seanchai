@@ -38,13 +38,13 @@ class StorySectionSerializer < ActiveModel::Serializer
   def next_section
     # TODO: When Mongoid::Orderable udpates, use this code:
     # object.lower_items.first.id unless object.last?
-    object.story.story_sections[object.order].id unless object.last?
+    object.story.story_sections[object.order].order unless object.last?
   end
 
   def previous_section
     # TODO: When Mongoid::Orderable udpates, use this code:
     # object.higher_items.first.id unless object.first?
-    object.story.story_sections[object.order - 2].id unless object.first?
+    object.story.story_sections[object.order - 2].order unless object.first?
   end
 
 end

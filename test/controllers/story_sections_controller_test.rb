@@ -54,7 +54,7 @@ describe "StorySectionsController" do
       it "should display the id of the Previous Item" do
         set_guest_user
         get :index, format: 'json', story_id: 'story-1'
-        assert_equal @section_1.id.to_s, ActiveSupport::JSON.decode(response.body)["story_sections"][1]["previous_section"]
+        assert_equal @section_1.order, ActiveSupport::JSON.decode(response.body)["story_sections"][1]["previous_section"]
       end
       it "should have nil as Previous Item if item is first" do
         set_guest_user
@@ -65,7 +65,7 @@ describe "StorySectionsController" do
       it "should display the id of the Next Item" do
         set_guest_user
         get :index, format: 'json', story_id: 'story-1'
-        assert_equal @section_2.id.to_s, ActiveSupport::JSON.decode(response.body)["story_sections"][0]["next_section"]
+        assert_equal @section_2.order, ActiveSupport::JSON.decode(response.body)["story_sections"][0]["next_section"]
       end
 
       it "should have nil as Next Item if the item is last" do

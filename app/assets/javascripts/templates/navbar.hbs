@@ -10,12 +10,29 @@
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-      <li>{{#link-to 'help'}}Help{{/link-to}}</li>
-      <li>{{#link-to 'stories.new'}}New Stories{{/link-to}}</li>
+      {{#if authenticated}}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stories <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li>{{#link-to 'stories.index'}}See all stories{{/link-to}}</li>
+            <li>{{#link-to 'stories.new'}}Create a story{{/link-to}}</li>
+          </ul>
+        </li>
+      {{else}}
+        <li>{{#link-to 'stories.index'}}Stories{{/link-to}}</li>
+      {{/if}}
+
     </ul>
     <ul class="nav navbar-nav navbar-right">
       {{#if authenticated}}
-        <li><a {{action profile}}>Profile</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.username}} <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a {{action profile}} href="#">My profile</a></li>
+            <li>{{#link-to 'user_stories' user.username}}My stories{{/link-to}}</li>
+          </ul>
+        </li>
+
         <li><a {{action logout}}>Logout</a></li>
       {{else}}
         <li>{{view Seanchai.MenuItem href="#/login" label="Login" }}</li>

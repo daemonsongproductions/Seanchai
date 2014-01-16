@@ -8,6 +8,8 @@ Seanchai.StorySection = DS.Model.extend({
   story: DS.belongsTo('story',{async:true}),
   story_id: DS.attr('string'),
   partial: DS.attr('boolean'),
+  next_section: DS.attr('string'),
+  previous_section: DS.attr('string'),
 
   validate: function(){
     if(this.get('title') === undefined || this.get('title') === '') {

@@ -4,10 +4,10 @@ describe "StorySectionsController" do
   describe "index" do
 
     before :each do
-      @story = FactoryGirl.create(:story, title: "Story 1")
-      @story.story_sections.create(title: "Chapter 1", status: Status.published)
-      @story.story_sections.create(title: "Chapter 2", status: Status.published)
-      @story.story_sections.create(title: "Chapter 3", status: Status.published)
+      @story = FactoryGirl.create(:story, title: "Story 1", status: Status.published)
+      @section_1 = @story.story_sections.create(title: "Chapter 1", status: Status.published)
+      @section_2 = @story.story_sections.create(title: "Chapter 2", status: Status.published)
+      @section_3 = @story.story_sections.create(title: "Chapter 3", status: Status.published)
     end
 
     it "should return successfully for guest" do
@@ -49,6 +49,33 @@ describe "StorySectionsController" do
       get :index, format: 'json', ids: [@story.story_sections[1].id]
       assert_equal true, ActiveSupport::JSON.decode(response.body)["story_sections"].any? {|section| section["slug"] == "chapter-2"}
     end
+
+    describe "next/previous section" do
+      it "should display the id of the Previous Item" do
+        set_guest_user
+        get :index, format: 'json', story_id: 'story-1'
+        assert_equal @section_1.id.to_s, ActiveSupport::JSON.decode(response.body)["story_sections"][1]["previous_section"]
+      end
+      it "should have nil as Previous Item if item is first" do
+        set_guest_user
+        get :index, format: 'json', story_id: 'story-1'
+        assert_equal nil, ActiveSupport::JSON.decode(response.body)["story_sections"][0]["previous_section"]
+      end
+
+      it "should display the id of the Next Item" do
+        set_guest_user
+        get :index, format: 'json', story_id: 'story-1'
+        assert_equal @section_2.id.to_s, ActiveSupport::JSON.decode(response.body)["story_sections"][0]["next_section"]
+      end
+
+      it "should have nil as Next Item if the item is last" do
+        set_guest_user
+        get :index, format: 'json', story_id: 'story-1'
+        assert_equal nil, ActiveSupport::JSON.decode(response.body)["story_sections"][2]["next_section"]
+      end
+
+    end
+
 
   end
 

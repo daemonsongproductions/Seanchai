@@ -1,7 +1,7 @@
 class StorySectionSerializer < ActiveModel::Serializer
   attributes :id, :slug, :order, :title, :body, :include_in_toc,
              :editable, :story_id, :story_slug, :creator_id, :partial,
-             :status_id
+             :status_id, :next_section, :previous_section
 
   def id
     object.id
@@ -33,6 +33,18 @@ class StorySectionSerializer < ActiveModel::Serializer
 
   def partial
     !object.body?
+  end
+
+  def next_section
+    # TODO: When Mongoid::Orderable udpates, use this code:
+    # object.lower_items.first.id unless object.last?
+    object.story.story_sections[object.order].id unless object.last?
+  end
+
+  def previous_section
+    # TODO: When Mongoid::Orderable udpates, use this code:
+    # object.higher_items.first.id unless object.first?
+    object.story.story_sections[object.order - 2].id unless object.first?
   end
 
 end

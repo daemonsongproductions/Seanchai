@@ -75,6 +75,7 @@ Seanchai.Authentication.logout = function(controller, transition) {
       Seanchai.LoginStateManager.transitionTo('notAuthenticated');
       //controller.get('store').unloadAll('story_section');
       controller.get('store').unloadAll('story');
+      controller.get('store').unloadAll('user');
       return transition();
     },
     error: function(jqXHR, textStatus, errorThrown) {

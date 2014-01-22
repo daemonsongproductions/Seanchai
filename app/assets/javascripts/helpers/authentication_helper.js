@@ -14,6 +14,7 @@ Seanchai.Authentication.login = function(controller) {
       Seanchai.currentUser = controller.store.find('user', data.user.username);
       Seanchai.LoginStateManager.transitionTo("authenticated");
       $('meta[name="csrf-token"]').attr('content', jqXHR.getResponseHeader('X-CSRF-Token'));
+      controller.get('store').unloadAll('story');
       return controller.transitionToRoute('home');
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -60,7 +61,7 @@ Seanchai.Authentication.register = function(controller) {
   });
 };
 
-Seanchai.Authentication.logout = function(transition) {
+Seanchai.Authentication.logout = function(controller, transition) {
   log.info("Logging out...");
   return $.ajax({
     url: Seanchai.urls.logout,
@@ -72,6 +73,8 @@ Seanchai.Authentication.logout = function(transition) {
       log.info("Logged out on server");
       Seanchai.currentUser = null;
       Seanchai.LoginStateManager.transitionTo('notAuthenticated');
+      //controller.get('store').unloadAll('story_section');
+      controller.get('store').unloadAll('story');
       return transition();
     },
     error: function(jqXHR, textStatus, errorThrown) {

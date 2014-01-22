@@ -9,7 +9,7 @@ Seanchai.StorySectionsShowRoute = Ember.Route.extend({
     controller.set('model', model);
 
     if (model.get('next_section')) {
-      var next_section = this.get('store').find_section(model.get('story_id'), model.get('next_section'));
+      var next_section = this.get('store').find_section(model.get('story_slug'), model.get('next_section'));
       next_section.then(function(data) {
         if(data) {
           controller.set('next_section_visible', true);
@@ -21,7 +21,7 @@ Seanchai.StorySectionsShowRoute = Ember.Route.extend({
     }
 
     if (model.get('previous_section')) {
-      var previous_section = this.get('store').find_section(model.get('story_id'),model.get('previous_section'));
+      var previous_section = this.get('store').find_section(model.get('story_slug'),model.get('previous_section'));
 
       previous_section.then(function(data) {
         if(data) {

@@ -6,7 +6,7 @@ Seanchai.StorySection = DS.Model.extend({
   status_id: DS.attr('string'),
   editable: DS.attr('boolean'),
   story: DS.belongsTo('story',{async:true}),
-  story_id: DS.attr('string'),
+  story_slug: DS.attr('string'),
   partial: DS.attr('boolean'),
   next_section: DS.attr('string'),
   previous_section: DS.attr('string'),

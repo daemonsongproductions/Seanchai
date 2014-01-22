@@ -17,7 +17,7 @@ Seanchai.NavbarController = Ember.ObjectController.extend({
       var me;
       log.info("NavbarController handling logout event...");
       me = this;
-      return Seanchai.Authentication.logout(function() {
+      return Seanchai.Authentication.logout(this, function() {
         return me.transitionToRoute("home");
       });
     },

@@ -24,6 +24,8 @@ gem "active_model_serializers"
 gem "mongoid_orderable", "~> 4.0.0"
 gem "tinymce-rails", "~> 4.0.12"
 
+gem "capistrano", "~> 3.1.0"
+gem "capistrano-ext", "~> 1.2.1"
 
 gem "capybara", ">= 1.1.2", :group => [:development, :test]
 gem "database_cleaner", ">= 0.8.0", :group => [:development, :test]

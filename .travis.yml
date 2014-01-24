@@ -6,4 +6,4 @@ rvm:
 services: mongodb
 cache: bundler
 before_script:
-  - cp config/mongoid.example.yml config/mongoid.yml
+  - cp config/mongoid.yml.example config/mongoid.yml

@@ -13,3 +13,4 @@ tmp/
 config/dblogin.yml
 config/config.yml
 config/functional_tests.yml
+config/mongoid.yml

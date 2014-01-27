@@ -9,7 +9,7 @@ end
 gem "rake"
 gem 'sass-rails',   '~> 3.2.3'
 gem "bootstrap-sass", "~> 3.0.3.0"
-gem "thin"
+gem "unicorn", "~> 4.8.0"
 gem 'coffee-rails', '~> 3.2.1'
 gem 'uglifier', '>= 1.0.3'
 gem 'strong_parameters'
@@ -30,6 +30,7 @@ gem 'capistrano-rails', '~> 1.1'
 gem "capistrano-bundler", "~> 1.1.1"
 
 gem "capybara", ">= 1.1.2", :group => [:development, :test]
+gem "thin", :group => [:development, :test]
 gem "database_cleaner", ">= 0.8.0", :group => [:development, :test]
 gem "email_spec", ">= 1.2.1", :group => [:development, :test]
 gem "cucumber-rails", ">= 1.3.0", :group => :test, :require => false

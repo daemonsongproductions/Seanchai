@@ -268,6 +268,7 @@ DEPENDENCIES
   active_model_serializers
   bootstrap-sass (~> 3.0.3.0)
   capistrano (~> 3.1.0)
+  capistrano-bundler (~> 1.1.1)
   capistrano-ext (~> 1.2.1)
   capistrano-rails (~> 1.1)
   capybara (>= 1.1.2)

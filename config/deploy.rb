@@ -34,7 +34,7 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 set(:config_files, %w(
   nginx.conf
   application.yml
-  mongoid.example.yml
+  mongoid.yml
   log_rotation
   unicorn.rb
   unicorn_init.sh

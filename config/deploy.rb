@@ -36,7 +36,6 @@ set(:config_files, %w(
   application.yml
   database.example.yml
   log_rotation
-  monit
   unicorn.rb
   unicorn_init.sh
 ))
@@ -63,10 +62,6 @@ set(:symlinks, [
         source: "log_rotation",
         link: "/etc/logrotate.d/#{fetch(:full_app_name)}"
     },
-    {
-        source: "monit",
-        link: "/etc/monit/conf.d/#{fetch(:full_app_name)}.conf"
-    }
 ])
 
 # Default value for :scm is :git

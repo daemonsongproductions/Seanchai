@@ -1,0 +1,24 @@
+# files which need to be symlinked to other parts of the
+# file system. For example nginx virtual hosts,log rotation
+# init scripts etc.
+set(:symlinks, [
+    {
+        source: "nginx.conf",
+        link: "/etc/nginx/sites-enabled/#{fetch(:full_app_name)}"
+    },
+    {
+        source: "unicorn_init.sh",
+        link: "/etc/init.d/unicorn_#{fetch(:full_app_name)}"
+    },
+    {
+        source: "log_rotation",
+        link: "/etc/logrotate.d/#{fetch(:full_app_name)}"
+    },
+    {
+        link: "/etc/monit/conf.d/#{fetch(:full_app_name)}.conf" },
+    {
+        source: "sidekiq_init.sh",
+        link: "/etc/init.d/sidekiq_#{fetch(:full_app_name)}"
+    }
+]
+)

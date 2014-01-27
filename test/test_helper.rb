@@ -3,6 +3,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require "minitest/autorun"
 require "minitest/rails"
+require "minitest/rails/railtie"
 require 'minitest/rails/capybara'
 require 'minitest/reporters'
 require 'minitest/matchers'

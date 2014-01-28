@@ -19,6 +19,7 @@ gem "haml"
 gem "active_model_serializers"
 gem "mongoid_orderable", "~> 4.0.0"
 gem "tinymce-rails", "~> 4.0.12"
+gem "therubyracer", "~> 0.12.0"
 
 gem "capistrano", "~> 3.1.0"
 gem "capistrano-ext", "~> 1.2.1"

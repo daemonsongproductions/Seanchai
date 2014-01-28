@@ -23,7 +23,7 @@ set :deploy_to, '/srv/www/seanchai'
 set :keep_releases, 5
 
 # files we want symlinking to specific entries in shared.
-set :linked_files, %w{config/mongoid.yml config/unicorn.rb config/application.yml}
+set :linked_files, %w{config/mongoid.yml config/application.yml}
 
 # dirs we want symlinking to shared
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}

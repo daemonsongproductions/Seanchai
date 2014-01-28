@@ -3,7 +3,7 @@ upstream unicorn {
 }
 
 server {
-  listen 80 seanchai.saalonmuyo.com deferred;
+  server_name seanchai.saalonmuyo.com;
   root <%= fetch(:deploy_to) %>/current/public;
 
   location ^~ /assets/ {
@@ -27,7 +27,7 @@ server {
 
 <% if fetch(:enable_ssl) %>
 server {
-  listen 443 seanchai.saalonmuyo.com deferred;
+  server_name seanchai.saalonmuyo.com
   root <%= fetch(:deploy_to) %>/current/public;
 
   location ^~ /assets/ {

@@ -40,3 +40,9 @@ gem "minitest-rails-capybara", "~> 0.10.0", :group => [:development, :test]
 gem "mongoid-minitest", "~> 1.0.0", :group => [:development, :test]
 gem "poltergeist", "~> 1.4.1", :group => [:development, :test]
 gem "mocha", "~> 0.14.0", :group => [:development, :test], :require => false
+
+gem 'pry', :group => [:development, :test]
+gem 'pry-remote', :group => [:development, :test]
+gem 'pry-stack_explorer', :group => [:development, :test]
+gem 'pry-debugger', :group => [:development, :test]
+gem 'jazz_hands', :group => [:development, :test]

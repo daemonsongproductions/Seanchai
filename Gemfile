@@ -3,6 +3,7 @@ gem 'rails', '3.2.13'
 
 gem "rake"
 gem 'sass-rails',   '~> 3.2.3'
+gem 'compass-rails', '~> 1.1.7'
 gem 'coffee-rails', '~> 3.2.1'
 gem "bootstrap-sass", "~> 3.0.3.0"
 gem "unicorn", "~> 4.8.0"

@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
-gem 'rails', '3.2.13'
+gem 'rails', '~> 4.1.4'
 
 gem "rake"
-gem 'sass-rails',   '~> 3.2.3'
+gem 'sass-rails', '~> 4.0.3'
 gem 'compass-rails', '~> 1.1.7'
-gem 'coffee-rails', '~> 3.2.1'
+gem 'coffee-rails', '~> 4.0.1'
 gem "bootstrap-sass", "~> 3.0.3.0"
 gem "unicorn", "~> 4.8.0"
 gem 'uglifier', '>= 1.0.3'
@@ -33,13 +33,14 @@ gem "email_spec", ">= 1.2.1", :group => [:development, :test]
 gem "cucumber-rails", ">= 1.3.0", :group => :test, :require => false
 gem "launchy", ">= 2.1.2", :group => [:development, :test]
 gem "factory_girl_rails", ">= 4.0.0", :group => [:development, :test]
-gem "minitest", "~> 4.7.0", :group => [:development, :test]
-gem "minitest-reporters", "~> 0.14.23", :group => [:development, :test]
-gem "minitest-matchers", "~> 1.3.0", :group => [:development, :test]
-gem "minitest-rails", "~> 0.9.2", :group => [:development, :test]
-gem "minitest-rails-capybara", "~> 0.10.0", :group => [:development, :test]
-gem "mongoid-minitest", "~> 1.0.0", :group => [:development, :test]
-gem "poltergeist", "~> 1.4.1", :group => [:development, :test]
+gem "minitest", "~> 5.3.3", :group => [:development, :test]
+gem 'minitest-reporters', '~> 1.0.5', :group => [:development, :test]
+gem 'minitest-matchers', '~> 1.4.1', :group => [:development, :test]
+gem 'minitest-rails', '~> 2.0.3', :group => [:development, :test]
+gem 'minitest-rails-capybara', '~> 2.0.1', :group => [:development, :test]
+# Need to figure out what to do with this. Not compatible with minitest 5.
+# gem "mongoid-minitest", :group => [:development, :test]
+gem 'poltergeist', '~> 1.5.1', :group => [:development, :test]
 gem "mocha", "~> 0.14.0", :group => [:development, :test], :require => false
 
 gem 'pry', :group => [:development, :test]

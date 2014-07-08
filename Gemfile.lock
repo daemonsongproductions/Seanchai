@@ -297,10 +297,6 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     stringex (2.5.2)
-    strong_parameters (0.1.4)
-      actionpack (>= 3.2.0)
-      activemodel (>= 3.2.0)
-      railties (>= 3.2.0)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
@@ -373,7 +369,6 @@ DEPENDENCIES
   rails (~> 4.1.4)
   rake
   sass-rails (~> 4.0.3)
-  strong_parameters
   therubyracer (~> 0.12.0)
   thin
   tinymce-rails (~> 4.0.12)

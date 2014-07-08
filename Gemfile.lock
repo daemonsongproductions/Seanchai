@@ -206,6 +206,9 @@ GEM
       moped (~> 2.0.0)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
+    mongoid-versioning (1.0.0)
+      activesupport
+      mongoid (~> 4.0.0)
     mongoid_orderable (4.0.0)
       mongoid
     mongoid_slug (3.2.1)
@@ -359,6 +362,7 @@ DEPENDENCIES
   minitest-reporters (~> 1.0.5)
   mocha (~> 0.14.0)
   mongoid (>= 3.0.3)
+  mongoid-versioning (~> 1.0.0)
   mongoid_orderable (~> 4.0.0)
   mongoid_slug (~> 3.2.0)
   poltergeist (~> 1.5.1)

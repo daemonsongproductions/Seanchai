@@ -12,7 +12,7 @@ class StorySectionSerializer < ActiveModel::Serializer
   end
 
   def body
-    object.body? ? object.body : ""
+    attribute_present?('body') ? object.body : ""
   end
 
   def editable
@@ -32,7 +32,7 @@ class StorySectionSerializer < ActiveModel::Serializer
   end
 
   def partial
-    !object.body?
+    attribute_present?('body')
   end
 
   def next_section
@@ -45,6 +45,12 @@ class StorySectionSerializer < ActiveModel::Serializer
     # TODO: When Mongoid::Orderable udpates, use this code:
     # object.higher_items.first.id unless object.first?
     object.story.story_sections[object.order - 2].order unless object.first?
+  end
+
+  def attribute_present?(name)
+    object.attribute_present?(name)
+  rescue ActiveModel::MissingAttributeError
+    return false
   end
 
 end

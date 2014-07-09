@@ -37,7 +37,7 @@ class StorySection
   before_create :set_creator
 
 
-  def initialize(attrs = nil, options = nil)
+  def initialize(attrs = nil)
     super
     self.story_id = Story.find(attrs[:story_id]).id if attrs[:story_id]
   end

@@ -21,10 +21,10 @@ gem 'mongoid-versioning', '~> 1.0.0'
 gem "tinymce-rails", "~> 4.0.12"
 gem "therubyracer", "~> 0.12.0"
 
-gem "capistrano", "~> 3.1.0"
+gem 'capistrano', '~> 3.2.1'
 gem "capistrano-ext", "~> 1.2.1"
 gem 'capistrano-rails', '~> 1.1'
-gem "capistrano-bundler", "~> 1.1.1"
+gem "capistrano-bundler", "~> 1.1.2"
 
 gem "capybara", ">= 1.1.2", :group => [:development, :test]
 gem "thin", :group => [:development, :test]

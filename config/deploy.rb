@@ -124,3 +124,14 @@ task :forwarding do
     end
   end
 end
+
+namespace :assets do
+  before :backup_manifest, 'deploy:assets:create_manifest_json'
+  task :create_manifest_json do
+    on roles :web do
+      within release_path do
+        execute :mkdir, release_path.join('assets_manifest_backup')
+      end
+    end
+  end
+end

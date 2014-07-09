@@ -4,7 +4,7 @@ class StorySectionSerializer < ActiveModel::Serializer
              :status_id, :next_section, :previous_section
 
   def id
-    object.id
+    object.id.to_s
   end
 
   def slug

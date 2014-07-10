@@ -35,4 +35,26 @@ describe "UsersController" do
     end
   end
 
+  describe "create" do
+
+    it "should return unprocessable if all fields are not present" do
+      skip
+      set_guest_user
+      role = Creator.new
+      Creator.expects(:new).returns(role)
+      user = FactoryGirl.create(:user, email: "email@email.com", username: "user", role: role)
+      User.expects(:new).with('username' => "user",
+                               'email' => 'email@email.com',
+                               'password' => 'password',
+                               'password_confirmation' => 'password', 'role' => role).returns(user)
+      post :create, format: 'json', user: {username: "user",
+                                           email: "email@email.com"}
+      assert_response :unprocessable_entity
+    end
+
+    it "should return successfully if a user chooses to be a reader"
+    it "should return successfully if a user chooses to be a creator"
+
+  end
+
 end

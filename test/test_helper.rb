@@ -7,7 +7,6 @@ require "minitest/rails/railtie"
 require 'minitest/rails/capybara'
 require 'minitest/reporters'
 require 'minitest/matchers'
-require 'mongoid-minitest'
 require "factory_girl"
 
 Minitest::Reporters.use!
@@ -65,7 +64,6 @@ end
 
 
 class MiniTest::Spec
-  include Mongoid::Matchers
   include Devise::TestHelpers
   include FactoryGirl::Syntax::Methods
 

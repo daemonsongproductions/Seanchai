@@ -120,7 +120,7 @@ describe "StorySectionsController" do
     end
 
     it "should return success on successful creation" do
-      user = FactoryGirl.create(:user, email: "member@email.com", username: "member")
+      user = FactoryGirl.create(:user, email: "member@email.com", username: "member", role: Creator.new)
       set_current_user(user)
       FactoryGirl.create(:story, title: "This is a thing I'm doing", creator: user, status: Status.published)
 
@@ -131,7 +131,7 @@ describe "StorySectionsController" do
     end
 
     it "should return unprocessable entity on unsuccessful creation" do
-      user = FactoryGirl.create(:user, email: "member@email.com", username: "member")
+      user = FactoryGirl.create(:user, email: "member@email.com", username: "member", role: Creator.new)
       set_current_user(user)
       FactoryGirl.create(:story, title: "This", creator: user, status: Status.published)
       post :create, { format: 'json', story_section: {story_id: "this"}}
@@ -139,7 +139,7 @@ describe "StorySectionsController" do
     end
 
     it "should return unauthorized if the story doesn't exist" do
-      user = FactoryGirl.create(:user, email: "member@email.com", username: "member")
+      user = FactoryGirl.create(:user, email: "member@email.com", username: "member", role: Creator.new)
       set_current_user(user)
       FactoryGirl.create(:story, title: "This Sucks", creator: user)
       post :create, {format: 'json', story_section: {story_id: "this"}}
@@ -151,7 +151,7 @@ describe "StorySectionsController" do
   describe "update" do
 
     before :each do
-      @creator = FactoryGirl.create(:user, email: "creator@creator.com", username: "creatrix")
+      @creator = FactoryGirl.create(:user, email: "creator@creator.com", username: "creatrix", role: Creator.new)
       @story = FactoryGirl.create(:story, title: "Story 1", creator: @creator, status: Status.published)
       @story_section = @story.story_sections.create(title: "Chapter 1")
     end

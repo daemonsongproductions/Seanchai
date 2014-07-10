@@ -170,7 +170,7 @@ describe "StoriesController" do
   describe "edit" do
 
     before :each do
-      @creator = FactoryGirl.create(:user, email: "creator@creator.com", username: "creatrix")
+      @creator = FactoryGirl.create(:user, email: "creator@creator.com", username: "creatrix", role: Creator.new)
       @story = FactoryGirl.create(:story, title: "This is a thing I'm doing", creator: @creator)
     end
 

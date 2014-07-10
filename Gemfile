@@ -18,6 +18,7 @@ gem "haml"
 gem "active_model_serializers"
 gem "mongoid_orderable", "~> 4.0.0"
 gem 'mongoid-versioning', '~> 1.0.0'
+gem 'mongoid-paranoia', '~> 1.0.0'
 gem "tinymce-rails", "~> 4.0.12"
 gem "therubyracer", "~> 0.12.0"
 

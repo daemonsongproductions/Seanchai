@@ -49,7 +49,7 @@ class User
   # field :authentication_token, :type => String
 
   embeds_one :role, class_name: "Role", inverse_of: nil
-  before_create :set_default_role
+  validates_presence_of :role
 
   has_many :created_stories, class_name: "Story", inverse_of: :creator
   has_many :created_story_sections, class_name: "StorySection", inverse_of: :creator
@@ -81,13 +81,6 @@ class User
 
   def permissions
     role.permissions_for(self)
-  end
-
-
-  private
-
-  def default_role
-    Member.new
   end
 
 

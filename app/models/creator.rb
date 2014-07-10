@@ -1,0 +1,3 @@
+class Creator < Member
+
+end

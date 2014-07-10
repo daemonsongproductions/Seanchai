@@ -80,6 +80,7 @@ class MiniTest::Spec
       username "saalon"
       password "password"
       email "email@email.com"
+      role Creator.new
       initialize_with {User.find_or_initialize_by(username: username)}
     end
   end

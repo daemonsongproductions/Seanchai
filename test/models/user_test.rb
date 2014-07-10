@@ -22,22 +22,34 @@ describe User do
 
   end
 
-  describe "default role" do
+  describe "create user with proper role" do
 
-    before :all do
-      @user = User.create!(username: "test", email: "test@test.com", password: "password", password_confirmation: "password")
+    it "should error if no role is provided" do
+      assert_raises Mongoid::Errors::Validations do
+        User.create!(user_options)
+      end
     end
-
-    it "should set a default role" do
-      refute_nil @user.role
+    it "should set role to Creator" do
+      @user = User.create!(user_options.merge(role: Creator.new))
+      assert_equal @user.role.class, Creator.new.class
     end
-
-    it "should set default role to Member" do
-      assert_equal @user.role.class, Member.new.class
+    it "should set role to Reader" do
+      @user = User.create!(user_options.merge(role: Reader.new))
+      assert_equal @user.role.class, Reader.new.class
+    end
+    it "should set role to Admin" do
+      @user = User.create!(user_options.merge(role: Admin.new))
+      assert_equal @user.role.class, Admin.new.class
     end
 
   end
 
+  def user_options
+    {username: "test",
+     email: "test@test.com",
+     password: "password",
+     password_confirmation: "password"}
+  end
 
 
 end

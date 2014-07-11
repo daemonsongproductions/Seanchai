@@ -11,7 +11,7 @@ gem 'uglifier', '>= 1.0.3'
 gem 'jquery-rails', '~> 2.3'
 gem "mongoid", ">= 3.0.3"
 gem "mongoid_slug", "~> 3.2.0"
-gem "devise", "~> 3.0.3"
+gem "devise", "~> 3.2.4"
 gem "ember-rails"
 gem "ember-source", "~> 1.6.0"
 gem "haml"

@@ -29,12 +29,19 @@ describe User do
         User.create!(user_options)
       end
     end
+
+    it "should not set a role if an invalid option is passed to selected_role" do
+      assert_raises Mongoid::Errors::Validations do
+        User.create!(user_options).merge(selected_role: 'invalid')
+      end
+    end
+
     it "should set role to Creator" do
-      @user = User.create!(user_options.merge(role: Creator.new))
+      @user = User.create!(user_options.merge(selected_role: 'creator'))
       assert_equal @user.role.class, Creator.new.class
     end
     it "should set role to Reader" do
-      @user = User.create!(user_options.merge(role: Reader.new))
+      @user = User.create!(user_options.merge(selected_role: 'reader'))
       assert_equal @user.role.class, Reader.new.class
     end
     it "should set role to Admin" do

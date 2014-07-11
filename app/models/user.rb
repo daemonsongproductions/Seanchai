@@ -75,6 +75,14 @@ class User
     self.role ||= default_role
   end
 
+  def selected_role=(value)
+    if value == 'creator'
+      self.role = Creator.new
+    elsif value == 'reader'
+      self.role = Reader.new
+    end
+  end
+
   def email_required?
     false
   end

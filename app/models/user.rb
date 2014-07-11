@@ -70,10 +70,6 @@ class User
     guest
   end
 
-  def set_default_role
-    self.role ||= default_role
-  end
-
   def selected_role=(value)
     if value == 'creator'
       self.role = Creator.new

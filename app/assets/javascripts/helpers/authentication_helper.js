@@ -56,6 +56,9 @@ Seanchai.Authentication.register = function(controller) {
       if (jsonResponse.errors.password !== undefined) {
         errorMessage += "<li>Your password must be at least 8 characters.</li>";
       }
+      if (jsonResponse.errors.role !== undefined) {
+        errorMessage += "<li>Please chose whether you want to be a reader or a creator.</li>";
+      }
       return controller.set("errorMsg", "<ul>" + errorMessage  + "</ul>");
     }
   });

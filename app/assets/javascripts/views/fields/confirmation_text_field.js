@@ -27,6 +27,9 @@ Seanchai.ConfirmationTextField = Ember.View.extend({
     return (view.confirmField.get('value') !== view.get('value'));
   },
   classesProperty: function() {
-    return [this.get('field-size') + ' form-control'];
+    var class_list = '';
+    if (this.get('field-size') !== undefined)
+      class_list += ' ' + this.get('field-size');
+    return class_list + ' form-control';
   }.property()
 });

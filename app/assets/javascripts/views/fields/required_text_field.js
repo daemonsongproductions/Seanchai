@@ -21,6 +21,9 @@ Seanchai.RequiredTextField = Ember.View.extend({
     this.set('invalid', (0 === this.get('value').length));
   }.observes("value"),
   classesProperty: function() {
-    return [this.get('field-size') + ' form-control'];
+    var class_list = '';
+    if (this.get('field-size') !== undefined)
+      class_list += ' ' + this.get('field-size');
+    return class_list + ' form-control';
   }.property()
 });

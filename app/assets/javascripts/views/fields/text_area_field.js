@@ -7,6 +7,9 @@ Seanchai.TextAreaField = Ember.View.extend({
     this.set('changed', true);
   },
   classesProperty: function() {
-    return [this.get('field-size') + ' tinymce form-control'];
+    var class_list = '';
+    if (this.get('field-size') !== undefined)
+      class_list += ' ' + this.get('field-size');
+    return class_list + ' tinymce form-control';
   }.property()
 });

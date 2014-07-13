@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="col-sm-7 col-sm-offset-1">
-    <div class="form-horizontal">
+    <div>
       {{#if errorMsg}}
         <div class="alert alert-danger">
           {{{errorMsg}}}
@@ -24,10 +24,8 @@
       {{view Seanchai.RequiredTextField valueBinding="password" fieldId="password" action="register" label="Password" type="password" viewName="passwordField"}}
       {{view Seanchai.ConfirmationTextField valueBinding="password_confirmation" fieldId="password_confirmation" action="register" type="password" label="Confirm Password" confirmFieldBinding="view.passwordField"}}
       <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
           <input {{action register}} type="submit" class="btn btn-primary" value="Register" />
           <input {{action cancel}} type="submit" class="btn" value="Cancel" />
-        </div>
       </div>
     </div>
 </div>

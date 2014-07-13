@@ -7,6 +7,9 @@ Seanchai.SelectField = Ember.View.extend({
     this.set('changed', true);
   },
   classesProperty: function() {
-    return [this.get('field-size') + ' input-sm form-control'];
+    var class_list = '';
+    if (this.get('field-size') !== undefined)
+      class_list += ' ' + this.get('field-size');
+    return class_list + ' input-sm form-control';
   }.property()
 });

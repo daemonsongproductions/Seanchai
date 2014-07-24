@@ -12,16 +12,9 @@
  *= require_tree .
 */
 
-$darkBrown: #251400;
-$warmBrown: #A67C58;
-$lightBeige: #ADA286;
-$darkBeige: #8C7C5D;
-$oliveGreen: #6F7255;
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900|Open+Sans:400italic,700italic,400,700);
+@import 'compass';
 
-$bgDefault: $lightBeige;
-$bgHighlight: $darkBeige;
-$colDefault: black;
-$colHighlight: $darkBrown;
 
 .content {
   background-color: #eee;
@@ -35,79 +28,4 @@ $colHighlight: $darkBrown;
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
 
-
-
-.seanchai-container {
-  .navbar-default {
-    background-image: none;
-    background-color: $bgDefault;
-    border-color: $bgHighlight;
-    .navbar-brand {
-      color: $colDefault;
-      &:hover, &:focus {
-        color: $colHighlight;
-      }
-    }
-    .navbar-text {
-      color: $colDefault;
-    }
-    .navbar-nav {
-      > li {
-        > a {
-          text-shadow: none;
-          color: $colDefault;
-          &:hover, &:focus {
-            color: $colHighlight;
-          }
-        }
-      }
-      > .active {
-        > a, > a:hover, > a:focus {
-          color: $colHighlight;
-          background-color: $bgHighlight;
-        }
-      }
-      > .open {
-        > a, > a:hover, > a:focus {
-          color: $colHighlight;
-          background-color: $bgHighlight;
-        }
-      }
-    }
-    .navbar-toggle {
-      border-color: $bgHighlight;
-      &:hover, &:focus {
-        background-color: $bgHighlight;
-      }
-      .icon-bar {
-        background-color: $colDefault;
-      }
-    }
-    .navbar-collapse,
-    .navbar-form {
-      border-color: $colDefault;
-    }
-    .navbar-link {
-      color: $colDefault;
-      &:hover {
-        color: $colHighlight;
-      }
-    }
-  }
-  @media (max-width: 767px) {
-    .navbar-default .navbar-nav .open .dropdown-menu {
-      > li > a {
-        color: $colDefault;
-        &:hover, &:focus {
-          color: $colHighlight;
-        }
-      }
-      > .active {
-        > a, > a:hover, > a:focus, {
-          color: $colHighlight;
-          background-color: $bgHighlight;
-        }
-      }
-    }
-  }
-}
+.seanchai-container { padding-top: 70px;}

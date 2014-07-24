@@ -1,3 +1,99 @@
 @import "bootstrap";
-body { padding-top: 10px; }
 @import "bootstrap/theme";
+
+$darkBrown: #251400;
+$warmBrown: #A67C58;
+$lightBeige: #ADA286;
+$darkBeige: #8C7C5D;
+$oliveGreen: #6F7255;
+
+$bgDefault: $lightBeige;
+$bgHighlight: $darkBeige;
+$colDefault: black;
+$colHighlight: $darkBrown;
+
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+#{headings(all)}, li, legend, .navbar {
+  font-family: 'Merriweather', serif;
+}
+
+.seanchai-container {
+  .navbar-inverse {
+    background-image: none;
+    background-color: $bgDefault;
+    border-color: $bgHighlight;
+    .navbar-brand {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight;
+      }
+    }
+    .navbar-text {
+      color: $colDefault;
+    }
+    .navbar-nav {
+      > li {
+        > a {
+          text-shadow: none;
+          color: $colDefault;
+          &:hover, &:focus {
+            color: $colHighlight;
+          }
+        }
+      }
+      > .active {
+        > a, > a:hover, > a:focus {
+          color: $colHighlight;
+          background-color: $bgHighlight;
+        }
+      }
+      > .open {
+        > a, > a:hover, > a:focus {
+          color: $colHighlight;
+          background-color: $bgHighlight;
+        }
+      }
+    }
+    .navbar-toggle {
+      border-color: $bgHighlight;
+      &:hover, &:focus {
+        background-color: $bgHighlight;
+      }
+      .icon-bar {
+        background-color: $colDefault;
+      }
+    }
+    .navbar-collapse,
+    .navbar-form {
+      border-color: $colDefault;
+    }
+    .navbar-link {
+      color: $colDefault;
+      &:hover {
+        color: $colHighlight;
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu {
+      > li > a {
+        color: $colDefault;
+        &:hover, &:focus {
+          color: $colHighlight;
+        }
+      }
+      > .active {
+        > a, > a:hover, > a:focus, {
+          color: $colHighlight;
+          background-color: $bgHighlight;
+        }
+      }
+    }
+  }
+}

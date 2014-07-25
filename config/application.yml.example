@@ -1,0 +1,1 @@
+SECRET_TOKEN: run 'rake secret' and put the result here

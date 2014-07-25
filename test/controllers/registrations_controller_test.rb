@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Devise::RegistrationsControllerTest < MiniTest::Unit::TestCase
+class Devise::RegistrationsControllerTest < MiniTest::Test
 
   def test_sanity
     skip("leaving this as an example of unit test syntax in minitest")

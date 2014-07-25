@@ -4,8 +4,12 @@ class StoriesController < ApplicationController
     @stories = Story.find_visible_for(current_user, search_parameters)
 
     respond_to do |format|
-      format.html
-      format.json { render json: @stories }
+      if @stories
+        format.json { render json: @stories }
+      else
+        format.json { render json: [] }
+      end
+
     end
   end
 

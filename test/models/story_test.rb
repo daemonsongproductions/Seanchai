@@ -1,7 +1,7 @@
 require "test_helper"
 require "factory_girl"
 
-class StoryTest < MiniTest::Unit::TestCase
+class StoryTest < MiniTest::Test
 
   def test_sanity
     skip("leaving this as an example of unit test syntax in minitest")

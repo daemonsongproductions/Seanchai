@@ -1,6 +1,6 @@
 require "test_helper"
 
-class UserTest < MiniTest::Unit::TestCase
+class UserTest < MiniTest::Test
 
   def test_sanity
     skip("leaving this as an example of unit test syntax in minitest")

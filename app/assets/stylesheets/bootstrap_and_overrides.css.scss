@@ -102,3 +102,15 @@ p { font-size: 1em; }
     }
   }
 }
+
+.one-third {
+  @extend .col-sm-4;
+}
+.two-thirds {
+  @extend .col-sm-7;
+
+}
+
+.right {
+  @extend .col-sm-offset-1;
+}

@@ -37,7 +37,8 @@ Seanchai.Authentication.register = function(controller) {
       "user[username]": controller.get('username'),
       "user[email]": controller.get('email'),
       "user[password]": controller.get('password'),
-      "user[password_confirmation]": controller.get('password_confirmation')
+      "user[password_confirmation]": controller.get('password_confirmation'),
+      "user[selected_role]": controller.get('selected_role')
     },
     success: function(data, status, jqXHR) {
       Seanchai.currentUser = controller.store.find('user', data.user.username);

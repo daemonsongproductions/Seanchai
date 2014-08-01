@@ -23,6 +23,8 @@
       {{view Seanchai.RequiredTextField valueBinding="email" fieldId="email" action="register" label="Email"}}
       {{view Seanchai.RequiredTextField valueBinding="password" fieldId="password" action="register" label="Password" type="password" viewName="passwordField"}}
       {{view Seanchai.ConfirmationTextField valueBinding="password_confirmation" fieldId="password_confirmation" action="register" type="password" label="Confirm Password" confirmFieldBinding="view.passwordField"}}
+      {{view Seanchai.RadioButtons valueBinding="account_options" fieldId="account_type" label="How do you wan to use Seanchai?" }}
+      <br/>
       <div class="form-group">
           <input {{action register}} type="submit" class="btn btn-primary" value="Register" />
           <input {{action cancel}} type="submit" class="btn" value="Cancel" />

@@ -1,0 +1,11 @@
+<label class="control-label" {{bindAttr for='view.inputElement.elementId'}}>{{view.label}}</label>
+<div {{bind-attr class=":controls"}}>
+{{#each view.value}}
+  <div class="radio">
+    <label>
+      {{view Seanchai.RadioButton classBinding = "view.classes" checkedBinding="selected" valueBinding='value' nameBinding='name'}}
+      {{label}}
+    </label>
+  </div>
+{{/each}}
+</div>

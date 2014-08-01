@@ -10,6 +10,10 @@ Seanchai.RegistrationController = Ember.ObjectController.extend({
       log.info("cancelling registration");
       this.transitionToRoute('home');
     }
-  }
+  },
+  account_options: [
+    Seanchai.InputOptions.create({name: "account_type", value: "reader", label: "I just want to read.", selected: true}),
+    Seanchai.InputOptions.create({name: "account_type", value: "writer", label: "I want to create, too.", selected: false})
+  ]
 
 });

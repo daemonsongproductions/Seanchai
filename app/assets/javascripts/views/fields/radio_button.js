@@ -19,6 +19,8 @@ Seanchai.RadioButton = Ember.View.extend({
    */
   value: "",
 
+  options: null,
+
   /**
    The `type` attribute of the input element.
 
@@ -44,7 +46,7 @@ Seanchai.RadioButton = Ember.View.extend({
    @type Boolean
    @default false
    */
-  checked: true,
+  checked: false,
 
   /**
    The `pattern` attribute of input element.
@@ -73,5 +75,9 @@ Seanchai.RadioButton = Ember.View.extend({
    @default null
    @since 1.4.0
    */
-  max: null
+  max: null,
+
+  click: function(event) {
+    this.set('parentView.value', this.get('value'));
+  }
 });

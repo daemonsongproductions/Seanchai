@@ -6,5 +6,13 @@ Seanchai.RadioButtons = Ember.View.extend({
   changed: false,
   focusOut: function(){
     this.set('changed', true);
+  },
+  didInsertElement: function() {
+    debugger;
+    this.get('options').forEach(function(element){
+      if (element.get('selected') == true) {
+        this.set('value', element.get('value'));
+      }
+    }, this);
   }
 });

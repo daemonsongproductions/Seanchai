@@ -13,7 +13,7 @@ Seanchai.RegistrationController = Ember.ObjectController.extend({
   },
   account_options: [
     Seanchai.InputOptions.create({name: "selected_role", value: "reader", label: "I just want to read.", selected: true}),
-    Seanchai.InputOptions.create({name: "selected_role", value: "writer", label: "I want to create, too.", selected: false})
+    Seanchai.InputOptions.create({name: "selected_role", value: "creator", label: "I want to create, too.", selected: false})
   ]
 
 });

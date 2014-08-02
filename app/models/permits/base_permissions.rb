@@ -14,6 +14,7 @@ module Permits::BasePermissions
     allow_param :user, :email
     allow_param :user, :password
     allow_param :user, :confirm_password
+    allow_param :user, :selected_role
 
   end
 

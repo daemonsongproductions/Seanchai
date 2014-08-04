@@ -1,6 +1,7 @@
 
 Seanchai.Router.map(function() {
   this.route("home");
+  this.route("about");
   this.route("help");
   this.route("login");
   this.route("registration");

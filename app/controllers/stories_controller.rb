@@ -67,10 +67,17 @@ class StoriesController < ApplicationController
   private
 
   def search_parameters
-    search_params = {}
+    criteria = {}
+    meta = {}
     creator = User.find_by_username(params[:username]) if params[:username]
-    search_params[:creator] = creator if creator
-    search_params
+    criteria[:creator] = creator if creator
+    meta[:order_by] = params[:sort] ? params[:sort] : {title: 'asc'}
+    meta[:limit] = params[:limit] ? params[:limit] : 10
+    {criteria: criteria, meta: meta}
+  end
+
+  def sort_parameters
+
   end
 
   def current_resource

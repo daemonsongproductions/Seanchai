@@ -5,8 +5,8 @@ module Seanchai
       results = self.where(criteria).
           or([{status_id: Status[:published].id}, {creator: user}])
 
-      results = order_results(results, options[:order_by]) #if options[:order_by]
-      results = limit_results(results, options[:limit], options[:skip])
+      results = order_results(results, options[:order_by]) if options[:order_by]
+      results = limit_results(results, options[:limit], options[:skip]) if options[:limit] && options[:skip]
       results if results.count > 0
     end
 

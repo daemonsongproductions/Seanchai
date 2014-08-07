@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
 
   def index
-    @stories = Story.find_visible_for(current_user, search_parameters)
+    @stories = Story.find_visible_for(current_user, search_criteria, search_options)
 
     respond_to do |format|
       if @stories
@@ -66,18 +66,24 @@ class StoriesController < ApplicationController
 
   private
 
-  def search_parameters
+  def search_criteria
     criteria = {}
-    meta = {}
     creator = User.find_by_username(params[:username]) if params[:username]
     criteria[:creator] = creator if creator
-    meta[:order_by] = params[:sort] ? params[:sort] : {title: 'asc'}
-    meta[:limit] = params[:limit] ? params[:limit] : 10
-    {criteria: criteria, meta: meta}
+    criteria
+  end
+
+  def search_options
+    options = {}
+    options[:order_by] = sort_parameters
+    options[:limit] = params[:limit] ? params[:limit] : 10
+    options[:skip] = params[:skip] ? params[:skip] : 0
+    options
   end
 
   def sort_parameters
-
+    order = params[:order] ? params[:order] : 'asc'
+    params[:sort] ? { params[:sort] => order } : {title: order}
   end
 
   def current_resource

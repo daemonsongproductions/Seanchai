@@ -3,13 +3,14 @@ class Story
   include Mongoid::Timestamps
   include Mongoid::Slug
   include Seanchai::StatusMethods
+  extend Seanchai::QueryMethods
 
   field :title, type: String
   validates_presence_of :title
   slug :title
   field :copyright, type: String
   field :license, type: String
-  field :description, type: String
+  field :description, type: String, default: ""
   field :publication_date, type: ActiveSupport::TimeWithZone, default: nil
 
   # Meta fields will store :name, :value and :display
@@ -29,15 +30,6 @@ class Story
 
   def self.find_for_user(user)
     Story.or({creator: user}, {editors: user})
-  end
-
-  def self.find_visible_for(user, search_parameters = {})
-
-    results = self.where(search_parameters[:criteria]).
-        or([{status_id: Status[:published].id}, {creator: user}]).
-        order_by(search_parameters[:meta][:order_by]).
-        limit(search_parameters[:meta][:limit])
-    results if results.count > 0
   end
 
 end

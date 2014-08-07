@@ -9,14 +9,17 @@ Seanchai.HomeRoute = Ember.Route.extend ({
       });
     }
     else {
-      return {};
+      return Seanchai.currentUser;
     }
   },
   setupController: function(controller, model) {
-    controller.set('content', Seanchai.currentUser);
-    controller.set('recent_stories', model['recent_stories']);
-    controller.set('reading_list', model['reading_list']);
-    controller.set('published_stories', model['published_stories']);
-    controller.set('drafts', model['drafts']);
+    if (Seanchai.currentUser) {
+      controller.set('content', Seanchai.currentUser);
+      controller.set('recent_stories', []);
+      //controller.set('reading_list', model['reading_list']);
+      //controller.set('published_stories', model['published_stories']);
+      //controller.set('drafts', model['drafts']);
+    }
+
   }
 });

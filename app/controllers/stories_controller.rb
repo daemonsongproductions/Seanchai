@@ -70,6 +70,7 @@ class StoriesController < ApplicationController
     criteria = {}
     creator = User.find_by_username(params[:username]) if params[:username]
     criteria[:creator] = creator if creator
+    criteria[:status_id] = Status[params[:status]].id if params[:status]
     criteria
   end
 

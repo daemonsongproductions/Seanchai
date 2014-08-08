@@ -12,5 +12,21 @@ Seanchai.User = DS.Model.extend({
     else {
       return false;
     }
-  }.property('permit')
+  }.property('permit'),
+  creator: function() {
+    if(this.get('role') === "creator") {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }.property('role'),
+  reader: function() {
+    if(this.get('role') === "reader") {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }.property('role')
 });

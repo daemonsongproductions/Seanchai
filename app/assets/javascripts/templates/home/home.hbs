@@ -19,51 +19,56 @@
     </div>
 
   </div>
-  <div id="reading-list" class="one-third right panel">
-    <div class="panel-body dashboard-panel">
-      <div class="panel-header">
-        <h3>Reading List</h3>
+  {{#if Seanchai.currentUser}}
+    <div id="reading-list" class="one-third right panel">
+      <div class="panel-body dashboard-panel">
+        <div class="panel-header">
+          <h3>Reading List</h3>
+        </div>
       </div>
     </div>
-
-  </div>
+  {{/if}}
 </div>
-<div class="row">
-  <div id="my-published-stories" class="two-thirds panel">
-    <div class="panel-body dashboard-panel">
-      <div class="panel-header">
-        <h3>My Published Stories</h3>
+{{#if Seanchai.currentUser}}
+  {{#if Seanchai.currentUser.creator}}
+    <div class="row">
+      <div id="my-published-stories" class="two-thirds panel">
+        <div class="panel-body dashboard-panel">
+          <div class="panel-header">
+            <h3>My Published Stories</h3>
+          </div>
+          <table class="table table-hover">
+            <tbody>
+            {{#each published_stories}}
+              {{#link-to 'story' this tagName="tr"}}
+                <td><b>{{title}}</b> by {{creator_id}}</td>
+                <td>{{pretty_date 'updated_at'}}</td>
+              {{/link-to}}
+
+            {{/each}}
+            </tbody>
+          </table>
+        </div>
+
       </div>
-      <table class="table table-hover">
-        <tbody>
-        {{#each published_stories}}
-          {{#link-to 'story' this tagName="tr"}}
-            <td><b>{{title}}</b> by {{creator_id}}</td>
-            <td>{{pretty_date 'updated_at'}}</td>
-          {{/link-to}}
+      <div id="my-drafts" class="one-third right panel">
+        <div class="panel-body dashboard-panel">
+          <div class="panel-header">
+            <h3>My Drafts</h3>
+          </div>
+          <table class="table table-hover">
+            <tbody>
+            {{#each drafts}}
+              {{#link-to 'story' this tagName="tr"}}
+                <td><b>{{title}}</b> by {{creator_id}}</td>
+                <td>{{pretty_date 'updated_at'}}</td>
+              {{/link-to}}
 
-        {{/each}}
-        </tbody>
-      </table>
-    </div>
-
-  </div>
-  <div id="my-drafts" class="one-third right panel">
-    <div class="panel-body dashboard-panel">
-      <div class="panel-header">
-        <h3>My Drafts</h3>
+            {{/each}}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <table class="table table-hover">
-        <tbody>
-        {{#each drafts}}
-          {{#link-to 'story' this tagName="tr"}}
-            <td><b>{{title}}</b> by {{creator_id}}</td>
-            <td>{{pretty_date 'updated_at'}}</td>
-          {{/link-to}}
-
-        {{/each}}
-        </tbody>
-      </table>
     </div>
-  </div>
-</div>
+  {{/if}}
+{{/if}}

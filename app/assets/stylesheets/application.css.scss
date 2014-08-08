@@ -32,3 +32,13 @@
 }
 
 .seanchai-container { padding-top: 70px;}
+
+.panel-header {
+  background-color: scale_color($oliveGreen, $lightness: 80%);
+}
+
+.panel h3 {
+  margin-top: 0px;
+  padding: 15px;
+
+}

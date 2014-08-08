@@ -101,7 +101,12 @@ p { font-size: 1em; }
 }
 
 .panel {
+  padding: 0px;
   border-color: $oliveGreen;
+}
+
+.panel-body.dashboard-panel {
+  padding: 0px;
 }
 
 .one-third {

@@ -7,7 +7,7 @@
       </div>
       <ul>
       {{#each recent_stories}}
-        <li>{{#link-to 'story' this}}{{title}} - {{updated_at}}{{/link-to}}</li>
+        <li>{{#link-to 'story' this}}{{title}} - {{pretty_date 'updated_at'}}{{/link-to}}</li>
       {{/each}}
       </ul>
     </div>

@@ -20,6 +20,7 @@
 //= require seanchai
 //= require tinymce-jquery
 //= require bootstrap
+//= require vendor/moment.min
 Seanchai = Ember.Application.create({
   LOG_TRANSITIONS: true,
   LOG_BINDINGS: true

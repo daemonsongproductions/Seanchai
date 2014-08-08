@@ -3,13 +3,19 @@
   <div id="recent-stories" class="two-thirds panel">
     <div class="panel-body dashboard-panel">
       <div class="panel-header">
-        <h3>Recent Additions to the Library</h3>
+        <h3>Recently Updated</h3>
       </div>
-      <ul>
-      {{#each recent_stories}}
-        <li>{{#link-to 'story' this}}{{title}} - {{pretty_date 'updated_at'}}{{/link-to}}</li>
-      {{/each}}
-      </ul>
+      <table class="table table-hover">
+        <tbody>
+          {{#each recent_stories}}
+            {{#link-to 'story' this tagName="tr"}}
+              <td><b>{{title}}</b> by {{creator_id}}</td>
+              <td>{{pretty_date 'updated_at'}}</td>
+            {{/link-to}}
+
+          {{/each}}
+        </tbody>
+      </table>
     </div>
 
   </div>

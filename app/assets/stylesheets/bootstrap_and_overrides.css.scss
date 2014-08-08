@@ -100,6 +100,11 @@ p { font-size: 1em; }
   }
 }
 
+.dashboard-panel .table td {
+  border-top: 0px;
+  cursor: pointer;
+}
+
 .panel {
   padding: 0px;
   border-color: $oliveGreen;

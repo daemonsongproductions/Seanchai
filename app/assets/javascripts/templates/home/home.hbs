@@ -3,8 +3,11 @@
   <div id="recent-stories" class="two-thirds panel">
     <div class="panel-body">
       <h3>Recent Additions to the Library</h3>
-      <p>Where is my border?</p>
-      {{recent_stories.length}}
+      <ul>
+      {{#each recent_stories}}
+        <li>{{#link-to 'story' this}}{{title}} - {{updated_at}}{{/link-to}}</li>
+      {{/each}}
+      </ul>
     </div>
 
   </div>

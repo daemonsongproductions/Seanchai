@@ -7,6 +7,8 @@ Seanchai.Story = DS.Model.extend({
   editable: DS.attr('boolean'),
   status_id: DS.attr('string'),
   story_sections: DS.hasMany('story_section',{async:true}),
+  publication_date: DS.attr('date'),
+  updated_at: DS.attr('date'),
 
   validate: function(){
     if(this.get('title') === undefined || this.get('title') === '') {

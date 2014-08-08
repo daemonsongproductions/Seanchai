@@ -82,8 +82,8 @@ class StoriesController < ApplicationController
   end
 
   def sort_parameters
-    order = params[:order] ? params[:order] : 'asc'
-    params[:sort] ? { params[:sort] => order } : {title: order}
+    direction = params[:direction] ? params[:direction] : 'asc'
+    params[:order_by] ? { params[:order_by] => direction } : {title: order}
   end
 
   def current_resource

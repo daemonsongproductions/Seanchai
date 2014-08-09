@@ -1,4 +1,15 @@
 <h2>Dashboard</h2>
+
+{{#if Seanchai.currentUser}}
+  {{#if Seanchai.currentUser.creator}}
+<div class="row">
+  <div class="full-width button-panel">
+    {{#link-to 'stories.new' classNames="btn btn-primary"}}New Story{{/link-to}}
+  </div>
+</div>
+  {{/if}}
+{{/if}}
+
 <div class="row">
   <div id="recent-stories" class="two-thirds panel">
     <div class="panel-body dashboard-panel">

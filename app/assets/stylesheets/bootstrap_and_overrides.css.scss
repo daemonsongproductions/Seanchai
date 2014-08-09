@@ -114,6 +114,20 @@ p { font-size: 1em; }
   padding: 0px;
 }
 
+.btn-primary {
+  @include background(linear-gradient(bottom, #617F59 0%, scale_color(#617F59, $lightness: 25%)));
+  border-color: #617F59;
+}
+
+.btn-primary:hover {
+  @include background(linear-gradient(bottom, #617F59 50%, scale_color(#617F59, $lightness: 25%)));
+  border-color: #617F59;
+}
+
+.full-width {
+  @extend .col-sm-12;
+}
+
 .one-third {
   @extend .col-sm-4;
 }

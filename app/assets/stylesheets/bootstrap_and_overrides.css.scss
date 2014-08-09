@@ -52,13 +52,13 @@ p { font-size: 1em; }
       > .active {
         > a, > a:hover, > a:focus {
           color: $colHighlight;
-          background-color: $bgHighlight;
+          @include background(linear-gradient(bottom, scale_color($bgDefault, $lightness: 45%), $bgDefault))
         }
       }
       > .open {
         > a, > a:hover, > a:focus {
           color: $colHighlight;
-          background-color: $bgHighlight;
+          @include background(linear-gradient(bottom, scale_color($bgDefault, $lightness: 45%), $bgDefault))
         }
       }
     }

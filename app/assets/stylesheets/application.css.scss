@@ -34,7 +34,7 @@
 .seanchai-container { padding-top: 70px;}
 
 .panel-header {
-  background-color: scale_color($oliveGreen, $lightness: 80%);
+  @include background(linear-gradient(left, scale_color($oliveGreen, $lightness: 70%), scale_color($oliveGreen, $lightness: 50%)));
 }
 
 .panel h3 {

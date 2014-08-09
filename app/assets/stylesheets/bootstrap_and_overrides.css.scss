@@ -1,6 +1,7 @@
 @import "bootstrap";
 @import "bootstrap/theme";
 @import "colors";
+@import "compass";
 
 
 
@@ -27,8 +28,7 @@ p { font-size: 1em; }
 
 .seanchai-container {
   .navbar-inverse {
-    background-image: none;
-    background-color: $bgDefault;
+    @include background(linear-gradient(bottom, scale_color($bgDefault, $lightness: -15%), $bgDefault));
     border-color: $bgHighlight;
     .navbar-brand {
       color: $colDefault;

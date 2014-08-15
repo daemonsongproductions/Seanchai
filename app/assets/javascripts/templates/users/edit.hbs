@@ -1,4 +1,4 @@
-<div class="form-horizontal">
+<div class="form-horizontal two-thirds">
   <legend>{{controller.username}}</legend>
   {{#if errorMsg}}
     <div class="alert alert-error">
@@ -7,9 +7,20 @@
   {{/if}}
   {{view Seanchai.TextField valueBinding="name" fieldId="name" action="submit" label="Name"}}
   {{view Seanchai.RequiredTextField valueBinding="email" fieldId="email" action="submit" label="Email" size="100" field-size="col-xs-2"}}
+  {{view Seanchai.RadioButtons valueBinding="selected_role" optionsBinding = "account_options" fieldId="selected_role" label="How do you want to use Seanchai?" }}
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <input {{action save}} type="submit" class="btn btn-primary" value="Save" />
-    </div>
+    <input {{action save}} type="submit" class="btn btn-primary" value="Save" />
+  </div>
+</div>
+<div class="one-third right">
+  <div class="row">
+    <legend>Account Settings</legend>
+    <p>Nothing here yet, but this is where I think we'll put reading
+    settings. Like:</p>
+    <ul>
+      <li>Reader Font</li>
+      <li>Reader Color Schemes</li>
+      <li>Privacy Settings</li>
+    </ul>
   </div>
 </div>

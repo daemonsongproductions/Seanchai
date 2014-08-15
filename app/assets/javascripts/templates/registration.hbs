@@ -1,33 +1,33 @@
 <div class="one-third">
-    <div class="row">
-      <legend>Create Your Account</legend>
-      <p>Whether you're here to share your art or just to browse the
-        library, creating an account is the best way to join in. With
-        an account, you can publish your stories, poetry, and art. Even if
-        you're only here to read, creating an account allows you to:</p>
-      <ul>
-        <li>Save your place wherever you stop reading</li>
-        <li>Share your bookmarks across devices</li>
-        <li>Add stories to your reading list</li>
-      </ul>
+  <div class="row">
+    <legend>Create Your Account</legend>
+    <p>Whether you're here to share your art or just to browse the
+      library, creating an account is the best way to join in. With
+      an account, you can publish your stories, poetry, and art. Even if
+      you're only here to read, creating an account allows you to:</p>
+    <ul>
+      <li>Save your place wherever you stop reading</li>
+      <li>Share your bookmarks across devices</li>
+      <li>Add stories to your reading list</li>
+    </ul>
+  </div>
+</div>
+<div class="two-thirds right">
+  <div>
+    {{#if errorMsg}}
+      <div class="alert alert-danger">
+        {{{errorMsg}}}
+      </div>
+    {{/if}}
+    {{view Seanchai.RequiredTextField valueBinding="username" fieldId="username" action="register" label="Username"}}
+    {{view Seanchai.RequiredTextField valueBinding="email" fieldId="email" action="register" label="Email"}}
+    {{view Seanchai.RequiredTextField valueBinding="password" fieldId="password" action="register" label="Password" type="password" viewName="passwordField"}}
+    {{view Seanchai.ConfirmationTextField valueBinding="password_confirmation" fieldId="password_confirmation" action="register" type="password" label="Confirm Password" confirmFieldBinding="view.passwordField"}}
+    {{view Seanchai.RadioButtons valueBinding="selected_role" optionsBinding = "account_options" fieldId="selected_role" label="How do you want to use Seanchai?" }}
+    <br/>
+    <div class="form-group">
+        <input {{action register}} type="submit" class="btn btn-primary" value="Register" />
+        <input {{action cancel}} type="submit" class="btn" value="Cancel" />
     </div>
   </div>
-  <div class="two-thirds right">
-    <div>
-      {{#if errorMsg}}
-        <div class="alert alert-danger">
-          {{{errorMsg}}}
-        </div>
-      {{/if}}
-      {{view Seanchai.RequiredTextField valueBinding="username" fieldId="username" action="register" label="Username"}}
-      {{view Seanchai.RequiredTextField valueBinding="email" fieldId="email" action="register" label="Email"}}
-      {{view Seanchai.RequiredTextField valueBinding="password" fieldId="password" action="register" label="Password" type="password" viewName="passwordField"}}
-      {{view Seanchai.ConfirmationTextField valueBinding="password_confirmation" fieldId="password_confirmation" action="register" type="password" label="Confirm Password" confirmFieldBinding="view.passwordField"}}
-      {{view Seanchai.RadioButtons valueBinding="selected_role" optionsBinding = "account_options" fieldId="selected_role" label="How do you want to use Seanchai?" }}
-      <br/>
-      <div class="form-group">
-          <input {{action register}} type="submit" class="btn btn-primary" value="Register" />
-          <input {{action cancel}} type="submit" class="btn" value="Cancel" />
-      </div>
-    </div>
 </div>

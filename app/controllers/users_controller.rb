@@ -27,7 +27,7 @@ class UsersController < Devise::SessionsController
     user_params = params["user"].symbolize_keys
 
     respond_to do |format|
-      if @user.update_attributes(name: user_params[:name], email: user_params[:email])
+      if @user.update_attributes(name: user_params[:name], email: user_params[:email], selected_role: user_params[:selected_role])
         format.json { render json: @user }
       else
         format.html { render :action => "edit" }

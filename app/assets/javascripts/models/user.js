@@ -5,6 +5,7 @@ Seanchai.User = DS.Model.extend({
   permit: DS.attr('string'),
   editable: DS.attr('boolean'),
   role: DS.attr('string'),
+  selected_role: DS.attr('string'),
   administrator: function() {
     if(this.get('permit') === "admin") {
       return true;

@@ -71,6 +71,7 @@ class User
   end
 
   def selected_role=(value)
+    Rails.logger.error("EYES WITHOUT A FACE")
     if value == 'creator'
       self.role = Creator.new
     elsif value == 'reader'

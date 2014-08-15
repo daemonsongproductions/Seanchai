@@ -136,6 +136,14 @@ p { font-size: 1em; }
   @extend .col-sm-7;
 }
 
+.one-quarter {
+  @extend .col-sm-3;
+}
+
+.one-half {
+  @extend .col-sm-6
+}
+
 .right {
   @extend .col-sm-offset-1;
 }

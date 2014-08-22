@@ -140,6 +140,10 @@ p { font-size: 1em; }
   @extend .col-sm-3;
 }
 
+.three-quarters {
+  @extend .col-sm-9
+}
+
 .one-half {
   @extend .col-sm-6
 }

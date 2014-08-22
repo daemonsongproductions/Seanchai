@@ -32,7 +32,7 @@ class StorySectionSerializer < ActiveModel::Serializer
   end
 
   def partial
-    attribute_present?('body')
+    !attribute_present?('body')
   end
 
   def next_section

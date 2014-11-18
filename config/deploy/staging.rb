@@ -59,3 +59,21 @@ set :unicorn_worker_count, 2
 # whether we're using ssl or not, used for building nginx
 # config file
 set :enable_ssl, false
+
+# files which need to be symlinked to other parts of the
+# filesystem. For example nginx virtualhosts, log rotation
+# init scripts etc.
+set(:symlinks, [
+                 {
+                     source: "nginx.conf",
+                     link: "/etc/nginx/sites-enabled/#{fetch(:full_app_name)}"
+                 },
+                 {
+                     source: "unicorn_init.sh",
+                     link: "/etc/init.d/unicorn_#{fetch(:full_app_name)}"
+                 },
+                 {
+                     source: "log_rotation",
+                     link: "/etc/logrotate.d/#{fetch(:full_app_name)}"
+                 },
+             ])

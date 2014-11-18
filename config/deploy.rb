@@ -99,6 +99,7 @@ namespace :deploy do
   before :deploy, "deploy:check_revision"
   # compile assets locally then rsync
   after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
+  after "deploy", "deploy:restart_unicorn"
   after :finishing, 'deploy:cleanup'
 end
 

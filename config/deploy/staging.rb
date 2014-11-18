@@ -59,5 +59,3 @@ set :unicorn_worker_count, 2
 # whether we're using ssl or not, used for building nginx
 # config file
 set :enable_ssl, false
-
-after "deploy", "deploy:restart_unicorn"

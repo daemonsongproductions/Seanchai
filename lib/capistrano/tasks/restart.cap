@@ -4,7 +4,7 @@ namespace :deploy do
     puts "I AM IN THE RESTART COMMAND"
     on roles(:app), in: :sequence, wait: 5 do
       puts "I AM I THIS DO LOOP"
-      run "/etc/init.d/unicorn_#{fetch(:full_app_name)} restart"
+      execute "/etc/init.d/unicorn_#{fetch(:full_app_name)} restart"
     end
   end
 end

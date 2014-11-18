@@ -1,9 +1,7 @@
 namespace :deploy do
   desc 'Restart unicorn application'
   task :restart_unicorn do
-    puts "I AM IN THE RESTART COMMAND"
     on roles(:app), in: :sequence, wait: 5 do
-      puts "I AM I THIS DO LOOP"
       execute "/etc/init.d/unicorn_#{fetch(:full_app_name)} restart"
     end
   end
